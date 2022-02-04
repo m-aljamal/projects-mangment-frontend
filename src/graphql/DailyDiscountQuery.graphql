@@ -1,0 +1,8 @@
+query findAll {
+  dailyDiscounts {
+    date
+    discount
+    id
+    notes
+  }
+}

@@ -10,6 +10,7 @@ function App() {
       <AllProjects />
       <hr />
       <AllEmployees />
+      <hr />
     </div>
   );
 }
