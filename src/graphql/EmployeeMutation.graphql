@@ -1,0 +1,9 @@
+mutation createEmployee($name: String!, $projectId: String!, $salary: Float!) {
+  createEmployee(
+    employee: { name: $name, projectId: $projectId, salary: $salary }
+  ) {
+    id
+    name
+    salary
+  }
+}

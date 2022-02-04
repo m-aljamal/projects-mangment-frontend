@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import { RequestInit } from 'graphql-request/dist/types.dom';
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -96,16 +96,106 @@ export type Query = {
   projects: Array<Project>;
 };
 
+export type CreateEmployeeMutationVariables = Exact<{
+  name: Scalars['String'];
+  projectId: Scalars['String'];
+  salary: Scalars['Float'];
+}>;
+
+
+export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', id: string, name: string, salary: number } };
+
+export type FindAllEmployeeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', id: string, name: string, createdAt: any }> };
+
+export type CreateProjectMutationVariables = Exact<{
+  name: Scalars['String'];
+  type: Scalars['String'];
+}>;
+
+
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, name: string, type: string, createdAt: any, updatedAt: any } };
+
 export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', createdAt: any, name: string, id: string, type: string }> };
+export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', name: string, id: string, type: string }> };
 
 
+export const CreateEmployeeDocument = `
+    mutation createEmployee($name: String!, $projectId: String!, $salary: Float!) {
+  createEmployee(employee: {name: $name, projectId: $projectId, salary: $salary}) {
+    id
+    name
+    salary
+  }
+}
+    `;
+export const useCreateEmployeeMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateEmployeeMutation, TError, CreateEmployeeMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateEmployeeMutation, TError, CreateEmployeeMutationVariables, TContext>(
+      ['createEmployee'],
+      (variables?: CreateEmployeeMutationVariables) => fetcher<CreateEmployeeMutation, CreateEmployeeMutationVariables>(client, CreateEmployeeDocument, variables, headers)(),
+      options
+    );
+export const FindAllEmployeeDocument = `
+    query findAllEmployee {
+  employees {
+    id
+    name
+    createdAt
+  }
+}
+    `;
+export const useFindAllEmployeeQuery = <
+      TData = FindAllEmployeeQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindAllEmployeeQueryVariables,
+      options?: UseQueryOptions<FindAllEmployeeQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllEmployeeQuery, TError, TData>(
+      variables === undefined ? ['findAllEmployee'] : ['findAllEmployee', variables],
+      fetcher<FindAllEmployeeQuery, FindAllEmployeeQueryVariables>(client, FindAllEmployeeDocument, variables, headers),
+      options
+    );
+export const CreateProjectDocument = `
+    mutation createProject($name: String!, $type: String!) {
+  createProject(project: {name: $name, type: $type}) {
+    id
+    name
+    type
+    createdAt
+    updatedAt
+  }
+}
+    `;
+export const useCreateProjectMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>(
+      ['createProject'],
+      (variables?: CreateProjectMutationVariables) => fetcher<CreateProjectMutation, CreateProjectMutationVariables>(client, CreateProjectDocument, variables, headers)(),
+      options
+    );
 export const GetAllProjectsDocument = `
     query getAllProjects {
   projects {
-    createdAt
     name
     id
     type
