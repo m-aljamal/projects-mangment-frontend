@@ -1,26 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "react-query";
-import {
-  CreateEmployeeMutation,
-  CreateEmployeeMutationVariables,
-  CreateProjectMutationVariables,
-  FindAllEmployeeQuery,
-  useCreateEmployeeMutation,
-  useFindAllEmployeeQuery,
-} from "../generated/generates";
-import graphqlRequestClient from "../lib/graphqlRequestClient";
+import { useCreateEmployee, useEmployeesList } from "src/utils/employees";
 
 const AllEmployees = () => {
-  const { data, error } = useFindAllEmployeeQuery<FindAllEmployeeQuery, Error>(
-    graphqlRequestClient
-  );
+  const { employees, error, isLoading } = useEmployeesList();
 
   return (
     <div>
       <CreateEmployee />
       <h2>جميع الموظفين</h2>
-      {data?.employees.map((employee) => (
+      {employees?.map((employee) => (
         <div key={employee.id}>
           <h2>{employee.name}</h2>
         </div>
@@ -37,25 +26,8 @@ const CreateEmployee = () => {
     salary: number;
     projectId: string;
   }
-  const queryClient = useQueryClient();
-  const { mutate, error } = useCreateEmployeeMutation<Error>(
-    graphqlRequestClient,
-    {
-      onSuccess: (
-        data: CreateEmployeeMutation,
-        _variables: CreateEmployeeMutationVariables,
-        _context: unknown
-      ) => {
-        queryClient.invalidateQueries("findAllEmployee");
-        if (data.createEmployee) {
-          console.log(data);
-        }
-      },
-      onError: (error: Error) => {
-        console.log(error);
-      },
-    }
-  );
+
+  const { error, mutate } = useCreateEmployee();
 
   const { register, handleSubmit } = useForm<IEmployee>();
 

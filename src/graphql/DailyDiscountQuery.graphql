@@ -1,8 +1,8 @@
-query findAll {
-  dailyDiscounts {
+query dicByCurrentMonth {
+  dailyDiscountsByCurrentMonth {
     date
-    discount
     id
     notes
+    discount
   }
 }

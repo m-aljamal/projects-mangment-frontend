@@ -48,13 +48,11 @@ const CreateProject = () => {
         _context: unknown
       ) => {
         queryClient.invalidateQueries("getAllProjects");
-        if (data.createProject) {
-          console.log(data);
-        }
       },
       onError: (error: Error) => {
         console.log(error);
       },
+      onSettled: () => queryClient.invalidateQueries("getAllProjects"),
     }
   );
 

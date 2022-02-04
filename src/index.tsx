@@ -17,7 +17,9 @@ ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <App />
+      <main style={{ direction: "rtl" }}>
+        <App />
+      </main>
     </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")

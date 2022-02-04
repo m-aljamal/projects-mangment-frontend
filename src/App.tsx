@@ -1,6 +1,7 @@
 import React from "react";
 import AllEmployees from "./components/AllEmployees";
 import AllProjects from "./components/AllProjects";
+import Salaries from "./components/Salaries";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <hr />
       <AllEmployees />
       <hr />
+      <Salaries />
     </div>
   );
 }

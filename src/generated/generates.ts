@@ -30,6 +30,8 @@ export type DailyDiscount = {
   __typename?: 'DailyDiscount';
   date: Scalars['DateTime'];
   discount: Scalars['Float'];
+  employee: Employee;
+  employeeId: Scalars['String'];
   id: Scalars['String'];
   notes?: Maybe<Scalars['String']>;
 };
@@ -37,12 +39,14 @@ export type DailyDiscount = {
 export type DailyDiscountDto = {
   date: Scalars['DateTime'];
   discount: Scalars['Float'];
+  employeeId: Scalars['String'];
   notes?: InputMaybe<Scalars['String']>;
 };
 
 export type Employee = {
   __typename?: 'Employee';
   createdAt: Scalars['DateTime'];
+  dailyDiscounts: Array<DailyDiscount>;
   id: Scalars['String'];
   name: Scalars['String'];
   project: Project;
@@ -92,9 +96,25 @@ export type Project = {
 export type Query = {
   __typename?: 'Query';
   dailyDiscounts: Array<DailyDiscount>;
+  dailyDiscountsByCurrentMonth: Array<DailyDiscount>;
   employees: Array<Employee>;
   projects: Array<Project>;
 };
+
+export type CreateDiscountMutationVariables = Exact<{
+  date: Scalars['DateTime'];
+  discount: Scalars['Float'];
+  employeeId: Scalars['String'];
+  notes: Scalars['String'];
+}>;
+
+
+export type CreateDiscountMutation = { __typename?: 'Mutation', createDailyDiscount: { __typename?: 'DailyDiscount', date: any, id: string, discount: number, notes?: string | null } };
+
+export type DicByCurrentMonthQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type DicByCurrentMonthQuery = { __typename?: 'Query', dailyDiscountsByCurrentMonth: Array<{ __typename?: 'DailyDiscount', date: any, id: string, notes?: string | null, discount: number }> };
 
 export type CreateEmployeeMutationVariables = Exact<{
   name: Scalars['String'];
@@ -108,7 +128,7 @@ export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: 
 export type FindAllEmployeeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', id: string, name: string, createdAt: any }> };
+export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', createdAt: any, id: string, name: string, salary: number, updatedAt: any }> };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -124,6 +144,55 @@ export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', name: string, id: string, type: string }> };
 
 
+export const CreateDiscountDocument = `
+    mutation createDiscount($date: DateTime!, $discount: Float!, $employeeId: String!, $notes: String!) {
+  createDailyDiscount(
+    dailyDiscount: {date: $date, discount: $discount, employeeId: $employeeId, notes: $notes}
+  ) {
+    date
+    id
+    discount
+    notes
+  }
+}
+    `;
+export const useCreateDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>(
+      ['createDiscount'],
+      (variables?: CreateDiscountMutationVariables) => fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(client, CreateDiscountDocument, variables, headers)(),
+      options
+    );
+export const DicByCurrentMonthDocument = `
+    query dicByCurrentMonth {
+  dailyDiscountsByCurrentMonth {
+    date
+    id
+    notes
+    discount
+  }
+}
+    `;
+export const useDicByCurrentMonthQuery = <
+      TData = DicByCurrentMonthQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: DicByCurrentMonthQueryVariables,
+      options?: UseQueryOptions<DicByCurrentMonthQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<DicByCurrentMonthQuery, TError, TData>(
+      variables === undefined ? ['dicByCurrentMonth'] : ['dicByCurrentMonth', variables],
+      fetcher<DicByCurrentMonthQuery, DicByCurrentMonthQueryVariables>(client, DicByCurrentMonthDocument, variables, headers),
+      options
+    );
 export const CreateEmployeeDocument = `
     mutation createEmployee($name: String!, $projectId: String!, $salary: Float!) {
   createEmployee(employee: {name: $name, projectId: $projectId, salary: $salary}) {
@@ -149,9 +218,11 @@ export const useCreateEmployeeMutation = <
 export const FindAllEmployeeDocument = `
     query findAllEmployee {
   employees {
+    createdAt
     id
     name
-    createdAt
+    salary
+    updatedAt
   }
 }
     `;

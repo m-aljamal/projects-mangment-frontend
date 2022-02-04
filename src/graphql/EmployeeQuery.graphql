@@ -1,7 +1,9 @@
 query findAllEmployee {
   employees {
+    createdAt
     id
     name
-    createdAt
+    salary
+    updatedAt
   }
 }

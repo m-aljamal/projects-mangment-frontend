@@ -1,13 +1,20 @@
-mutation createDailyDiscount(
+mutation createDiscount(
   $date: DateTime!
   $discount: Float!
   $employeeId: String!
+  $notes: String!
 ) {
   createDailyDiscount(
-    dailyDiscount: { date: $date, discount: $discount, employeeId: $employeeId }
+    dailyDiscount: {
+      date: $date
+      discount: $discount
+      employeeId: $employeeId
+      notes: $notes
+    }
   ) {
     date
-    discount
     id
+    discount
+    notes
   }
 }
