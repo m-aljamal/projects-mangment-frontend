@@ -8,7 +8,6 @@ import graphqlRequestClient from "../lib/graphqlRequestClient";
 
 const Salaries = () => {
   const { employees } = useEmployeesList();
-  console.log(employees);
 
   return (
     <div>
