@@ -12,6 +12,7 @@ const AllEmployees = () => {
       {employees?.map((employee) => (
         <div key={employee.id}>
           <h2>{employee.name}</h2>
+          <p>id: {employee.id}</p>
         </div>
       ))}
     </div>
