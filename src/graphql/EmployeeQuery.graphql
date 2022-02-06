@@ -1,19 +1,16 @@
-query findAllEmployee {
-  employees {
-    createdAt
-    id
+query findEmployeesByProject($projectId: String!) {
+  employeesByProject(projectId: $projectId) {
     name
     salary
+    id
+    createdAt
     updatedAt
   }
 }
 
-
-query employeesSalariesCurrentMonth(
-  $projectId: String!
-){
-  salariesbycurrentMonth(projectId:$projectId){
- employee_salary
+query employeesSalariesCurrentMonth($projectId: String!) {
+  salariesbycurrentMonth(projectId: $projectId) {
+    employee_salary
     discount
     employee_id
     employee_projectId

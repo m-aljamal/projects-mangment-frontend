@@ -1,25 +1,27 @@
 import {
   EmployeesSalariesCurrentMonthQuery,
+  FindEmployeesByProjectQuery,
   useEmployeesSalariesCurrentMonthQuery,
+  useFindEmployeesByProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
 import {
   CreateEmployeeMutation,
   CreateEmployeeMutationVariables,
-  FindAllEmployeeQuery,
   useCreateEmployeeMutation,
-  useFindAllEmployeeQuery,
 } from "../generated/generates";
 
 import graphqlRequestClient from "../lib/graphqlRequestClient";
 
 function useEmployeesList() {
-  const { data, error, isLoading } = useFindAllEmployeeQuery<
-    FindAllEmployeeQuery,
+  const { data, error, isLoading } = useFindEmployeesByProjectQuery<
+    FindEmployeesByProjectQuery,
     Error
-  >(graphqlRequestClient);
+  >(graphqlRequestClient, {
+    projectId: "4e677f32-f6da-418a-a662-deb252e10a46",
+  });
   return {
-    employees: data?.employees || [],
+    employees: data?.employeesByProject || [],
     error,
     isLoading,
   };
@@ -49,7 +51,7 @@ function useCreateEmployee() {
         _variables: CreateEmployeeMutationVariables,
         _context: unknown
       ) => {
-        queryClient.invalidateQueries("findAllEmployee");
+        queryClient.invalidateQueries("findEmployeesByProject");
       },
       onError: (error: Error) => {
         console.log(error);
