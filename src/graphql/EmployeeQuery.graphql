@@ -7,3 +7,16 @@ query findAllEmployee {
     updatedAt
   }
 }
+
+
+query employeesSalariesCurrentMonth(
+  $projectId: String!
+){
+  salariesbycurrentMonth(projectId:$projectId){
+ employee_salary
+    discount
+    employee_id
+    employee_projectId
+    employee_name
+  }
+}

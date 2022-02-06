@@ -1,8 +1,8 @@
-query dicByCurrentMonth {
-  dailyDiscountsByCurrentMonth {
-    date
-    id
-    notes
-    discount
-  }
-}
+# query dicByCurrentMonth {
+#   dailyDiscountsByCurrentMonth {
+#     date
+#     id
+#     notes
+#     discount
+#   }
+# }

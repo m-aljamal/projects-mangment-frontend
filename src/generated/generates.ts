@@ -32,6 +32,7 @@ export type DailyDiscount = {
   discount: Scalars['Float'];
   employee: Employee;
   employeeId: Scalars['String'];
+  hasDiscount: Scalars['Boolean'];
   id: Scalars['String'];
   notes?: Maybe<Scalars['String']>;
 };
@@ -41,6 +42,14 @@ export type DailyDiscountDto = {
   discount: Scalars['Float'];
   employeeId: Scalars['String'];
   notes?: InputMaybe<Scalars['String']>;
+};
+
+export type Discount = {
+  __typename?: 'Discount';
+  dailyDiscount_employeeId: Scalars['String'];
+  discount: Scalars['Float'];
+  name: Scalars['String'];
+  salary: Scalars['Float'];
 };
 
 export type Employee = {
@@ -96,9 +105,30 @@ export type Project = {
 export type Query = {
   __typename?: 'Query';
   dailyDiscounts: Array<DailyDiscount>;
-  dailyDiscountsByCurrentMonth: Array<DailyDiscount>;
+  dailyDiscountsByCurrentMonth: Array<Discount>;
   employees: Array<Employee>;
+  employeesByProject: Array<Employee>;
   projects: Array<Project>;
+  salariesbycurrentMonth: Array<Salaries>;
+};
+
+
+export type QueryEmployeesByProjectArgs = {
+  projectId: Scalars['String'];
+};
+
+
+export type QuerySalariesbycurrentMonthArgs = {
+  projectId: Scalars['String'];
+};
+
+export type Salaries = {
+  __typename?: 'Salaries';
+  discount?: Maybe<Scalars['String']>;
+  employee_id: Scalars['String'];
+  employee_name: Scalars['String'];
+  employee_projectId: Scalars['String'];
+  employee_salary: Scalars['Float'];
 };
 
 export type CreateDiscountMutationVariables = Exact<{
@@ -110,11 +140,6 @@ export type CreateDiscountMutationVariables = Exact<{
 
 
 export type CreateDiscountMutation = { __typename?: 'Mutation', createDailyDiscount: { __typename?: 'DailyDiscount', date: any, id: string, discount: number, notes?: string | null } };
-
-export type DicByCurrentMonthQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type DicByCurrentMonthQuery = { __typename?: 'Query', dailyDiscountsByCurrentMonth: Array<{ __typename?: 'DailyDiscount', date: any, id: string, notes?: string | null, discount: number }> };
 
 export type CreateEmployeeMutationVariables = Exact<{
   name: Scalars['String'];
@@ -129,6 +154,13 @@ export type FindAllEmployeeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', createdAt: any, id: string, name: string, salary: number, updatedAt: any }> };
+
+export type EmployeesSalariesCurrentMonthQueryVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+
+export type EmployeesSalariesCurrentMonthQuery = { __typename?: 'Query', salariesbycurrentMonth: Array<{ __typename?: 'Salaries', employee_salary: number, discount?: string | null, employee_id: string, employee_projectId: string, employee_name: string }> };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -167,30 +199,6 @@ export const useCreateDiscountMutation = <
     useMutation<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>(
       ['createDiscount'],
       (variables?: CreateDiscountMutationVariables) => fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(client, CreateDiscountDocument, variables, headers)(),
-      options
-    );
-export const DicByCurrentMonthDocument = `
-    query dicByCurrentMonth {
-  dailyDiscountsByCurrentMonth {
-    date
-    id
-    notes
-    discount
-  }
-}
-    `;
-export const useDicByCurrentMonthQuery = <
-      TData = DicByCurrentMonthQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables?: DicByCurrentMonthQueryVariables,
-      options?: UseQueryOptions<DicByCurrentMonthQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) =>
-    useQuery<DicByCurrentMonthQuery, TError, TData>(
-      variables === undefined ? ['dicByCurrentMonth'] : ['dicByCurrentMonth', variables],
-      fetcher<DicByCurrentMonthQuery, DicByCurrentMonthQueryVariables>(client, DicByCurrentMonthDocument, variables, headers),
       options
     );
 export const CreateEmployeeDocument = `
@@ -238,6 +246,31 @@ export const useFindAllEmployeeQuery = <
     useQuery<FindAllEmployeeQuery, TError, TData>(
       variables === undefined ? ['findAllEmployee'] : ['findAllEmployee', variables],
       fetcher<FindAllEmployeeQuery, FindAllEmployeeQueryVariables>(client, FindAllEmployeeDocument, variables, headers),
+      options
+    );
+export const EmployeesSalariesCurrentMonthDocument = `
+    query employeesSalariesCurrentMonth($projectId: String!) {
+  salariesbycurrentMonth(projectId: $projectId) {
+    employee_salary
+    discount
+    employee_id
+    employee_projectId
+    employee_name
+  }
+}
+    `;
+export const useEmployeesSalariesCurrentMonthQuery = <
+      TData = EmployeesSalariesCurrentMonthQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: EmployeesSalariesCurrentMonthQueryVariables,
+      options?: UseQueryOptions<EmployeesSalariesCurrentMonthQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<EmployeesSalariesCurrentMonthQuery, TError, TData>(
+      ['employeesSalariesCurrentMonth', variables],
+      fetcher<EmployeesSalariesCurrentMonthQuery, EmployeesSalariesCurrentMonthQueryVariables>(client, EmployeesSalariesCurrentMonthDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `

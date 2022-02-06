@@ -1,11 +1,13 @@
+import {
+  EmployeesSalariesCurrentMonthQuery,
+  useEmployeesSalariesCurrentMonthQuery,
+} from "./../generated/generates";
 import { useQueryClient } from "react-query";
 import {
   CreateEmployeeMutation,
   CreateEmployeeMutationVariables,
-  DicByCurrentMonthQuery,
   FindAllEmployeeQuery,
   useCreateEmployeeMutation,
-  useDicByCurrentMonthQuery,
   useFindAllEmployeeQuery,
 } from "../generated/generates";
 
@@ -18,6 +20,20 @@ function useEmployeesList() {
   >(graphqlRequestClient);
   return {
     employees: data?.employees || [],
+    error,
+    isLoading,
+  };
+}
+
+function useSalariesList() {
+  const { data, error, isLoading } = useEmployeesSalariesCurrentMonthQuery<
+    EmployeesSalariesCurrentMonthQuery,
+    Error
+  >(graphqlRequestClient, {
+    projectId: "4e677f32-f6da-418a-a662-deb252e10a46",
+  });
+  return {
+    salaries: data?.salariesbycurrentMonth || [],
     error,
     isLoading,
   };
@@ -43,12 +59,4 @@ function useCreateEmployee() {
   return { mutate, error };
 }
 
-function useDiscByMonth() {
-  const { data } = useDicByCurrentMonthQuery<DicByCurrentMonthQuery, Error>(
-    graphqlRequestClient
-  );
-
-  return { data };
-}
-
-export { useEmployeesList, useCreateEmployee, useDiscByMonth };
+export { useEmployeesList, useCreateEmployee, useSalariesList };
