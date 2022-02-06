@@ -1,20 +1,9 @@
-import React from "react";
-import AllEmployees from "./components/AllEmployees";
-import AllProjects from "./components/AllProjects";
-import Salaries from "./components/Salaries";
+import AuthApp from "./screen/AuthApp";
+import UnAuthApp from "./screen/UnAuthApp";
 
 function App() {
-  return (
-    <div>
-      <h1>Projects mangement</h1>
-      <hr />
-      <AllProjects />
-      <hr />
-      <AllEmployees />
-      <hr />
-      <Salaries />
-    </div>
-  );
+  const user = true;
+  return user ? <AuthApp /> : <UnAuthApp />;
 }
 
 export default App;
