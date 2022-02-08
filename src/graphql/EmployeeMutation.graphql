@@ -1,9 +1,25 @@
-mutation createEmployee($name: String!, $projectId: String!, $salary: Float!) {
+mutation createEmployee(
+  $name: String!
+  $password: String!
+  $projectId: String
+  $salary: Float
+  $username: String!
+  $role: Role
+) {
   createEmployee(
-    employee: { name: $name, projectId: $projectId, salary: $salary }
+    employee: {
+      name: $name
+      username: $username
+      password: $password
+      projectId: $projectId
+      salary: $salary
+      role: $role
+    }
   ) {
+    createdAt
     id
     name
+    username
     salary
   }
 }

@@ -17,3 +17,12 @@ query employeesSalariesCurrentMonth($projectId: String!) {
     employee_name
   }
 }
+
+query currentUser {
+  currentUser {
+    name
+    id
+    role
+    username
+  }
+}

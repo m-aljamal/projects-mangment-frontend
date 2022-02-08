@@ -14,7 +14,7 @@ const AllProjects = () => {
   const { status, data, error, isFetching } = useGetAllProjectsQuery<
     GetAllProjectsQuery,
     Error
-  >(graphqlRequestClient);
+  >(graphqlRequestClient());
 
   return (
     <div>
@@ -40,7 +40,7 @@ const CreateProject = () => {
   const queryClient = useQueryClient();
 
   const { mutate, error } = useCreateProjectMutation<Error>(
-    graphqlRequestClient,
+    graphqlRequestClient(),
     {
       onSuccess: (
         data: CreateProjectMutation,

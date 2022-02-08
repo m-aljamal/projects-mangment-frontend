@@ -24,6 +24,7 @@ const AppProviders: FC = ({ children }) => {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools/>
       <Router>{children}</Router>
     </QueryClientProvider>
   );

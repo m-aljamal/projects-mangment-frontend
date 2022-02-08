@@ -17,7 +17,7 @@ function useEmployeesList() {
   const { data, error, isLoading } = useFindEmployeesByProjectQuery<
     FindEmployeesByProjectQuery,
     Error
-  >(graphqlRequestClient, {
+  >(graphqlRequestClient(), {
     projectId: "4e677f32-f6da-418a-a662-deb252e10a46",
   });
   return {
@@ -31,7 +31,7 @@ function useSalariesList() {
   const { data, error, isLoading } = useEmployeesSalariesCurrentMonthQuery<
     EmployeesSalariesCurrentMonthQuery,
     Error
-  >(graphqlRequestClient, {
+  >(graphqlRequestClient(), {
     projectId: "4e677f32-f6da-418a-a662-deb252e10a46",
   });
   return {
@@ -44,7 +44,7 @@ function useSalariesList() {
 function useCreateEmployee() {
   const queryClient = useQueryClient();
   const { mutate, error } = useCreateEmployeeMutation<Error>(
-    graphqlRequestClient,
+    graphqlRequestClient(),
     {
       onSuccess: (
         data: CreateEmployeeMutation,
