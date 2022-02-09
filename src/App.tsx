@@ -1,5 +1,5 @@
 import { useAuth } from "./context/auth-context";
-import AuthApp from "./screen/AuthApp";
+import AuthApp from "src/screen/AuthApp";
 import UnAuthApp from "./screen/UnAuthApp";
 
 function App() {

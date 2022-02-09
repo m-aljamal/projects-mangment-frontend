@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import AllProjects from "src/components/AllProjects";
 
 const ProjectsScreen = () => {
-  return (
-    <div>ProjectsScreen</div>
-  )
-}
+  return <AllProjects />;
+};
 
-export default ProjectsScreen
+export default ProjectsScreen;

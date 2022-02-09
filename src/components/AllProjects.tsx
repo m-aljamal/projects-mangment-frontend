@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
+import { useAuthClient } from "src/context/auth-context";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
@@ -11,20 +12,23 @@ import {
 import graphqlRequestClient from "../lib/graphqlRequestClient";
 
 const AllProjects = () => {
+  const clien = useAuthClient();
   const { status, data, error, isFetching } = useGetAllProjectsQuery<
     GetAllProjectsQuery,
     Error
-  >(graphqlRequestClient());
+  >(clien());
 
   return (
     <div>
       <h2>جميع المشاريع</h2>
       <CreateProject />
-      {data?.projects.map((project) => (
-        <div key={project.id}>
-          <h2>{project.name}</h2>
-        </div>
-      ))}
+      <div className="mt-8">
+        {data?.projects.map((project) => (
+          <div key={project.id}>
+            <h2>{project.name}</h2>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

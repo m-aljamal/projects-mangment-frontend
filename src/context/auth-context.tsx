@@ -5,6 +5,10 @@ import {
   useEffect,
   useMemo,
 } from "react";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import FullPageErrorFallback from "src/components/FullPageErrorFallback";
+import graphqlRequestClient from "src/lib/graphqlRequestClient";
 import * as auth from "src/utils/auth-provider";
 import { useAsync } from "src/utils/hook";
 
@@ -32,7 +36,8 @@ function AuthProvider(props: any) {
     setData,
     run,
   } = useAsync();
-
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   useEffect(() => {
     const appDataPromise = bootstrapAppData();
     run(appDataPromise);
@@ -46,13 +51,15 @@ function AuthProvider(props: any) {
   const logout = useCallback(() => {
     auth.logout();
     setData(null);
-  }, [setData]);
+    queryClient.clear();
+    navigate("/");
+  }, [setData, queryClient]);
 
   const value = useMemo(() => ({ user, login, logout }), [user, login, logout]);
 
-  if (isLoading || isIdle) return <p>loading.....</p>;
+  if (isLoading || isIdle) return <p>الرجاء الانتظار.....</p>;
 
-  if (isError) return <p>error {isError}</p>;
+  if (isError) return <FullPageErrorFallback error={error} />;
 
   if (isSuccess) {
     return <AuthContext.Provider value={value} {...props} />;
@@ -68,4 +75,9 @@ function useAuth() {
   return context;
 }
 
-export { AuthProvider, useAuth };
+function useAuthClient() {
+  const { user }: any = useAuth();
+  const accessToken = user.accessToken;
+  return useCallback(() => graphqlRequestClient(accessToken), [accessToken]);
+}
+export { AuthProvider, useAuth, useAuthClient };

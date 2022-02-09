@@ -17,13 +17,30 @@ const UnAuthApp = () => {
 
   const { register, handleSubmit } = useForm<ILogin>();
   return (
-    <div>
-      Login form
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("username")} placeholder="username" />
-        <input {...register("password")} placeholder="password" />
-        <button type="submit">Submit</button>
-      </form>
+    <div className="bg-sky-900 w-full h-screen flex items-center ">
+      <div className=" w-1/2 mx-auto bg-gray-200 rounded-lg text-center  ">
+        <div className="my-4">
+          <p>تسجيل الدخول</p>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              {...register("username")}
+              placeholder="username"
+              className="block my-4 mx-auto"
+            />
+            <input
+              {...register("password")}
+              placeholder="password"
+              className="block my-4 mx-auto"
+            />
+            <button
+              className="bg-sky-900 text-white w-28 rounded-md "
+              type="submit"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
