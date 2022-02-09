@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { login } from "src/utils/auth-provider";
+import { useAuth } from "src/context/auth-context";
+import { useAsync } from "src/utils/hook";
 
 interface ILogin {
   username: string;
@@ -8,8 +9,10 @@ interface ILogin {
 }
 
 const UnAuthApp = () => {
+  const { login }: any = useAuth();
+  const { isLoading, run } = useAsync();
   const onSubmit = (data: ILogin) => {
-    login(data.username, data.password);
+    run(login(data));
   };
 
   const { register, handleSubmit } = useForm<ILogin>();

@@ -8,7 +8,6 @@ async function handleUserResponse({ accessToken }: { accessToken: string }) {
   window.localStorage.setItem(localStorageKey, accessToken);
 
   let user = await currentUser(accessToken);
-  console.log("user", user);
 
   return user;
 }
@@ -37,10 +36,20 @@ async function currentUser(accessToken: string) {
   return json.data.currentUser;
 }
 
-async function login(username: string, password: string) {
+async function login({
+  username,
+  password,
+}: {
+  username: string;
+  password: string;
+}) {
   return await client("auth/login", { username, password }).then(
     handleUserResponse
   );
+}
+
+function logout() {
+  window.localStorage.removeItem(localStorageKey);
 }
 
 async function client(endpoint: string, data: any) {
@@ -63,4 +72,4 @@ async function client(endpoint: string, data: any) {
     });
 }
 
-export { getToken, handleUserResponse, currentUser, login };
+export { getToken, handleUserResponse, currentUser, login, logout };
