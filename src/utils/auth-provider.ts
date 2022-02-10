@@ -4,7 +4,7 @@ async function getToken() {
   return window.localStorage.getItem(localStorageKey);
 }
 
-async function handleUserResponse({ accessToken }: { accessToken: string }) {
+async function handleUserResponse(accessToken: string) {
   window.localStorage.setItem(localStorageKey, accessToken);
 
   let user = await currentUser(accessToken);
@@ -33,7 +33,11 @@ async function currentUser(accessToken: string) {
     }),
   });
   const json = await response.json();
-  return { ...json.data.currentUser, accessToken };
+
+  if (json.data.currentUser) {
+    return json.data.currentUser;
+  }
+  return null;
 }
 
 async function login({
@@ -43,9 +47,40 @@ async function login({
   username: string;
   password: string;
 }) {
-  return await client("auth/login", { username, password }).then(
-    handleUserResponse
-  );
+  const response = await fetch("http://localhost:3001/graphql", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+      mutation login(
+        $username: String!,
+        $password: String!
+      ){
+        login(loginUserInput:{
+          password: $password,
+          username:$username
+        }){
+          accessToken,
+          user{
+            name
+            id
+            username
+          }
+        }
+      }
+        `,
+      variables: {
+        username,
+        password,
+      },
+    }),
+  });
+
+  const json = await response.json();
+
+  return handleUserResponse(json.data.login.accessToken);
 }
 
 function logout() {

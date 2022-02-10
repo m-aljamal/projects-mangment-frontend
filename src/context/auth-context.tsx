@@ -15,8 +15,17 @@ import { useAsync } from "src/utils/hook";
 async function bootstrapAppData() {
   let user = null;
   const accessToken = await auth.getToken();
+
+  
+  console.log("accessToken", accessToken);
+  
   if (accessToken) {
+
+
     user = await auth.currentUser(accessToken);
+
+    console.log("user", user);
+    
   }
 
   return user;
