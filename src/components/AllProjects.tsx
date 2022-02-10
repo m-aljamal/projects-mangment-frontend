@@ -1,29 +1,17 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useQueryClient } from "react-query";
-import { useAuthClient } from "src/context/auth-context";
-import {
-  CreateProjectMutation,
-  CreateProjectMutationVariables,
-  GetAllProjectsQuery,
-  useCreateProjectMutation,
-  useGetAllProjectsQuery,
-} from "../generated/generates";
-import graphqlRequestClient from "../lib/graphqlRequestClient";
+import { useCreateProject, useProjectsList } from "src/utils/project";
 
 const AllProjects = () => {
-  const clien = useAuthClient();
-  const { status, data, error, isFetching } = useGetAllProjectsQuery<
-    GetAllProjectsQuery,
-    Error
-  >(clien());
+  const { projects, isLoading, status } = useProjectsList();
 
   return (
     <div>
       <h2>جميع المشاريع</h2>
       <CreateProject />
+      {isLoading ? <p>Loading....</p> : null}
       <div className="mt-8">
-        {data?.projects.map((project) => (
+        {projects.map((project) => (
           <div key={project.id}>
             <h2>{project.name}</h2>
           </div>
@@ -41,24 +29,7 @@ const CreateProject = () => {
     type: string;
   }
 
-  const queryClient = useQueryClient();
-
-  const { mutate, error } = useCreateProjectMutation<Error>(
-    graphqlRequestClient(),
-    {
-      onSuccess: (
-        data: CreateProjectMutation,
-        _variables: CreateProjectMutationVariables,
-        _context: unknown
-      ) => {
-        queryClient.invalidateQueries("getAllProjects");
-      },
-      onError: (error: Error) => {
-        console.log(error);
-      },
-      onSettled: () => queryClient.invalidateQueries("getAllProjects"),
-    }
-  );
+  const { mutate, error } = useCreateProject();
 
   const { register, handleSubmit } = useForm<IProject>();
 
