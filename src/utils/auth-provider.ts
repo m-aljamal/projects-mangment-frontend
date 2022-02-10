@@ -35,7 +35,7 @@ async function currentUser(accessToken: string) {
   const json = await response.json();
 
   if (json.data.currentUser) {
-    return json.data.currentUser;
+    return { ...json.data.currentUser, accessToken };
   }
   return null;
 }

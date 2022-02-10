@@ -4,8 +4,6 @@ import UnAuthApp from "./screen/UnAuthApp";
 
 function App() {
   const { user }: any = useAuth();
-  
- 
 
   return user ? <AuthApp /> : <UnAuthApp />;
 }

@@ -16,16 +16,8 @@ async function bootstrapAppData() {
   let user = null;
   const accessToken = await auth.getToken();
 
-  
-  console.log("accessToken", accessToken);
-  
   if (accessToken) {
-
-
     user = await auth.currentUser(accessToken);
-
-    console.log("user", user);
-    
   }
 
   return user;
@@ -86,6 +78,9 @@ function useAuth() {
 
 function useAuthClient() {
   const { user }: any = useAuth();
+  
+  console.log("useAuthClient", user);
+  
   const accessToken = user.accessToken;
   return useCallback(() => graphqlRequestClient(accessToken), [accessToken]);
 }

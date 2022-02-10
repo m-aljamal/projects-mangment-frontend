@@ -77,11 +77,23 @@ export type EmployeeDto = {
   username: Scalars['String'];
 };
 
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  accessToken: Scalars['String'];
+  user: Employee;
+};
+
+export type LoginUserInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createDailyDiscount: DailyDiscount;
   createEmployee: Employee;
   createProject: Project;
+  login: LoginResponse;
 };
 
 
@@ -97,6 +109,11 @@ export type MutationCreateEmployeeArgs = {
 
 export type MutationCreateProjectArgs = {
   project: CreateProjectDto;
+};
+
+
+export type MutationLoginArgs = {
+  loginUserInput: LoginUserInput;
 };
 
 export type Project = {
@@ -143,6 +160,14 @@ export type Salaries = {
   employee_projectId: Scalars['String'];
   employee_salary: Scalars['Float'];
 };
+
+export type LoginMutationVariables = Exact<{
+  username: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'Employee', name: string, id: string, username: string } } };
 
 export type CreateDiscountMutationVariables = Exact<{
   date: Scalars['DateTime'];
@@ -200,6 +225,31 @@ export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', name: string, id: string, type: string }> };
 
 
+export const LoginDocument = `
+    mutation login($username: String!, $password: String!) {
+  login(loginUserInput: {password: $password, username: $username}) {
+    accessToken
+    user {
+      name
+      id
+      username
+    }
+  }
+}
+    `;
+export const useLoginMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+      ['login'],
+      (variables?: LoginMutationVariables) => fetcher<LoginMutation, LoginMutationVariables>(client, LoginDocument, variables, headers)(),
+      options
+    );
 export const CreateDiscountDocument = `
     mutation createDiscount($date: DateTime!, $discount: Float!, $employeeId: String!, $notes: String!, $hasDiscount: Boolean!) {
   createDailyDiscount(
