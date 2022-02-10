@@ -143,6 +143,11 @@ export type QueryEmployeesByProjectArgs = {
 };
 
 
+export type QueryProjectsArgs = {
+  sortBy?: InputMaybe<Sort>;
+};
+
+
 export type QuerySalariesbycurrentMonthArgs = {
   projectId: Scalars['String'];
 };
@@ -160,6 +165,11 @@ export type Salaries = {
   employee_projectId: Scalars['String'];
   employee_salary: Scalars['Float'];
 };
+
+export enum Sort {
+  Asc = 'ASC',
+  Desc = 'DESC'
+}
 
 export type LoginMutationVariables = Exact<{
   username: Scalars['String'];
@@ -222,7 +232,7 @@ export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { 
 export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', name: string, id: string, type: string }> };
+export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', createdAt: any, name: string, id: string, type: string }> };
 
 
 export const LoginDocument = `
@@ -402,7 +412,8 @@ export const useCreateProjectMutation = <
     );
 export const GetAllProjectsDocument = `
     query getAllProjects {
-  projects {
+  projects(sortBy: DESC) {
+    createdAt
     name
     id
     type

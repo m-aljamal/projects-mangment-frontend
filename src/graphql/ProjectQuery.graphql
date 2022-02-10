@@ -1,5 +1,6 @@
-query getAllProjects {
-  projects {
+query getAllProjects{
+  projects(sortBy:DESC){
+    createdAt
     name
     id
     type
