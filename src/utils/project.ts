@@ -4,16 +4,19 @@ import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
   GetAllProjectsQuery,
+  Sort,
   useCreateProjectMutation,
   useGetAllProjectsQuery,
 } from "src/generated/generates";
 
-function useProjectsList() {
+function useProjectsList(sortBy: Sort) {
   const clien = useAuthClient();
   const { status, data, error, isFetching, isLoading } = useGetAllProjectsQuery<
     GetAllProjectsQuery,
     Error
-  >(clien());
+  >(clien(), {
+    sortBy,
+  });
   return {
     projects: data?.projects || [],
     error,

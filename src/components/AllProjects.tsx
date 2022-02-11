@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Sort } from "src/generated/generates";
 import { useCreateProject, useProjectsList } from "src/utils/project";
 
 const AllProjects = () => {
-  const { projects, isLoading, status } = useProjectsList();
+  const [sort, setSort] = useState<Sort>(Sort.Asc);
+  const { projects, isLoading, status } = useProjectsList(sort);
 
   return (
     <div>
@@ -11,6 +13,12 @@ const AllProjects = () => {
       <CreateProject />
       {isLoading ? <p>Loading....</p> : null}
       <div className="mt-8">
+        <div>
+          <button onClick={() => setSort(Sort.Asc)} className="ml-2">
+            ACS
+          </button>
+          <button onClick={() => setSort(Sort.Desc)}>DESC</button>
+        </div>
         {projects.map((project) => (
           <div key={project.id}>
             <h2>{project.name}</h2>

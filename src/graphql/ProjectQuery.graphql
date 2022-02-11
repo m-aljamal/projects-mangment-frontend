@@ -1,8 +1,6 @@
-query getAllProjects{
-  projects(sortBy:DESC){
-    createdAt
-    name
+query getAllProjects($sortBy: Sort) {
+  projects(sortBy: $sortBy) {
     id
-    type
+    name
   }
 }

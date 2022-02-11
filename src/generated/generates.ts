@@ -229,10 +229,12 @@ export type CreateProjectMutationVariables = Exact<{
 
 export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, name: string, type: string, createdAt: any, updatedAt: any } };
 
-export type GetAllProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetAllProjectsQueryVariables = Exact<{
+  sortBy?: InputMaybe<Sort>;
+}>;
 
 
-export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', createdAt: any, name: string, id: string, type: string }> };
+export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, name: string }> };
 
 
 export const LoginDocument = `
@@ -411,12 +413,10 @@ export const useCreateProjectMutation = <
       options
     );
 export const GetAllProjectsDocument = `
-    query getAllProjects {
-  projects(sortBy: DESC) {
-    createdAt
-    name
+    query getAllProjects($sortBy: Sort) {
+  projects(sortBy: $sortBy) {
     id
-    type
+    name
   }
 }
     `;
