@@ -26,3 +26,13 @@ query currentUser {
     username
   }
 }
+
+query findAllEmployee($role: Role){
+  employees(role:$role){
+    name
+    username
+    salary
+    id
+    role
+  }
+}

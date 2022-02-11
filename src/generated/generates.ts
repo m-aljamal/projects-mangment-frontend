@@ -138,6 +138,11 @@ export type Query = {
 };
 
 
+export type QueryEmployeesArgs = {
+  role?: InputMaybe<Role>;
+};
+
+
 export type QueryEmployeesByProjectArgs = {
   projectId: Scalars['String'];
 };
@@ -220,6 +225,13 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'Employee', name: string, id: string, role: Role, username: string } | null };
+
+export type FindAllEmployeeQueryVariables = Exact<{
+  role?: InputMaybe<Role>;
+}>;
+
+
+export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', name: string, username: string, salary?: number | null, id: string, role: Role }> };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -386,6 +398,31 @@ export const useCurrentUserQuery = <
     useQuery<CurrentUserQuery, TError, TData>(
       variables === undefined ? ['currentUser'] : ['currentUser', variables],
       fetcher<CurrentUserQuery, CurrentUserQueryVariables>(client, CurrentUserDocument, variables, headers),
+      options
+    );
+export const FindAllEmployeeDocument = `
+    query findAllEmployee($role: Role) {
+  employees(role: $role) {
+    name
+    username
+    salary
+    id
+    role
+  }
+}
+    `;
+export const useFindAllEmployeeQuery = <
+      TData = FindAllEmployeeQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindAllEmployeeQueryVariables,
+      options?: UseQueryOptions<FindAllEmployeeQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllEmployeeQuery, TError, TData>(
+      variables === undefined ? ['findAllEmployee'] : ['findAllEmployee', variables],
+      fetcher<FindAllEmployeeQuery, FindAllEmployeeQueryVariables>(client, FindAllEmployeeDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `
