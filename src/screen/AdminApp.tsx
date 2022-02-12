@@ -3,6 +3,7 @@ import AppLayout from "src/components/AppLayout";
 import DashboardScreen from "./DashboardScreen";
 import EmployeeScreent from "./EmployeeScreent";
 import NotFound from "./NotFound";
+import ProjectScreen from "./ProjectScreen";
 import ProjectsScreen from "./ProjectsScreen";
 
 const AdminApp = () => {
@@ -18,6 +19,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<DashboardScreen />} />
       <Route path="/projects" element={<ProjectsScreen />} />
+      <Route path="/project/:projectId" element={<ProjectScreen />} />
       <Route path="/employees" element={<EmployeeScreent />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

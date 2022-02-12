@@ -1,3 +1,4 @@
+import { Role } from "src/generated/generates";
 import { useAuthClient } from "src/context/auth-context";
 import {
   EmployeesSalariesCurrentMonthQuery,
@@ -64,11 +65,22 @@ function useCreateEmployee() {
   return { mutate, error };
 }
 
-function findAllEmployees() {
+function useFindAllEmployees(role?: Role) {
   const client = useAuthClient();
-  const { data } = useFindAllEmployeeQuery<FindAllEmployeeQuery, Error>(
-    client()
-  );
+  const { data, error, status } = useFindAllEmployeeQuery<
+    FindAllEmployeeQuery,
+    Error
+  >(client(), { role });
+  return {
+    employees: data?.employees || [],
+    error,
+    status,
+  };
 }
 
-export { useEmployeesList, useCreateEmployee, useSalariesList };
+export {
+  useEmployeesList,
+  useCreateEmployee,
+  useSalariesList,
+  useFindAllEmployees,
+};

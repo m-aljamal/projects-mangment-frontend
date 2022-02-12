@@ -133,6 +133,7 @@ export type Query = {
   dailyDiscountsByCurrentMonth: Array<Discount>;
   employees: Array<Employee>;
   employeesByProject: Array<Employee>;
+  findProject: Project;
   projects: Array<Project>;
   salariesbycurrentMonth: Array<Salaries>;
 };
@@ -145,6 +146,11 @@ export type QueryEmployeesArgs = {
 
 export type QueryEmployeesByProjectArgs = {
   projectId: Scalars['String'];
+};
+
+
+export type QueryFindProjectArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -247,6 +253,13 @@ export type GetAllProjectsQueryVariables = Exact<{
 
 
 export type GetAllProjectsQuery = { __typename?: 'Query', projects: Array<{ __typename?: 'Project', id: string, name: string }> };
+
+export type FindProjectQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type FindProjectQuery = { __typename?: 'Query', findProject: { __typename?: 'Project', id: string, name: string, createdAt: any, type: string } };
 
 
 export const LoginDocument = `
@@ -469,5 +482,29 @@ export const useGetAllProjectsQuery = <
     useQuery<GetAllProjectsQuery, TError, TData>(
       variables === undefined ? ['getAllProjects'] : ['getAllProjects', variables],
       fetcher<GetAllProjectsQuery, GetAllProjectsQueryVariables>(client, GetAllProjectsDocument, variables, headers),
+      options
+    );
+export const FindProjectDocument = `
+    query findProject($id: String!) {
+  findProject(id: $id) {
+    id
+    name
+    createdAt
+    type
+  }
+}
+    `;
+export const useFindProjectQuery = <
+      TData = FindProjectQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindProjectQueryVariables,
+      options?: UseQueryOptions<FindProjectQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindProjectQuery, TError, TData>(
+      ['findProject', variables],
+      fetcher<FindProjectQuery, FindProjectQueryVariables>(client, FindProjectDocument, variables, headers),
       options
     );

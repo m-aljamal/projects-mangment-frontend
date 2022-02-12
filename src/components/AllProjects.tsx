@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { Sort } from "src/generated/generates";
 import { useCreateProject, useProjectsList } from "src/utils/project";
 
@@ -20,9 +21,11 @@ const AllProjects = () => {
           <button onClick={() => setSort(Sort.Desc)}>DESC</button>
         </div>
         {projects.map((project) => (
-          <div key={project.id}>
-            <h2>{project.name}</h2>
-          </div>
+          <Link to={`/project/${project.id}`}>
+            <div key={project.id}>
+              <h2>{project.name}</h2>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

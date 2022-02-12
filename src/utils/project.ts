@@ -1,3 +1,7 @@
+import {
+  FindProjectQuery,
+  useFindProjectQuery,
+} from "./../generated/generates";
 import { useQueryClient } from "react-query";
 import { useAuthClient } from "src/context/auth-context";
 import {
@@ -45,4 +49,15 @@ function useCreateProject() {
   return { mutate, error };
 }
 
-export { useProjectsList, useCreateProject };
+function useProject(id: string) {
+  const client = useAuthClient();
+  const { data, status } = useFindProjectQuery<FindProjectQuery, Error>(
+    client(),
+    { id }
+  );
+  return {
+    project: data?.findProject,
+    status,
+  };
+}
+export { useProjectsList, useCreateProject, useProject };

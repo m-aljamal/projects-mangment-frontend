@@ -79,7 +79,6 @@ function useAuth() {
 function useAuthClient() {
   const { user }: any = useAuth();
   
-  console.log("useAuthClient", user);
   
   const accessToken = user.accessToken;
   return useCallback(() => graphqlRequestClient(accessToken), [accessToken]);

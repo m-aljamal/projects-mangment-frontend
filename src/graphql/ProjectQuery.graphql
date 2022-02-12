@@ -4,3 +4,12 @@ query getAllProjects($sortBy: Sort) {
     name
   }
 }
+
+query findProject($id:String!){
+  findProject(id:$id){
+    id
+    name
+    createdAt
+    type
+  }
+}
