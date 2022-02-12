@@ -7,6 +7,10 @@ export const adminLinks = [
     link: "/projects",
     name: "المشاريع",
   },
+  {
+    link: "/employees",
+    name: "الموظفين",
+  },
 ];
 
 export const userLinks = [

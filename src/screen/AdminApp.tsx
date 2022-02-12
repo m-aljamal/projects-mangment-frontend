@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import AppLayout from "src/components/AppLayout";
 import DashboardScreen from "./DashboardScreen";
+import EmployeeScreent from "./EmployeeScreent";
 import NotFound from "./NotFound";
 import ProjectsScreen from "./ProjectsScreen";
 
@@ -17,6 +18,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<DashboardScreen />} />
       <Route path="/projects" element={<ProjectsScreen />} />
+      <Route path="/employees" element={<EmployeeScreent />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

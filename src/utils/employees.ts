@@ -1,7 +1,10 @@
+import { useAuthClient } from "src/context/auth-context";
 import {
   EmployeesSalariesCurrentMonthQuery,
+  FindAllEmployeeQuery,
   FindEmployeesByProjectQuery,
   useEmployeesSalariesCurrentMonthQuery,
+  useFindAllEmployeeQuery,
   useFindEmployeesByProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
@@ -59,6 +62,13 @@ function useCreateEmployee() {
     }
   );
   return { mutate, error };
+}
+
+function findAllEmployees() {
+  const client = useAuthClient();
+  const { data } = useFindAllEmployeeQuery<FindAllEmployeeQuery, Error>(
+    client()
+  );
 }
 
 export { useEmployeesList, useCreateEmployee, useSalariesList };
