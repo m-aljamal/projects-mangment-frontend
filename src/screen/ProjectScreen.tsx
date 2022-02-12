@@ -11,6 +11,11 @@ const ProjectScreen = () => {
     <div>
       {project?.name}
       <p>{project?.type}</p>
+      <p>الهيكل التنظيمي</p>
+      <p>موظفين المشروع</p>
+      <p>الحضور اليومي</p>
+      <p>الغياب</p>
+      <p></p>
     </div>
   );
 };
