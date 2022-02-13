@@ -1,10 +1,10 @@
-import React, { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { Outlet } from "react-router-dom";
 import { useAuth } from "src/context/auth-context";
 import FullPageErrorFallback from "./FullPageErrorFallback";
 import Nav from "./Nav";
 
-const AppLayout: FC = ({ children }) => {
+const AppLayout = () => {
   const { user }: any = useAuth();
   return (
     <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
@@ -15,7 +15,7 @@ const AppLayout: FC = ({ children }) => {
         </div>
         <main className="bg-gray-200 w-full  ">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            {children}
+            <Outlet />
           </ErrorBoundary>
         </main>
       </div>
