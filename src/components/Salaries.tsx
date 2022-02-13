@@ -1,6 +1,6 @@
 import React from "react";
 import { calculateDiscount } from "src/utils/calculateSalaryDiscount";
-import { useEmployeesList, useSalariesList } from "src/utils/employees";
+import { useSalariesList } from "src/utils/employees";
 
 const Salaries = () => {
   const { salaries, error, isLoading } = useSalariesList();

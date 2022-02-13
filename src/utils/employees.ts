@@ -1,16 +1,17 @@
 import {
   FindEmployeeByIdQuery,
+  FindEmployeesByProjectIdQuery,
   Role,
+  Sort,
   useFindEmployeeByIdQuery,
+  useFindEmployeesByProjectIdQuery,
 } from "src/generated/generates";
 import { useAuthClient } from "src/context/auth-context";
 import {
   EmployeesSalariesCurrentMonthQuery,
   FindAllEmployeeQuery,
-  FindEmployeesByProjectQuery,
   useEmployeesSalariesCurrentMonthQuery,
   useFindAllEmployeeQuery,
-  useFindEmployeesByProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
 import {
@@ -21,15 +22,16 @@ import {
 
 import graphqlRequestClient from "../lib/graphqlRequestClient";
 
-function useEmployeesList() {
-  const { data, error, isLoading } = useFindEmployeesByProjectQuery<
-    FindEmployeesByProjectQuery,
+function useFindProjectsEmployees(projectId: string) {
+  const { data, error, isLoading } = useFindEmployeesByProjectIdQuery<
+    FindEmployeesByProjectIdQuery,
     Error
   >(graphqlRequestClient(), {
-    projectId: "4e677f32-f6da-418a-a662-deb252e10a46",
+    projectId,
+    sortBy: Sort.Desc,
   });
   return {
-    employees: data?.employeesByProject || [],
+    employees: data?.findEmployeesByProjectId || [],
     error,
     isLoading,
   };
@@ -59,7 +61,7 @@ function useCreateEmployee() {
         _variables: CreateEmployeeMutationVariables,
         _context: unknown
       ) => {
-        queryClient.invalidateQueries("findEmployeesByProject");
+        queryClient.invalidateQueries("findEmployeesByProjectId");
       },
       onError: (error: Error) => {
         console.log(error);
@@ -97,7 +99,7 @@ function useFindEmployee(id: string) {
 }
 
 export {
-  useEmployeesList,
+  useFindProjectsEmployees,
   useCreateEmployee,
   useSalariesList,
   useFindAllEmployees,

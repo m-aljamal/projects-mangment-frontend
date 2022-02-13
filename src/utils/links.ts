@@ -29,7 +29,7 @@ export const projectLinks = (projectId: string) => {
     },
     {
       label: "الدوام",
-      to: `/projects/${projectId}/work`,
+      to: `/projects/${projectId}/worklate`,
     },
     {
       label: "الغياب",

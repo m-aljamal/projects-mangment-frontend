@@ -1,13 +1,3 @@
-query findEmployeesByProject($projectId: String!) {
-  employeesByProject(projectId: $projectId) {
-    name
-    salary
-    id
-    createdAt
-    updatedAt
-  }
-}
-
 query employeesSalariesCurrentMonth($projectId: String!) {
   salariesbycurrentMonth(projectId: $projectId) {
     employee_salary
@@ -37,11 +27,22 @@ query findAllEmployee($role: Role) {
   }
 }
 
-query findEmployeeById($id:String!){
-  findEmployeeById(id:$id){
+query findEmployeeById($id: String!) {
+  findEmployeeById(id: $id) {
     createdAt
     id
     name
+    salary
+    username
+  }
+}
+
+query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
+  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
+    name
+    id
+    password
+    createdAt
     salary
     username
   }

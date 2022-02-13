@@ -61,7 +61,7 @@ export type Employee = {
   name: Scalars['String'];
   password: Scalars['String'];
   project: Project;
-  projectId: Scalars['String'];
+  projectId?: Maybe<Scalars['String']>;
   role: Role;
   salary?: Maybe<Scalars['Float']>;
   updatedAt: Scalars['DateTime'];
@@ -132,8 +132,8 @@ export type Query = {
   dailyDiscounts: Array<DailyDiscount>;
   dailyDiscountsByCurrentMonth: Array<Discount>;
   employees: Array<Employee>;
-  employeesByProject: Array<Employee>;
   findEmployeeById: Employee;
+  findEmployeesByProjectId: Array<Employee>;
   findProject: Project;
   projects: Array<Project>;
   salariesbycurrentMonth: Array<Salaries>;
@@ -145,13 +145,14 @@ export type QueryEmployeesArgs = {
 };
 
 
-export type QueryEmployeesByProjectArgs = {
-  projectId: Scalars['String'];
+export type QueryFindEmployeeByIdArgs = {
+  id: Scalars['String'];
 };
 
 
-export type QueryFindEmployeeByIdArgs = {
-  id: Scalars['String'];
+export type QueryFindEmployeesByProjectIdArgs = {
+  projectId: Scalars['String'];
+  sortBy?: InputMaybe<Sort>;
 };
 
 
@@ -220,13 +221,6 @@ export type CreateEmployeeMutationVariables = Exact<{
 
 export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, username: string, salary?: number | null } };
 
-export type FindEmployeesByProjectQueryVariables = Exact<{
-  projectId: Scalars['String'];
-}>;
-
-
-export type FindEmployeesByProjectQuery = { __typename?: 'Query', employeesByProject: Array<{ __typename?: 'Employee', name: string, salary?: number | null, id: string, createdAt: any, updatedAt: any }> };
-
 export type EmployeesSalariesCurrentMonthQueryVariables = Exact<{
   projectId: Scalars['String'];
 }>;
@@ -252,6 +246,14 @@ export type FindEmployeeByIdQueryVariables = Exact<{
 
 
 export type FindEmployeeByIdQuery = { __typename?: 'Query', findEmployeeById: { __typename?: 'Employee', createdAt: any, id: string, name: string, salary?: number | null, username: string } };
+
+export type FindEmployeesByProjectIdQueryVariables = Exact<{
+  projectId: Scalars['String'];
+  sortBy?: InputMaybe<Sort>;
+}>;
+
+
+export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string }> };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -353,31 +355,6 @@ export const useCreateEmployeeMutation = <
       (variables?: CreateEmployeeMutationVariables) => fetcher<CreateEmployeeMutation, CreateEmployeeMutationVariables>(client, CreateEmployeeDocument, variables, headers)(),
       options
     );
-export const FindEmployeesByProjectDocument = `
-    query findEmployeesByProject($projectId: String!) {
-  employeesByProject(projectId: $projectId) {
-    name
-    salary
-    id
-    createdAt
-    updatedAt
-  }
-}
-    `;
-export const useFindEmployeesByProjectQuery = <
-      TData = FindEmployeesByProjectQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables: FindEmployeesByProjectQueryVariables,
-      options?: UseQueryOptions<FindEmployeesByProjectQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) =>
-    useQuery<FindEmployeesByProjectQuery, TError, TData>(
-      ['findEmployeesByProject', variables],
-      fetcher<FindEmployeesByProjectQuery, FindEmployeesByProjectQueryVariables>(client, FindEmployeesByProjectDocument, variables, headers),
-      options
-    );
 export const EmployeesSalariesCurrentMonthDocument = `
     query employeesSalariesCurrentMonth($projectId: String!) {
   salariesbycurrentMonth(projectId: $projectId) {
@@ -475,6 +452,32 @@ export const useFindEmployeeByIdQuery = <
     useQuery<FindEmployeeByIdQuery, TError, TData>(
       ['findEmployeeById', variables],
       fetcher<FindEmployeeByIdQuery, FindEmployeeByIdQueryVariables>(client, FindEmployeeByIdDocument, variables, headers),
+      options
+    );
+export const FindEmployeesByProjectIdDocument = `
+    query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
+  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
+    name
+    id
+    password
+    createdAt
+    salary
+    username
+  }
+}
+    `;
+export const useFindEmployeesByProjectIdQuery = <
+      TData = FindEmployeesByProjectIdQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeesByProjectIdQueryVariables,
+      options?: UseQueryOptions<FindEmployeesByProjectIdQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeesByProjectIdQuery, TError, TData>(
+      ['findEmployeesByProjectId', variables],
+      fetcher<FindEmployeesByProjectIdQuery, FindEmployeesByProjectIdQueryVariables>(client, FindEmployeesByProjectIdDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `
