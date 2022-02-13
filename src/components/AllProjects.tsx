@@ -21,8 +21,8 @@ const AllProjects = () => {
           <button onClick={() => setSort(Sort.Desc)}>DESC</button>
         </div>
         {projects.map((project) => (
-          <Link to={`/project/${project.id}`}>
-            <div key={project.id}>
+          <Link to={`/projects/${project.id}`} key={project.id}>
+            <div>
               <h2>{project.name}</h2>
             </div>
           </Link>

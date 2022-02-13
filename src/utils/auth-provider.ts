@@ -23,10 +23,11 @@ async function currentUser(accessToken: string) {
       query: `
         query currentUser{
             currentUser{
-              name
               id
+              name
+              createdAt
+              projectId
               role
-              username
             }
           }
         `,
@@ -67,6 +68,8 @@ async function login({
             name
             id
             username
+            role
+            projectId
           }
         }
       }

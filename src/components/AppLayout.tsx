@@ -13,7 +13,7 @@ const AppLayout: FC = ({ children }) => {
           <p className="mb-8">{user?.name}</p>
           <Nav />
         </div>
-        <main className="bg-gray-200 w-full container pt-5 ">
+        <main className="bg-gray-200 w-full  ">
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             {children}
           </ErrorBoundary>

@@ -41,7 +41,7 @@ const CreateEmployee = () => {
       name: data.name,
       username: data.name,
       password: data.password,
-      role: Role.Employee,
+      role: Role.Admin,
       projectId: data.projectId,
       salary: +data.salary,
     });

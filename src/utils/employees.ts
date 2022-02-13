@@ -1,4 +1,8 @@
-import { Role } from "src/generated/generates";
+import {
+  FindEmployeeByIdQuery,
+  Role,
+  useFindEmployeeByIdQuery,
+} from "src/generated/generates";
 import { useAuthClient } from "src/context/auth-context";
 import {
   EmployeesSalariesCurrentMonthQuery,
@@ -78,9 +82,24 @@ function useFindAllEmployees(role?: Role) {
   };
 }
 
+function useFindEmployee(id: string) {
+  const client = useAuthClient();
+  const { data, status } = useFindEmployeeByIdQuery<
+    FindEmployeeByIdQuery,
+    Error
+  >(client(), {
+    id,
+  });
+  return {
+    employee: data?.findEmployeeById,
+    status,
+  };
+}
+
 export {
   useEmployeesList,
   useCreateEmployee,
   useSalariesList,
   useFindAllEmployees,
+  useFindEmployee,
 };

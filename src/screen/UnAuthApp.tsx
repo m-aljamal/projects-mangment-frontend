@@ -9,8 +9,8 @@ interface ILogin {
 }
 
 const UnAuthApp = () => {
-  const { login }: any = useAuth();
-  const { isLoading, run } = useAsync();
+  const { login, user }: any = useAuth();
+  const { isLoading, run, data } = useAsync();
   const onSubmit = (data: ILogin) => {
     run(login(data));
   };

@@ -51,13 +51,15 @@ function useCreateProject() {
 
 function useProject(id: string) {
   const client = useAuthClient();
-  const { data, status } = useFindProjectQuery<FindProjectQuery, Error>(
+
+  const { data, status, error } = useFindProjectQuery<FindProjectQuery, Error>(
     client(),
     { id }
   );
   return {
     project: data?.findProject,
     status,
+    error,
   };
 }
 export { useProjectsList, useCreateProject, useProject };

@@ -133,6 +133,7 @@ export type Query = {
   dailyDiscountsByCurrentMonth: Array<Discount>;
   employees: Array<Employee>;
   employeesByProject: Array<Employee>;
+  findEmployeeById: Employee;
   findProject: Project;
   projects: Array<Project>;
   salariesbycurrentMonth: Array<Salaries>;
@@ -146,6 +147,11 @@ export type QueryEmployeesArgs = {
 
 export type QueryEmployeesByProjectArgs = {
   projectId: Scalars['String'];
+};
+
+
+export type QueryFindEmployeeByIdArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -165,7 +171,8 @@ export type QuerySalariesbycurrentMonthArgs = {
 
 export enum Role {
   Admin = 'ADMIN',
-  Employee = 'EMPLOYEE'
+  Manger = 'MANGER',
+  Teacher = 'TEACHER'
 }
 
 export type Salaries = {
@@ -238,6 +245,13 @@ export type FindAllEmployeeQueryVariables = Exact<{
 
 
 export type FindAllEmployeeQuery = { __typename?: 'Query', employees: Array<{ __typename?: 'Employee', name: string, username: string, salary?: number | null, id: string, role: Role }> };
+
+export type FindEmployeeByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type FindEmployeeByIdQuery = { __typename?: 'Query', findEmployeeById: { __typename?: 'Employee', createdAt: any, id: string, name: string, salary?: number | null, username: string } };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -436,6 +450,31 @@ export const useFindAllEmployeeQuery = <
     useQuery<FindAllEmployeeQuery, TError, TData>(
       variables === undefined ? ['findAllEmployee'] : ['findAllEmployee', variables],
       fetcher<FindAllEmployeeQuery, FindAllEmployeeQueryVariables>(client, FindAllEmployeeDocument, variables, headers),
+      options
+    );
+export const FindEmployeeByIdDocument = `
+    query findEmployeeById($id: String!) {
+  findEmployeeById(id: $id) {
+    createdAt
+    id
+    name
+    salary
+    username
+  }
+}
+    `;
+export const useFindEmployeeByIdQuery = <
+      TData = FindEmployeeByIdQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeeByIdQueryVariables,
+      options?: UseQueryOptions<FindEmployeeByIdQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeeByIdQuery, TError, TData>(
+      ['findEmployeeById', variables],
+      fetcher<FindEmployeeByIdQuery, FindEmployeeByIdQueryVariables>(client, FindEmployeeByIdDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `

@@ -27,12 +27,22 @@ query currentUser {
   }
 }
 
-query findAllEmployee($role: Role){
-  employees(role:$role){
+query findAllEmployee($role: Role) {
+  employees(role: $role) {
     name
     username
     salary
     id
     role
+  }
+}
+
+query findEmployeeById($id:String!){
+  findEmployeeById(id:$id){
+    createdAt
+    id
+    name
+    salary
+    username
   }
 }

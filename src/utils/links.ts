@@ -1,21 +1,39 @@
 export const adminLinks = [
   {
-    link: "/",
-    name: "لوحة التحكم",
+    to: "/",
+    label: "لوحة التحكم",
   },
   {
-    link: "/projects",
-    name: "المشاريع",
+    to: "/projects",
+    label: "المشاريع",
   },
   {
-    link: "/employees",
-    name: "الموظفين",
+    to: "/employees",
+    label: "الموظفين",
   },
 ];
 
-export const userLinks = [
-  {
-    link: "/",
-    name: "لوحة التحكم",
-  },
-];
+export const projectLinks = (projectId: string) => {
+  return [
+    {
+      label: "الرئيسية",
+      to: `/projects/${projectId}`,
+    },
+    {
+      label: "الهيكل التنظيمي",
+      to: `/projects/${projectId}/structure`,
+    },
+    {
+      label: "موظفين المشروع",
+      to: `/projects/${projectId}/employees`,
+    },
+    {
+      label: "الدوام",
+      to: `/projects/${projectId}/work`,
+    },
+    {
+      label: "الغياب",
+      to: `/projects/${projectId}/absence`,
+    },
+  ];
+};
