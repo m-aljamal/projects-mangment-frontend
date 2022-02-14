@@ -10,6 +10,7 @@ const EmployeeScreen = () => {
     <div>
       <p>{employee?.name}</p>
       <p>{employee?.createdAt}</p>
+      <p>{employee?.id}</p>
     </div>
   );
 };

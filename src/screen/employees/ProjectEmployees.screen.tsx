@@ -19,6 +19,7 @@ const ProjectEmployees = () => {
             <div className=" bg-white m-3">
               <h3>{employee.name}</h3>
               <p>{employee.salary}</p>
+              <p>{employee.id}</p>
             </div>
           </Link>
         ))}
