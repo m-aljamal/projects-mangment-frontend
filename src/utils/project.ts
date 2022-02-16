@@ -1,5 +1,7 @@
 import {
+  FindAllProjectsQuery,
   FindProjectQuery,
+  useFindAllProjectsQuery,
   useFindProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
@@ -7,22 +9,18 @@ import { useAuthClient } from "src/context/auth-context";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
-  GetAllProjectsQuery,
   Sort,
   useCreateProjectMutation,
-  useGetAllProjectsQuery,
 } from "src/generated/generates";
 
 function useProjectsList(sortBy: Sort) {
   const clien = useAuthClient();
-  const { status, data, error, isFetching, isLoading } = useGetAllProjectsQuery<
-    GetAllProjectsQuery,
-    Error
-  >(clien(), {
-    sortBy,
-  });
+  const { status, data, error, isFetching, isLoading } =
+    useFindAllProjectsQuery<FindAllProjectsQuery, Error>(clien(), {
+      sortBy,
+    });
   return {
-    projects: data?.projects || [],
+    projects: data?.findAllProjects || [],
     error,
     isFetching,
     status,

@@ -1,8 +1,0 @@
-# query dicByCurrentMonth {
-#   dailyDiscountsByCurrentMonth {
-#     date
-#     id
-#     notes
-#     discount
-#   }
-# }

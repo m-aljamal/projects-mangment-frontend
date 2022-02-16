@@ -1,12 +1,14 @@
-query getAllProjects($sortBy: Sort) {
-  projects(sortBy: $sortBy) {
+query findAllProjects($sortBy: Sort) {
+  findAllProjects(sortBy: $sortBy) {
+    createdAt
     id
     name
+    type
+    updatedAt
   }
 }
-
-query findProject($id:String!){
-  findProject(id:$id){
+query findProject($id: String!) {
+  findProject(id: $id) {
     id
     name
     createdAt
