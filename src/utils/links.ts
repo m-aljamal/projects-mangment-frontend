@@ -28,12 +28,8 @@ export const projectLinks = (projectId: string) => {
       to: `/projects/${projectId}/employees`,
     },
     {
-      label: "الدوام",
-      to: `/projects/${projectId}/worklate`,
-    },
-    {
-      label: "الغياب",
-      to: `/projects/${projectId}/absence`,
+      label: "الخصومات",
+      to: `/projects/${projectId}/discounts`,
     },
   ];
 };

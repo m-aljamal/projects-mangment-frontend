@@ -1,9 +1,9 @@
-import AllProjects from "src/components/AllProjects";
+import ProjectsList from "src/components/ProjectsList";
 
 const Index = () => {
   return (
     <div>
-      <AllProjects />
+      <ProjectsList />
     </div>
   );
 };

@@ -15,3 +15,21 @@ query findProject($id: String!) {
     type
   }
 }
+
+query findDiscounts($sortBy: Sort, $projectId: String) {
+  findDiscounts(sortBy: $sortBy, projectId: $projectId) {
+    absence
+    createdAt
+    date
+    id
+    late
+    notes
+    punishment
+    employee {
+      name
+      id
+      role
+      salary
+    }
+  }
+}

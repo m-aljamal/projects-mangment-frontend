@@ -1,49 +1,57 @@
-# query employeesSalariesCurrentMonth($projectId: String!) {
-#   salariesbycurrentMonth(projectId: $projectId) {
-#     employee_salary
-#     discount
-#     employee_id
-#     employee_projectId
-#     employee_name
-#   }
-# }
+query currentUser {
+  currentUser {
+    name
+    id
+    role
+    username
+  }
+}
 
-# query currentUser {
-#   currentUser {
-#     name
-#     id
-#     role
-#     username
-#   }
-# }
+query findAllEmployees($projectId: String, $role: Role, $sortBy: Sort) {
+  findAllEmployees(projectId: $projectId, role: $role, sortBy: $sortBy) {
+    createdAt
+    id
+    name
+    role
+    salary
+    username
+  }
+}
 
-# query findAllEmployee($role: Role) {
-#   employees(role: $role) {
-#     name
-#     username
-#     salary
-#     id
-#     role
-#   }
-# }
+query findEmployeeById($id: String!) {
+  findEmployeeById(id: $id) {
+    createdAt
+    id
+    name
+    salary
+    username
+  }
+}
 
-# query findEmployeeById($id: String!) {
-#   findEmployeeById(id: $id) {
-#     createdAt
-#     id
-#     name
-#     salary
-#     username
-#   }
-# }
+query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
+  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
+    name
+    id
+    password
+    createdAt
+    salary
+    username
+  }
+}
 
-# query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
-#   findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
-#     name
-#     id
-#     password
-#     createdAt
-#     salary
-#     username
-#   }
-# }
+query findAllEmployeesDiscounts($projectId: String!, $sortBy: Sort) {
+  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
+    name
+    id
+    salary
+    currentMonthDiscounts {
+      absence
+      createdAt
+      date
+      id
+      late
+      notes
+      punishment
+    }
+  }
+}

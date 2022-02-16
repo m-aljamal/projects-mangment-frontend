@@ -6,12 +6,13 @@ import ProjectLayout from "src/components/ProjectLayout";
 import DashboardScreen from "./DashboardScreen";
 import EmployeeScreen from "./employees/EmployeeScreen";
 import EmployeesScreen from "./employees/EmployeesListScreen";
-// import ProjectEmployees from "./employees/ProjectEmployees.screen";
+import ProjectEmployeesScreen from "./projects/project/ProjectEmployees.screen";
+import ProjectEmployees from "./projects/project/ProjectEmployees.screen";
 import NotFound from "./NotFound";
 import ProjectsScreen from "./projects/Index";
 import StructureScreen from "./projects/project/Structure.screen";
-import WorkLate from "./projects/project/WorkLate.screen";
-const ProjectScreen = lazy(() => import("./projects/project/ProjectScreen"));
+import WorkLate from "./projects/project/discounts.screen";
+const ProjectScreen = lazy(() => import("./projects/project"));
 
 const AdminApp = () => {
   return <AppRoutes />;
@@ -35,7 +36,7 @@ function AppRoutes() {
             }
           />
           <Route path="structure" element={<StructureScreen />} />
-          {/* <Route path="employees" element={<ProjectEmployees />} /> */}
+          <Route path="employees" element={<ProjectEmployeesScreen />} />
           <Route path="worklate" element={<WorkLate />} />
         </Route>
 

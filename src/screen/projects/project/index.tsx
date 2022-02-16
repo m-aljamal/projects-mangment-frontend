@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useProject } from "src/utils/project";
 
-const ProjectScreen = () => {
+const IndexScreen = () => {
   const { projectId } = useParams();
 
   const { project, status, error } = useProject(projectId as string);
@@ -14,4 +14,4 @@ const ProjectScreen = () => {
   );
 };
 
-export default ProjectScreen;
+export default IndexScreen;

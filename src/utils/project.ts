@@ -1,7 +1,11 @@
 import {
   FindAllProjectsQuery,
+  FindDiscountsQuery,
   FindProjectQuery,
+  useCreateDiscountMutation,
+  useDeleteDiscountMutation,
   useFindAllProjectsQuery,
+  useFindDiscountsQuery,
   useFindProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
@@ -37,12 +41,12 @@ function useCreateProject() {
       _variables: CreateProjectMutationVariables,
       _context: unknown
     ) => {
-      queryClient.invalidateQueries("getAllProjects");
+      queryClient.invalidateQueries("findAllProjects");
     },
     onError: (error: Error) => {
       console.log(error);
     },
-    onSettled: () => queryClient.invalidateQueries("getAllProjects"),
+    onSettled: () => queryClient.invalidateQueries("findAllProjects"),
   });
   return { mutate, error };
 }
@@ -60,4 +64,45 @@ function useProject(id: string) {
     error,
   };
 }
-export { useProjectsList, useCreateProject, useProject };
+
+function useCreateDiscount() {
+  const queryClient = useQueryClient();
+  const client = useAuthClient();
+  const { mutate, error } = useCreateDiscountMutation<Error>(client(), {
+    onSettled: () => queryClient.invalidateQueries("findAllProjects"),
+  });
+  return { mutate, error };
+}
+
+function useEmployeesListDiscounts(projectId?: string, sortBy?: Sort) {
+  const client = useAuthClient();
+  const { data, error } = useFindDiscountsQuery<FindDiscountsQuery, Error>(
+    client(),
+    {
+      projectId,
+      sortBy,
+    }
+  );
+  return {
+    discounts: data?.findDiscounts || [],
+    error,
+  };
+}
+
+function useDeleteDiscount() {
+  const queryClient = useQueryClient();
+  const client = useAuthClient();
+  const { mutate, error } = useDeleteDiscountMutation<Error>(client(), {
+    onSettled: () => queryClient.invalidateQueries("findDiscounts"),
+  });
+  return { mutate, error };
+}
+
+export {
+  useProjectsList,
+  useCreateProject,
+  useProject,
+  useCreateDiscount,
+  useEmployeesListDiscounts,
+  useDeleteDiscount,
+};
