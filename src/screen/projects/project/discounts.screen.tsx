@@ -1,12 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import CreateDiscount from "src/components/CreateDiscount";
 import { Sort } from "src/generated/generates";
 import {
   useDeleteDiscount,
   useEmployeesListDiscounts,
 } from "src/utils/project";
 
-const WorkLate = () => {
+const DiscountsList = () => {
   const { projectId } = useParams();
   const { discounts, error } = useEmployeesListDiscounts(
     projectId as string,
@@ -18,6 +19,7 @@ const WorkLate = () => {
   return (
     <div>
       <p>الخصومات</p>
+      <CreateDiscount/>
       {discounts.map((discount) => (
         <div key={discount.id} className="bg-gray-100 m-4 p-2">
           <p>{discount.employee.name}</p>
@@ -46,4 +48,4 @@ const WorkLate = () => {
   );
 };
 
-export default WorkLate;
+export default DiscountsList;

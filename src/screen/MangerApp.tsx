@@ -4,7 +4,7 @@ import { useAuth } from "src/context/auth-context";
 import ProjectEmployees from "./projects/project/ProjectEmployees.screen";
 import IndexScreen from "./projects/project";
 import StructureScreen from "./projects/project/Structure.screen";
-import WorkLate from "./projects/project/discounts.screen";
+import DiscountsList from "./projects/project/discounts.screen";
 
 const MangerApp = () => {
   return <AppRoutes />;
@@ -19,7 +19,7 @@ function AppRoutes() {
         <Route index element={<IndexScreen />} />
         <Route path="structure" element={<StructureScreen />} />
         <Route path="employees" element={<ProjectEmployees />} />
-        <Route path="discounts" element={<WorkLate />} />
+        <Route path="discounts" element={<DiscountsList />} />
       </Route>
       <Route
         path="*"

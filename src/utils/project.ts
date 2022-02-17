@@ -69,7 +69,7 @@ function useCreateDiscount() {
   const queryClient = useQueryClient();
   const client = useAuthClient();
   const { mutate, error } = useCreateDiscountMutation<Error>(client(), {
-    onSettled: () => queryClient.invalidateQueries("findAllProjects"),
+    onSettled: () => queryClient.invalidateQueries("findDiscounts"),
   });
   return { mutate, error };
 }
