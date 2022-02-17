@@ -29,6 +29,7 @@ export type CreateProjectDto = {
 export type CurrentMonthDiscount = {
   __typename?: 'CurrentMonthDiscount';
   absence?: Maybe<Scalars['Float']>;
+  approved: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   date: Scalars['DateTime'];
   employee: Employee;
@@ -42,6 +43,7 @@ export type CurrentMonthDiscount = {
 
 export type CurrentMonthDiscountDto = {
   absence?: InputMaybe<Scalars['Float']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
   date: Scalars['DateTime'];
   employeeId: Scalars['String'];
   late?: InputMaybe<Scalars['Float']>;
@@ -91,6 +93,7 @@ export type Mutation = {
   createProject: Project;
   deleteDiscount: CurrentMonthDiscount;
   login: LoginResponse;
+  updateDiscount: CurrentMonthDiscount;
 };
 
 
@@ -116,6 +119,12 @@ export type MutationDeleteDiscountArgs = {
 
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
+};
+
+
+export type MutationUpdateDiscountArgs = {
+  discount: UpdateCurrentMonthDiscountDto;
+  id: Scalars['String'];
 };
 
 export type Project = {
@@ -154,6 +163,7 @@ export type QueryFindAllProjectsArgs = {
 
 
 export type QueryFindDiscountsArgs = {
+  approved?: InputMaybe<Scalars['Boolean']>;
   projectId?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<Sort>;
 };
@@ -200,6 +210,16 @@ export enum Sort {
   Desc = 'DESC'
 }
 
+export type UpdateCurrentMonthDiscountDto = {
+  absence?: InputMaybe<Scalars['Float']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
+  date?: InputMaybe<Scalars['DateTime']>;
+  employeeId?: InputMaybe<Scalars['String']>;
+  late?: InputMaybe<Scalars['Float']>;
+  notes?: InputMaybe<Scalars['String']>;
+  punishment?: InputMaybe<Scalars['Float']>;
+};
+
 export type LoginMutationVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -207,6 +227,50 @@ export type LoginMutationVariables = Exact<{
 
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'Employee', name: string, id: string, username: string } } };
+
+export type UpdateDiscountMutationVariables = Exact<{
+  id: Scalars['String'];
+  discount: UpdateCurrentMonthDiscountDto;
+}>;
+
+
+export type UpdateDiscountMutation = { __typename?: 'Mutation', updateDiscount: { __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, employee: { __typename?: 'Employee', name: string, id: string, role: Role, salary?: number | null } } };
+
+export type CreateDiscountMutationVariables = Exact<{
+  absence?: InputMaybe<Scalars['Float']>;
+  date: Scalars['DateTime'];
+  employeeId: Scalars['String'];
+  late?: InputMaybe<Scalars['Float']>;
+  notes?: InputMaybe<Scalars['String']>;
+  punishment?: InputMaybe<Scalars['Float']>;
+}>;
+
+
+export type CreateDiscountMutation = { __typename?: 'Mutation', createDiscount: { __typename?: 'CurrentMonthDiscount', date: any, id: string, late?: number | null, notes?: string | null, absence?: number | null, punishment?: number | null } };
+
+export type DeleteDiscountMutationVariables = Exact<{
+  employeeId: Scalars['String'];
+}>;
+
+
+export type DeleteDiscountMutation = { __typename?: 'Mutation', deleteDiscount: { __typename?: 'CurrentMonthDiscount', late?: number | null } };
+
+export type FindDiscountsQueryVariables = Exact<{
+  sortBy?: InputMaybe<Sort>;
+  projectId?: InputMaybe<Scalars['String']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
+}>;
+
+
+export type FindDiscountsQuery = { __typename?: 'Query', findDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, approved: boolean, employee: { __typename?: 'Employee', name: string, id: string, role: Role, salary?: number | null } }> };
+
+export type FindAllEmployeesDiscountsQueryVariables = Exact<{
+  projectId: Scalars['String'];
+  sortBy?: InputMaybe<Sort>;
+}>;
+
+
+export type FindAllEmployeesDiscountsQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, salary?: number | null, currentMonthDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, approved: boolean }> }> };
 
 export type CreateEmployeeMutationVariables = Exact<{
   name: Scalars['String'];
@@ -249,14 +313,6 @@ export type FindEmployeesByProjectIdQueryVariables = Exact<{
 
 export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string }> };
 
-export type FindAllEmployeesDiscountsQueryVariables = Exact<{
-  projectId: Scalars['String'];
-  sortBy?: InputMaybe<Sort>;
-}>;
-
-
-export type FindAllEmployeesDiscountsQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, salary?: number | null, currentMonthDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null }> }> };
-
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
   type: Scalars['String'];
@@ -264,25 +320,6 @@ export type CreateProjectMutationVariables = Exact<{
 
 
 export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, name: string, type: string, createdAt: any, updatedAt: any } };
-
-export type CreateDiscountMutationVariables = Exact<{
-  absence?: InputMaybe<Scalars['Float']>;
-  date: Scalars['DateTime'];
-  employeeId: Scalars['String'];
-  late?: InputMaybe<Scalars['Float']>;
-  notes?: InputMaybe<Scalars['String']>;
-  punishment?: InputMaybe<Scalars['Float']>;
-}>;
-
-
-export type CreateDiscountMutation = { __typename?: 'Mutation', createDiscount: { __typename?: 'CurrentMonthDiscount', date: any, id: string, late?: number | null, notes?: string | null, absence?: number | null, punishment?: number | null } };
-
-export type DeleteDiscountMutationVariables = Exact<{
-  employeeId: Scalars['String'];
-}>;
-
-
-export type DeleteDiscountMutation = { __typename?: 'Mutation', deleteDiscount: { __typename?: 'CurrentMonthDiscount', late?: number | null } };
 
 export type FindAllProjectsQueryVariables = Exact<{
   sortBy?: InputMaybe<Sort>;
@@ -297,14 +334,6 @@ export type FindProjectQueryVariables = Exact<{
 
 
 export type FindProjectQuery = { __typename?: 'Query', findProject: { __typename?: 'Project', id: string, name: string, createdAt: any, type: string } };
-
-export type FindDiscountsQueryVariables = Exact<{
-  sortBy?: InputMaybe<Sort>;
-  projectId?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type FindDiscountsQuery = { __typename?: 'Query', findDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, employee: { __typename?: 'Employee', name: string, id: string, role: Role, salary?: number | null } }> };
 
 
 export const LoginDocument = `
@@ -330,6 +359,152 @@ export const useLoginMutation = <
     useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
       ['login'],
       (variables?: LoginMutationVariables) => fetcher<LoginMutation, LoginMutationVariables>(client, LoginDocument, variables, headers)(),
+      options
+    );
+export const UpdateDiscountDocument = `
+    mutation updateDiscount($id: String!, $discount: UpdateCurrentMonthDiscountDto!) {
+  updateDiscount(id: $id, discount: $discount) {
+    absence
+    createdAt
+    date
+    id
+    late
+    notes
+    punishment
+    employee {
+      name
+      id
+      role
+      salary
+    }
+  }
+}
+    `;
+export const useUpdateDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<UpdateDiscountMutation, TError, UpdateDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<UpdateDiscountMutation, TError, UpdateDiscountMutationVariables, TContext>(
+      ['updateDiscount'],
+      (variables?: UpdateDiscountMutationVariables) => fetcher<UpdateDiscountMutation, UpdateDiscountMutationVariables>(client, UpdateDiscountDocument, variables, headers)(),
+      options
+    );
+export const CreateDiscountDocument = `
+    mutation createDiscount($absence: Float, $date: DateTime!, $employeeId: String!, $late: Float, $notes: String, $punishment: Float) {
+  createDiscount(
+    discount: {date: $date, employeeId: $employeeId, absence: $absence, late: $late, notes: $notes, punishment: $punishment}
+  ) {
+    date
+    id
+    late
+    notes
+    absence
+    punishment
+  }
+}
+    `;
+export const useCreateDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>(
+      ['createDiscount'],
+      (variables?: CreateDiscountMutationVariables) => fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(client, CreateDiscountDocument, variables, headers)(),
+      options
+    );
+export const DeleteDiscountDocument = `
+    mutation deleteDiscount($employeeId: String!) {
+  deleteDiscount(id: $employeeId) {
+    late
+  }
+}
+    `;
+export const useDeleteDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>(
+      ['deleteDiscount'],
+      (variables?: DeleteDiscountMutationVariables) => fetcher<DeleteDiscountMutation, DeleteDiscountMutationVariables>(client, DeleteDiscountDocument, variables, headers)(),
+      options
+    );
+export const FindDiscountsDocument = `
+    query findDiscounts($sortBy: Sort, $projectId: String, $approved: Boolean) {
+  findDiscounts(sortBy: $sortBy, projectId: $projectId, approved: $approved) {
+    absence
+    createdAt
+    date
+    id
+    late
+    notes
+    punishment
+    approved
+    employee {
+      name
+      id
+      role
+      salary
+    }
+  }
+}
+    `;
+export const useFindDiscountsQuery = <
+      TData = FindDiscountsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindDiscountsQueryVariables,
+      options?: UseQueryOptions<FindDiscountsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindDiscountsQuery, TError, TData>(
+      variables === undefined ? ['findDiscounts'] : ['findDiscounts', variables],
+      fetcher<FindDiscountsQuery, FindDiscountsQueryVariables>(client, FindDiscountsDocument, variables, headers),
+      options
+    );
+export const FindAllEmployeesDiscountsDocument = `
+    query findAllEmployeesDiscounts($projectId: String!, $sortBy: Sort) {
+  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
+    name
+    id
+    salary
+    currentMonthDiscounts {
+      absence
+      createdAt
+      date
+      id
+      late
+      notes
+      punishment
+      approved
+    }
+  }
+}
+    `;
+export const useFindAllEmployeesDiscountsQuery = <
+      TData = FindAllEmployeesDiscountsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindAllEmployeesDiscountsQueryVariables,
+      options?: UseQueryOptions<FindAllEmployeesDiscountsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllEmployeesDiscountsQuery, TError, TData>(
+      ['findAllEmployeesDiscounts', variables],
+      fetcher<FindAllEmployeesDiscountsQuery, FindAllEmployeesDiscountsQueryVariables>(client, FindAllEmployeesDiscountsDocument, variables, headers),
       options
     );
 export const CreateEmployeeDocument = `
@@ -459,38 +634,6 @@ export const useFindEmployeesByProjectIdQuery = <
       fetcher<FindEmployeesByProjectIdQuery, FindEmployeesByProjectIdQueryVariables>(client, FindEmployeesByProjectIdDocument, variables, headers),
       options
     );
-export const FindAllEmployeesDiscountsDocument = `
-    query findAllEmployeesDiscounts($projectId: String!, $sortBy: Sort) {
-  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
-    name
-    id
-    salary
-    currentMonthDiscounts {
-      absence
-      createdAt
-      date
-      id
-      late
-      notes
-      punishment
-    }
-  }
-}
-    `;
-export const useFindAllEmployeesDiscountsQuery = <
-      TData = FindAllEmployeesDiscountsQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables: FindAllEmployeesDiscountsQueryVariables,
-      options?: UseQueryOptions<FindAllEmployeesDiscountsQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) =>
-    useQuery<FindAllEmployeesDiscountsQuery, TError, TData>(
-      ['findAllEmployeesDiscounts', variables],
-      fetcher<FindAllEmployeesDiscountsQuery, FindAllEmployeesDiscountsQueryVariables>(client, FindAllEmployeesDiscountsDocument, variables, headers),
-      options
-    );
 export const CreateProjectDocument = `
     mutation createProject($name: String!, $type: String!) {
   createProject(project: {name: $name, type: $type}) {
@@ -513,53 +656,6 @@ export const useCreateProjectMutation = <
     useMutation<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>(
       ['createProject'],
       (variables?: CreateProjectMutationVariables) => fetcher<CreateProjectMutation, CreateProjectMutationVariables>(client, CreateProjectDocument, variables, headers)(),
-      options
-    );
-export const CreateDiscountDocument = `
-    mutation createDiscount($absence: Float, $date: DateTime!, $employeeId: String!, $late: Float, $notes: String, $punishment: Float) {
-  createDiscount(
-    discount: {date: $date, employeeId: $employeeId, absence: $absence, late: $late, notes: $notes, punishment: $punishment}
-  ) {
-    date
-    id
-    late
-    notes
-    absence
-    punishment
-  }
-}
-    `;
-export const useCreateDiscountMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      client: GraphQLClient,
-      options?: UseMutationOptions<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>,
-      headers?: RequestInit['headers']
-    ) =>
-    useMutation<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>(
-      ['createDiscount'],
-      (variables?: CreateDiscountMutationVariables) => fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(client, CreateDiscountDocument, variables, headers)(),
-      options
-    );
-export const DeleteDiscountDocument = `
-    mutation deleteDiscount($employeeId: String!) {
-  deleteDiscount(id: $employeeId) {
-    late
-  }
-}
-    `;
-export const useDeleteDiscountMutation = <
-      TError = unknown,
-      TContext = unknown
-    >(
-      client: GraphQLClient,
-      options?: UseMutationOptions<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>,
-      headers?: RequestInit['headers']
-    ) =>
-    useMutation<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>(
-      ['deleteDiscount'],
-      (variables?: DeleteDiscountMutationVariables) => fetcher<DeleteDiscountMutation, DeleteDiscountMutationVariables>(client, DeleteDiscountDocument, variables, headers)(),
       options
     );
 export const FindAllProjectsDocument = `
@@ -609,38 +705,5 @@ export const useFindProjectQuery = <
     useQuery<FindProjectQuery, TError, TData>(
       ['findProject', variables],
       fetcher<FindProjectQuery, FindProjectQueryVariables>(client, FindProjectDocument, variables, headers),
-      options
-    );
-export const FindDiscountsDocument = `
-    query findDiscounts($sortBy: Sort, $projectId: String) {
-  findDiscounts(sortBy: $sortBy, projectId: $projectId) {
-    absence
-    createdAt
-    date
-    id
-    late
-    notes
-    punishment
-    employee {
-      name
-      id
-      role
-      salary
-    }
-  }
-}
-    `;
-export const useFindDiscountsQuery = <
-      TData = FindDiscountsQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables?: FindDiscountsQueryVariables,
-      options?: UseQueryOptions<FindDiscountsQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) =>
-    useQuery<FindDiscountsQuery, TError, TData>(
-      variables === undefined ? ['findDiscounts'] : ['findDiscounts', variables],
-      fetcher<FindDiscountsQuery, FindDiscountsQueryVariables>(client, FindDiscountsDocument, variables, headers),
       options
     );

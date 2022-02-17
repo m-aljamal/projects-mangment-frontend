@@ -39,19 +39,4 @@ query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
   }
 }
 
-query findAllEmployeesDiscounts($projectId: String!, $sortBy: Sort) {
-  findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
-    name
-    id
-    salary
-    currentMonthDiscounts {
-      absence
-      createdAt
-      date
-      id
-      late
-      notes
-      punishment
-    }
-  }
-}
+
