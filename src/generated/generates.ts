@@ -203,6 +203,7 @@ export type Salaries = {
   name: Scalars['String'];
   punishment?: Maybe<Scalars['String']>;
   salary: Scalars['Float'];
+  totalSalart: Scalars['Float'];
 };
 
 export enum Sort {
@@ -312,6 +313,13 @@ export type FindEmployeesByProjectIdQueryVariables = Exact<{
 
 
 export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string }> };
+
+export type FindProjectEmployeesSalariesQueryVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+
+export type FindProjectEmployeesSalariesQuery = { __typename?: 'Query', findProjectEmployeesSalaries: Array<{ __typename?: 'Salaries', absence?: string | null, id: string, late?: string | null, name: string, punishment?: string | null, salary: number, totalSalart: number }> };
 
 export type CreateProjectMutationVariables = Exact<{
   name: Scalars['String'];
@@ -632,6 +640,33 @@ export const useFindEmployeesByProjectIdQuery = <
     useQuery<FindEmployeesByProjectIdQuery, TError, TData>(
       ['findEmployeesByProjectId', variables],
       fetcher<FindEmployeesByProjectIdQuery, FindEmployeesByProjectIdQueryVariables>(client, FindEmployeesByProjectIdDocument, variables, headers),
+      options
+    );
+export const FindProjectEmployeesSalariesDocument = `
+    query findProjectEmployeesSalaries($projectId: String!) {
+  findProjectEmployeesSalaries(projectId: $projectId) {
+    absence
+    id
+    late
+    name
+    punishment
+    salary
+    totalSalart
+  }
+}
+    `;
+export const useFindProjectEmployeesSalariesQuery = <
+      TData = FindProjectEmployeesSalariesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindProjectEmployeesSalariesQueryVariables,
+      options?: UseQueryOptions<FindProjectEmployeesSalariesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindProjectEmployeesSalariesQuery, TError, TData>(
+      ['findProjectEmployeesSalaries', variables],
+      fetcher<FindProjectEmployeesSalariesQuery, FindProjectEmployeesSalariesQueryVariables>(client, FindProjectEmployeesSalariesDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `

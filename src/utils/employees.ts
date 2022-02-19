@@ -2,11 +2,13 @@ import {
   FindAllEmployeesQuery,
   FindEmployeeByIdQuery,
   FindEmployeesByProjectIdQuery,
+  FindProjectEmployeesSalariesQuery,
   Role,
   Sort,
   useFindAllEmployeesQuery,
   useFindEmployeeByIdQuery,
   useFindEmployeesByProjectIdQuery,
+  useFindProjectEmployeesSalariesQuery,
 } from "src/generated/generates";
 import { useAuthClient } from "src/context/auth-context";
 
@@ -81,9 +83,24 @@ function useFindEmployee(id: string) {
   };
 }
 
+function useFindEmployeesSalaries(projectId: string) {
+  const client = useAuthClient();
+  const { data, status } = useFindProjectEmployeesSalariesQuery<
+    FindProjectEmployeesSalariesQuery,
+    Error
+  >(client(), {
+    projectId,
+  });
+  return {
+    employees: data?.findProjectEmployeesSalaries || [],
+    status,
+  };
+}
+
 export {
   useFindProjectsEmployees,
   useCreateEmployee,
   useFindAllEmployees,
   useFindEmployee,
+  useFindEmployeesSalaries,
 };

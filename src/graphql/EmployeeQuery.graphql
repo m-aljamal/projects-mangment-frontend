@@ -39,4 +39,14 @@ query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
   }
 }
 
-
+query findProjectEmployeesSalaries($projectId: String!) {
+  findProjectEmployeesSalaries(projectId: $projectId) {
+    absence
+    id
+    late
+    name
+    punishment
+    salary
+    totalSalart
+  }
+}

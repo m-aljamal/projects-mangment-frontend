@@ -5,6 +5,7 @@ import ProjectEmployees from "./projects/project/ProjectEmployees.screen";
 import IndexScreen from "./projects/project";
 import StructureScreen from "./projects/project/Structure.screen";
 import DiscountsList from "./projects/project/discounts.screen";
+import SalariesScreen from "./projects/project/Salaries.screen";
 
 const MangerApp = () => {
   return <AppRoutes />;
@@ -20,6 +21,7 @@ function AppRoutes() {
         <Route path="structure" element={<StructureScreen />} />
         <Route path="employees" element={<ProjectEmployees />} />
         <Route path="discounts" element={<DiscountsList />} />
+        <Route path="salaries" element={<SalariesScreen />} />
       </Route>
       <Route
         path="*"

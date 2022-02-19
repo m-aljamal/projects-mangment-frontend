@@ -31,5 +31,9 @@ export const projectLinks = (projectId: string) => {
       label: "الخصومات",
       to: `/projects/${projectId}/discounts`,
     },
+    {
+      label: "الرواتب",
+      to: `/projects/${projectId}/salaries`,
+    },
   ];
 };
