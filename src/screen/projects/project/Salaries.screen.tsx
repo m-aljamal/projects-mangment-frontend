@@ -2,9 +2,10 @@ import { useParams } from "react-router-dom";
 import { Salaries } from "src/generated/generates";
 import { useFindEmployeesSalaries } from "src/utils/employees";
 import ReactPDF, { PDFDownloadLink, usePDF } from "@react-pdf/renderer";
-import Pdf from "src/components/Pdf";
+ 
 import { PDFViewer } from "@react-pdf/renderer";
-
+import Pdf from "src/components/pdf";
+ 
 const SalariesScreen = () => {
   const { projectId } = useParams();
   const { employees, status, isLoading } = useFindEmployeesSalaries(
@@ -14,7 +15,7 @@ const SalariesScreen = () => {
   return (
     <div>
       <h2>قائمة الرواتب </h2>
-      <Pdf />
+      <Pdf/>
     </div>
   );
 };

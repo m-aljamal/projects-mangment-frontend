@@ -58,12 +58,7 @@ function BasicDocument() {
         <PdfTitle />
         <TableHeader />
         <JobTitle />
-        {/* <View style={styles.view}>
-          <Text>Employee salaries</Text>
-          {employees.map((employee: any) => (
-            <Text key={employee.id}>{employee.name}</Text>
-          ))}
-        </View> */}
+        <EmployeesTable />
       </Page>
     </Document>
   );
@@ -160,17 +155,35 @@ const TableHeader = () => {
     },
     nameAr: {
       fontFamily: "Arabic",
-      width: "17.5%",
+      width: "22%",
       borderRightWidth: "1px",
       borderRightColor: "white",
       padding,
     },
     sign: {
-      width: "30%",
+      width: "20%",
     },
 
     sharedStayle: {
-      width: "17.5%",
+      width: "20%",
+      borderRightWidth: "1px",
+      borderRightColor: "white",
+      padding,
+    },
+    salary: {
+      width: "12%",
+      borderRightWidth: "1px",
+      borderRightColor: "white",
+      padding,
+    },
+    job: {
+      width: "20%",
+      borderRightWidth: "1px",
+      borderRightColor: "white",
+      padding,
+    },
+    nameEng: {
+      width: "28%",
       borderRightWidth: "1px",
       borderRightColor: "white",
       padding,
@@ -178,10 +191,10 @@ const TableHeader = () => {
   });
   return (
     <View style={headerStyle.container}>
-      <Text style={headerStyle.sharedStayle}>Adı Soyadı</Text>
+      <Text style={headerStyle.nameEng}>Adı Soyadı</Text>
       <Text style={headerStyle.nameAr}>اﻹسم واللقب</Text>
-      <Text style={headerStyle.sharedStayle}>Görev</Text>
-      <Text style={headerStyle.sharedStayle}>Maaş</Text>
+      <Text style={headerStyle.job}>Görev</Text>
+      <Text style={headerStyle.salary}>Maaş</Text>
       <Text style={headerStyle.sign}>Imza</Text>
     </View>
   );
@@ -202,5 +215,72 @@ const JobTitle = () => {
     <View style={style.container}>
       <Text>Yöneticiler</Text>
     </View>
+  );
+};
+
+const EmployeesTable = () => {
+  const padding = "8px";
+  const headerStyle = StyleSheet.create({
+    container: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      fontSize: "10px",
+      textAlign: "center",
+      marginLeft: "15px",
+      marginRight: "15px",
+      fontFamily: "Roboto",
+      backgroundColor: "white",
+      color: "black",
+      alignContent: "center",
+    },
+    nameAr: {
+      fontFamily: "Arabic",
+      width: "22%",
+      borderRightWidth: "1px",
+      borderRightColor: "black",
+      borderBottomWidth: "1px",
+      padding,
+    },
+    sign: {
+      width: "20%",
+      padding,
+      borderBottomWidth: "1px",
+      color: "white",
+      borderRightWidth: "1px",
+    },
+
+    sharedStayle: {
+      width: "20%",
+      borderRightWidth: "1px",
+      borderBottomWidth: "1px",
+      borderRightColor: "black",
+      padding,
+    },
+    name: {
+      width: "28%",
+      borderRightWidth: "1px",
+      borderLeftWidth: "1px",
+      borderBottomWidth: "1px",
+      borderRightColor: "black",
+      padding,
+    },
+    salary: {
+      width: "12%",
+      borderRightWidth: "1px",
+      borderBottomWidth: "1px",
+      padding,
+    },
+  });
+  return (
+    <>
+      <View style={headerStyle.container}>
+        <Text style={headerStyle.name}>Mohammad aljamal</Text>
+        <Text style={headerStyle.nameAr}>محمد الجمل</Text>
+        <Text style={headerStyle.sharedStayle}>Programmer</Text>
+        <Text style={headerStyle.salary}>1500</Text>
+        <Text style={headerStyle.sign}>f</Text>
+      </View>
+    </>
   );
 };
