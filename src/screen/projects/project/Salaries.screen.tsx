@@ -7,22 +7,14 @@ import { PDFViewer } from "@react-pdf/renderer";
 
 const SalariesScreen = () => {
   const { projectId } = useParams();
-  const { employees, status } = useFindEmployeesSalaries(projectId as string);
-
-  const [instance, updateInstance] = usePDF({
-    
-    document: <Pdf employees={employees} />,
-  });
-  if (instance.loading) return <div>Loading...</div>;
-  if (instance.error) return <div>Error</div>;
+  const { employees, status, isLoading } = useFindEmployeesSalaries(
+    projectId as string
+  );
 
   return (
     <div>
       <h2>قائمة الرواتب </h2>
-
-      <a href={instance.url as string} download="sal.pdf">
-        Download
-      </a>
+      <Pdf />
     </div>
   );
 };

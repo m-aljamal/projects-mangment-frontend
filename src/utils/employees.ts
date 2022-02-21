@@ -85,7 +85,7 @@ function useFindEmployee(id: string) {
 
 function useFindEmployeesSalaries(projectId: string) {
   const client = useAuthClient();
-  const { data, status } = useFindProjectEmployeesSalariesQuery<
+  const { data, status, isLoading } = useFindProjectEmployeesSalariesQuery<
     FindProjectEmployeesSalariesQuery,
     Error
   >(client(), {
@@ -94,6 +94,7 @@ function useFindEmployeesSalaries(projectId: string) {
   return {
     employees: data?.findProjectEmployeesSalaries || [],
     status,
+    isLoading,
   };
 }
 
