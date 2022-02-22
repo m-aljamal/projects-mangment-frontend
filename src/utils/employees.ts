@@ -21,12 +21,13 @@ import {
 
 import graphqlRequestClient from "../lib/graphqlRequestClient";
 
-function useFindProjectsEmployees(projectId: string) {
+function useFindProjectsEmployees() {
+  const { client, projectId } = useAuthClient();
   const { data, error, isLoading } = useFindEmployeesByProjectIdQuery<
     FindEmployeesByProjectIdQuery,
     Error
-  >(graphqlRequestClient(), {
-    projectId: projectId || "",
+  >(client(), {
+    projectId: projectId,
     sortBy: Sort.Desc,
   });
   return {

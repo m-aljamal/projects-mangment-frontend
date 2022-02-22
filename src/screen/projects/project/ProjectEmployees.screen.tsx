@@ -5,9 +5,7 @@ import { useProjectId } from "src/utils/auth-provider";
 import { useFindProjectsEmployees } from "src/utils/employees";
 
 const ProjectEmployees = () => {
-  const projectId = useProjectId("employees");
-
-  const { employees } = useFindProjectsEmployees(projectId as string);
+  const { employees } = useFindProjectsEmployees();
 
   return (
     <div>
