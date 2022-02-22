@@ -1,3 +1,7 @@
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "src/context/auth-context";
+
 const localStorageKey = "___auth_provider_token___";
 
 async function getToken() {
@@ -110,4 +114,24 @@ async function client(endpoint: string, data: any) {
     });
 }
 
-export { getToken, handleUserResponse, currentUser, login, logout };
+function useProjectId() {
+  const { user }: any = useAuth();
+  const { projectId } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (user.projectId !== projectId) {
+      navigate(`/projects/${user.projectId}`);
+    }
+  }, [projectId]);
+  return projectId;
+}
+
+export {
+  getToken,
+  handleUserResponse,
+  currentUser,
+  login,
+  logout,
+  useProjectId,
+  client,
+};
