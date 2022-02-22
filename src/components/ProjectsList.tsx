@@ -23,7 +23,7 @@ const ProjectsList = () => {
         {projects.map((project) => (
           <Link to={`/projects/${project.id}`} key={project.id}>
             <div>
-              <h2>{project.name}</h2>
+              <h2>{project.nameAr}</h2>
             </div>
           </Link>
         ))}

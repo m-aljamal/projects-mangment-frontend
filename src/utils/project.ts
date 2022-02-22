@@ -5,7 +5,7 @@ import {
   useFindProjectQuery,
 } from "./../generated/generates";
 import { useQueryClient } from "react-query";
-import { useAuthClient } from "src/context/auth-context";
+import { useAuth, useAuthClient } from "src/context/auth-context";
 import {
   CreateProjectMutation,
   CreateProjectMutationVariables,
@@ -14,9 +14,9 @@ import {
 } from "src/generated/generates";
 
 function useProjectsList(sortBy: Sort) {
-  const clien = useAuthClient();
+  const { client } = useAuthClient();
   const { status, data, error, isFetching, isLoading } =
-    useFindAllProjectsQuery<FindAllProjectsQuery, Error>(clien(), {
+    useFindAllProjectsQuery<FindAllProjectsQuery, Error>(client(), {
       sortBy,
     });
   return {
@@ -30,7 +30,7 @@ function useProjectsList(sortBy: Sort) {
 
 function useCreateProject() {
   const queryClient = useQueryClient();
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { mutate, error } = useCreateProjectMutation<Error>(client(), {
     onSuccess: (
       data: CreateProjectMutation,
@@ -47,12 +47,12 @@ function useCreateProject() {
   return { mutate, error };
 }
 
-function useProject(id: string) {
-  const client = useAuthClient();
+function useProject() {
+  const { client, projectId } = useAuthClient();
 
   const { data, status, error } = useFindProjectQuery<FindProjectQuery, Error>(
     client(),
-    { id }
+    { id: projectId }
   );
   return {
     project: data?.findProject,

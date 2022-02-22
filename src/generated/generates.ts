@@ -22,7 +22,8 @@ export type Scalars = {
 };
 
 export type CreateProjectDto = {
-  name: Scalars['String'];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
   type: Scalars['String'];
 };
 
@@ -132,7 +133,8 @@ export type Project = {
   createdAt: Scalars['DateTime'];
   employees?: Maybe<Array<Employee>>;
   id: Scalars['String'];
-  name: Scalars['String'];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
   type: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -322,26 +324,27 @@ export type FindProjectEmployeesSalariesQueryVariables = Exact<{
 export type FindProjectEmployeesSalariesQuery = { __typename?: 'Query', findProjectEmployeesSalaries: Array<{ __typename?: 'Salaries', absence?: string | null, id: string, late?: string | null, name: string, punishment?: string | null, salary: number, totalSalart: number }> };
 
 export type CreateProjectMutationVariables = Exact<{
-  name: Scalars['String'];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
   type: Scalars['String'];
 }>;
 
 
-export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, name: string, type: string, createdAt: any, updatedAt: any } };
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, nameAr: string, nameEn: string, type: string, createdAt: any, updatedAt: any } };
 
 export type FindAllProjectsQueryVariables = Exact<{
   sortBy?: InputMaybe<Sort>;
 }>;
 
 
-export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', createdAt: any, id: string, name: string, type: string, updatedAt: any }> };
+export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', createdAt: any, id: string, nameAr: string, nameEn: string, type: string, updatedAt: any }> };
 
 export type FindProjectQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type FindProjectQuery = { __typename?: 'Query', findProject: { __typename?: 'Project', id: string, name: string, createdAt: any, type: string } };
+export type FindProjectQuery = { __typename?: 'Query', findProject: { __typename?: 'Project', id: string, nameAr: string, nameEn: string, createdAt: any, type: string } };
 
 
 export const LoginDocument = `
@@ -670,10 +673,11 @@ export const useFindProjectEmployeesSalariesQuery = <
       options
     );
 export const CreateProjectDocument = `
-    mutation createProject($name: String!, $type: String!) {
-  createProject(project: {name: $name, type: $type}) {
+    mutation createProject($nameAr: String!, $nameEn: String!, $type: String!) {
+  createProject(project: {nameAr: $nameAr, nameEn: $nameEn, type: $type}) {
     id
-    name
+    nameAr
+    nameEn
     type
     createdAt
     updatedAt
@@ -698,7 +702,8 @@ export const FindAllProjectsDocument = `
   findAllProjects(sortBy: $sortBy) {
     createdAt
     id
-    name
+    nameAr
+    nameEn
     type
     updatedAt
   }
@@ -722,7 +727,8 @@ export const FindProjectDocument = `
     query findProject($id: String!) {
   findProject(id: $id) {
     id
-    name
+    nameAr
+    nameEn
     createdAt
     type
   }

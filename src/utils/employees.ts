@@ -26,7 +26,7 @@ function useFindProjectsEmployees(projectId: string) {
     FindEmployeesByProjectIdQuery,
     Error
   >(graphqlRequestClient(), {
-    projectId,
+    projectId: projectId || "",
     sortBy: Sort.Desc,
   });
   return {
@@ -57,7 +57,7 @@ function useCreateEmployee() {
 }
 
 function useFindAllEmployees(role?: Role) {
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { data, error, status } = useFindAllEmployeesQuery<
     FindAllEmployeesQuery,
     Error
@@ -70,7 +70,7 @@ function useFindAllEmployees(role?: Role) {
 }
 
 function useFindEmployee(id: string) {
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { data, status } = useFindEmployeeByIdQuery<
     FindEmployeeByIdQuery,
     Error
@@ -84,7 +84,7 @@ function useFindEmployee(id: string) {
 }
 
 function useFindEmployeesSalaries(projectId: string) {
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { data, status, isLoading } = useFindProjectEmployeesSalariesQuery<
     FindProjectEmployeesSalariesQuery,
     Error

@@ -3,7 +3,8 @@ import { useCreateProject } from "src/utils/project";
 
 const CreateProject = () => {
   interface IProject {
-    name: string;
+    nameAr: string;
+    nameEn: string;
     type: string;
   }
 
@@ -19,7 +20,8 @@ const CreateProject = () => {
     <div>
       <h2>انشاء مشروع</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("name")} placeholder="الاسم" />
+        <input {...register("nameAr")} placeholder="الاسم" />
+        <input {...register("nameEn")} placeholder="Name" />
         <input {...register("type")} placeholder="النوع" />
         <button type="submit">انشاء</button>
       </form>

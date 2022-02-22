@@ -11,7 +11,7 @@ import {
 
 function useCreateDiscount() {
   const queryClient = useQueryClient();
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { mutate, error } = useCreateDiscountMutation<Error>(client(), {
     onSettled: () => queryClient.invalidateQueries("findDiscounts"),
   });
@@ -23,7 +23,7 @@ function useEmployeesListDiscounts(
   sortBy?: Sort,
   approved?: boolean
 ) {
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { data, error } = useFindDiscountsQuery<FindDiscountsQuery, Error>(
     client(),
     {
@@ -40,7 +40,7 @@ function useEmployeesListDiscounts(
 
 function useDeleteDiscount() {
   const queryClient = useQueryClient();
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { mutate, error } = useDeleteDiscountMutation<Error>(client(), {
     onSettled: () => queryClient.invalidateQueries("findDiscounts"),
   });
@@ -49,7 +49,7 @@ function useDeleteDiscount() {
 
 function useUpdateDiscount() {
   const queryClient = useQueryClient();
-  const client = useAuthClient();
+  const { client } = useAuthClient();
   const { mutate, error } = useUpdateDiscountMutation<Error>(client(), {
     onSettled: () => queryClient.invalidateQueries("findDiscounts"),
   });

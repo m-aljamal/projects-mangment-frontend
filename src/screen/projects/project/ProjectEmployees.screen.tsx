@@ -1,10 +1,12 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
+import { useProjectId } from "src/utils/auth-provider";
 import { useFindProjectsEmployees } from "src/utils/employees";
 
 const ProjectEmployees = () => {
-  const { projectId } = useParams();
+  const projectId = useProjectId("employees");
+
   const { employees } = useFindProjectsEmployees(projectId as string);
 
   return (

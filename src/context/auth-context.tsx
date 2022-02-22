@@ -6,8 +6,9 @@ import {
   useMemo,
 } from "react";
 import { useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import FullPageErrorFallback from "src/components/FullPageErrorFallback";
+import { Role } from "src/generated/generates";
 import graphqlRequestClient from "src/lib/graphqlRequestClient";
 import * as auth from "src/utils/auth-provider";
 import { useAsync } from "src/utils/hook";
@@ -78,9 +79,11 @@ function useAuth() {
 
 function useAuthClient() {
   const { user }: any = useAuth();
-  
-  
+  const { projectId } = useParams();
   const accessToken = user.accessToken;
-  return useCallback(() => graphqlRequestClient(accessToken), [accessToken]);
+  return {
+    client: useCallback(() => graphqlRequestClient(accessToken), [accessToken]),
+    projectId: user.role === Role.Admin ? projectId : user.projectId,
+  };
 }
 export { AuthProvider, useAuth, useAuthClient };

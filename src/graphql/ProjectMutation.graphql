@@ -1,10 +1,10 @@
-mutation createProject($name: String!, $type: String!) {
-  createProject(project: { name: $name, type: $type }) {
+mutation createProject($nameAr: String!, $nameEn: String!, $type: String!) {
+  createProject(project: { nameAr: $nameAr, nameEn: $nameEn, type: $type }) {
     id
-    name
+    nameAr
+    nameEn
     type
     createdAt
     updatedAt
   }
 }
-

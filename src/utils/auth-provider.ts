@@ -114,15 +114,15 @@ async function client(endpoint: string, data: any) {
     });
 }
 
-function useProjectId() {
-  const { user }: any = useAuth();
+function useProjectId(page?:string) {
+  // const { user }: any = useAuth();
   const { projectId } = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (user.projectId !== projectId) {
-      navigate(`/projects/${user.projectId}`);
-    }
-  }, [projectId]);
+  // useEffect(() => {
+  //   if (user.projectId !== projectId) {
+  //     navigate(`/projects/${user.projectId}/${page}`);
+  //   }
+  // }, [projectId]);
   return projectId;
 }
 
