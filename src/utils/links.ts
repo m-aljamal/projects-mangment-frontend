@@ -1,3 +1,6 @@
+import { useParams } from "react-router-dom";
+import { useProjectId } from "./auth-provider";
+
 export const adminLinks = [
   {
     to: "/",
@@ -13,7 +16,8 @@ export const adminLinks = [
   },
 ];
 
-export const projectLinks = (projectId: string) => {
+export const useProjectLinks = () => {
+  const projectId = useProjectId();
   return [
     {
       label: "الرئيسية",

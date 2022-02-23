@@ -49,7 +49,6 @@ function useCreateProject() {
 
 function useProject() {
   const { client, projectId } = useAuthClient();
-
   const { data, status, error } = useFindProjectQuery<FindProjectQuery, Error>(
     client(),
     { id: projectId }

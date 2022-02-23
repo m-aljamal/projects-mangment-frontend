@@ -1,6 +1,6 @@
-import { Link, useMatch } from "react-router-dom";
+import { Link, useMatch, useParams } from "react-router-dom";
 import { useAuth } from "src/context/auth-context";
-import { adminLinks, projectLinks } from "src/utils/links";
+import { adminLinks, useProjectLinks } from "src/utils/links";
 
 function NavLink(props: any) {
   const match = useMatch(props.to);
@@ -10,8 +10,9 @@ function NavLink(props: any) {
 function Nav() {
   const { logout, user }: any = useAuth();
 
-  const links =
-    user.role === "ADMIN" ? adminLinks : projectLinks(user.projectId);
+  const projectLinks = useProjectLinks();
+
+  const links = user.role === "ADMIN" ? adminLinks : projectLinks;
 
   return (
     <nav>

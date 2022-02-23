@@ -1,14 +1,14 @@
 import { Link, Outlet, useParams } from "react-router-dom";
-import { projectLinks } from "src/utils/links";
+import { useProjectLinks } from "src/utils/links";
 
 const ProjectLayout = () => {
-  const { projectId } = useParams();
+  const projectLinks = useProjectLinks();
 
   return (
     <div>
       <div>
         <ul className="flex gap-8 bg-gray-400 p-2">
-          {projectLinks(projectId as string).map((link) => (
+          {projectLinks.map((link) => (
             <li key={link.label}>
               <Link to={link.to}>{link.label}</Link>
             </li>

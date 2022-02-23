@@ -1,3 +1,4 @@
+import { Role } from "src/generated/generates";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "src/context/auth-context";
@@ -114,15 +115,15 @@ async function client(endpoint: string, data: any) {
     });
 }
 
-function useProjectId(page?:string) {
-  // const { user }: any = useAuth();
+function useProjectId(page?: string) {
+  const { user }: any = useAuth();
   const { projectId } = useParams();
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (user.projectId !== projectId) {
-  //     navigate(`/projects/${user.projectId}/${page}`);
-  //   }
-  // }, [projectId]);
+  useEffect(() => {
+    if (user.role !== Role.Admin && user.projectId !== projectId) {
+      navigate(`/projects/${user.projectId}/${page}`);
+    }
+  }, [projectId]);
   return projectId;
 }
 
