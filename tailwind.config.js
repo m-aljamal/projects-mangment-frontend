@@ -13,3 +13,11 @@ module.exports = {
   },
   plugins: [],
 };
+
+// green teal 600 
+// blue slate 900 
+//  red red-600
+// lite green teal 200
+// gray slate 300
+//  lite red red 400
+// liter gray slate 100

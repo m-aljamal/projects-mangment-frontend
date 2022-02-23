@@ -4,11 +4,19 @@ import { adminLinks, useProjectLinks } from "src/utils/links";
 
 function NavLink(props: any) {
   const match = useMatch(props.to);
-  return <Link {...props} className={`${match ? "text-orange-500" : null}`} />;
+
+  return (
+    <Link
+      className={` hover:bg-gray-700 hover:text-white hover:rounded-md py-2 block  ${
+        match ? "bg-gray-700 rounded-md text-white" : "text-gray-400"
+      }`}
+      {...props}
+    />
+  );
 }
 
 function Nav() {
-  const { logout, user }: any = useAuth();
+  const { user }: any = useAuth();
 
   const projectLinks = useProjectLinks();
 
@@ -18,13 +26,12 @@ function Nav() {
     <nav>
       <ul className=" space-y-4">
         {links?.map((link) => (
-          <li key={link.to}>
-            <NavLink to={link.to}>{link.label}</NavLink>
+          <li key={link.label}>
+            <NavLink key={link.to} to={link.to}>
+              {link.label}
+            </NavLink>
           </li>
         ))}
-        <li className=" cursor-pointer" onClick={logout}>
-          تسجيل الخروج
-        </li>
       </ul>
     </nav>
   );

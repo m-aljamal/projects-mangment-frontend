@@ -3,14 +3,15 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "src/context/auth-context";
 import FullPageErrorFallback from "./FullPageErrorFallback";
 import Nav from "./Nav";
-
+import { FaPowerOff } from "react-icons/fa";
+import { BiMessageDetail } from "react-icons/bi";
+import face from "src/face.jpg";
 const AppLayout = () => {
-  const { user }: any = useAuth();
   return (
     <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
       <div className="flex justify-between" style={{ direction: "rtl" }}>
-        <div className="bg-slate-800 text-white h-screen p-2 w-56 pt-5 sticky top-0  text-center ">
-          <p className="mb-8">{user?.name}</p>
+        <div className="bg-slate-900 text-gray-200 h-screen p-2 w-80 pt-5 sticky top-0  text-center ">
+          <UserInfo />
           <Nav />
         </div>
         <main className="bg-gray-200 w-full  ">
@@ -34,3 +35,26 @@ function ErrorFallback({ error }: any) {
 }
 
 export default AppLayout;
+
+const UserInfo = () => {
+  const { user, logout }: any = useAuth();
+
+  return (
+    <div>
+      <div className="flex justify-around">
+        <BiMessageDetail className="text-gray-300 text-xl" />
+        <FaPowerOff
+          className="text-gray-300 cursor-pointer text-lg"
+          onClick={logout}
+        />
+      </div>
+      <div className="w-24 h-24 mx-auto mt-8 mb-3">
+        <img src={face} alt="falce" className="rounded-full " />
+      </div>
+      <div className="mb-8">
+        <p className=" text-white text-lg">{user?.name}</p>
+        <p className="text-sm">{user?.username}</p>
+      </div>
+    </div>
+  );
+};

@@ -8,13 +8,13 @@ import {
 import { useQueryClient } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import FullPageErrorFallback from "src/components/FullPageErrorFallback";
-import { Role } from "src/generated/generates";
+import { Employee, Role } from "src/generated/generates";
 import graphqlRequestClient from "src/lib/graphqlRequestClient";
 import * as auth from "src/utils/auth-provider";
 import { useAsync } from "src/utils/hook";
 
 async function bootstrapAppData() {
-  let user = null;
+  let user: Employee | null = null;
   const accessToken = await auth.getToken();
 
   if (accessToken) {
@@ -38,15 +38,17 @@ function AuthProvider(props: any) {
     setData,
     run,
   } = useAsync();
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
   useEffect(() => {
     const appDataPromise = bootstrapAppData();
     run(appDataPromise);
   }, [run]);
 
   const login = useCallback(
-    (form) => auth.login(form).then((user) => setData(user)),
+    (form) => auth.login(form).then((user: Employee) => setData(user)),
     [setData]
   );
 

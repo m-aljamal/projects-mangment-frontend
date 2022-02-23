@@ -33,6 +33,7 @@ async function currentUser(accessToken: string) {
               createdAt
               projectId
               role
+              username
             }
           }
         `,
