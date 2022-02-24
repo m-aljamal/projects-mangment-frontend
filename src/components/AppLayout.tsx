@@ -63,7 +63,7 @@ const UserInfo = () => {
 
 const Header = () => {
   return (
-    <div>
+    <div className="shadow-sm">
       <div className="flex justify-between mx-8 my-4">
         <AiOutlineMenu className="text-xl text-gray-700" />
         <AiOutlineSearch className="text-2xl text-gray-700 " />
