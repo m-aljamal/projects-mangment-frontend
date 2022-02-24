@@ -8,10 +8,8 @@ const ProjectEmployees = () => {
 
   return (
     <div>
-      <div>
-        <CreateEmployee />
-      </div>
       <h2>موظفين المشروع</h2>
+      <p>81 موظف</p>
       <div>
         {employees.map((employee) => (
           <Link key={employee.id} to={`/employee/${employee.id}`}>

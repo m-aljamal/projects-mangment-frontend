@@ -6,6 +6,7 @@ import Nav from "./Nav";
 import { FaPowerOff } from "react-icons/fa";
 import { BiMessageDetail } from "react-icons/bi";
 import face from "src/face.jpg";
+import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 const AppLayout = () => {
   return (
     <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
@@ -14,7 +15,8 @@ const AppLayout = () => {
           <UserInfo />
           <Nav />
         </div>
-        <main className="bg-gray-200 w-full  ">
+        <main className="w-full">
+          <Header />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Outlet />
           </ErrorBoundary>
@@ -55,6 +57,18 @@ const UserInfo = () => {
         <p className=" text-white text-lg">{user?.name}</p>
         <p className="text-sm">{user?.username}</p>
       </div>
+    </div>
+  );
+};
+
+const Header = () => {
+  return (
+    <div>
+      <div className="flex justify-between mx-8 my-4">
+        <AiOutlineMenu className="text-xl text-gray-700" />
+        <AiOutlineSearch className="text-2xl text-gray-700 " />
+      </div>
+      <hr />
     </div>
   );
 };
