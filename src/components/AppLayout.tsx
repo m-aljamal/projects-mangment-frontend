@@ -15,7 +15,7 @@ const AppLayout = () => {
           <UserInfo />
           <Nav />
         </div>
-        <main className="w-full">
+        <main className="w-full container">
           <Header />
           <ErrorBoundary FallbackComponent={ErrorFallback}>
             <Outlet />
@@ -64,11 +64,11 @@ const UserInfo = () => {
 const Header = () => {
   return (
     <div className="shadow-sm">
-      <div className="flex justify-between mx-8 my-4">
+      <div className="flex justify-between   my-4">
         <AiOutlineMenu className="text-xl text-gray-700" />
         <AiOutlineSearch className="text-2xl text-gray-700 " />
       </div>
-      <hr />
+      <hr className="-mx-4" />
     </div>
   );
 };

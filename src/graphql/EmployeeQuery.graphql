@@ -36,6 +36,16 @@ query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
     createdAt
     salary
     username
+    avatar
+    jopTitle
+    divisions {
+      divisionNumber
+      divisionString
+    }
+    levels {
+      levelNumber
+      levelString
+    }
   }
 }
 

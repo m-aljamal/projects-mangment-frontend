@@ -10,7 +10,6 @@ import ProjectEmployeesScreen from "./projects/project/ProjectEmployees.screen";
 import ProjectEmployees from "./projects/project/ProjectEmployees.screen";
 import NotFound from "./NotFound";
 import ProjectsScreen from "./projects/Index";
-import StructureScreen from "./projects/project/Structure.screen";
 import WorkLate from "./projects/project/discounts.screen";
 const ProjectScreen = lazy(() => import("./projects/project"));
 
@@ -35,7 +34,6 @@ function AppRoutes() {
               </Suspense>
             }
           />
-          <Route path="structure" element={<StructureScreen />} />
           <Route path="employees" element={<ProjectEmployeesScreen />} />
           <Route path="worklate" element={<WorkLate />} />
         </Route>

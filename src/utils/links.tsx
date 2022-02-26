@@ -26,11 +26,7 @@ export const useProjectLinks = () => {
       to: `/projects/${projectId}`,
       icon: <AiOutlinePieChart />,
     },
-    {
-      label: "الهيكل التنظيمي",
-      to: `/projects/${projectId}/structure`,
-      icon: <AiOutlinePieChart />,
-    },
+
     {
       label: "موظفين المشروع",
       to: `/projects/${projectId}/employees`,
