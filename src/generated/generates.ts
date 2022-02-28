@@ -67,25 +67,25 @@ export type Employee = {
   __typename?: 'Employee';
   avatar?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
-  currentMonthDiscounts: Array<CurrentMonthDiscount>;
+  currentMonthDiscounts?: Array<CurrentMonthDiscount>;
   divisions?: Maybe<Array<Division>>;
   id: Scalars['String'];
-  jobTitle?: Maybe<JopTitle>;
+  jobTitle?: Maybe<JobTitle>;
   levels?: Maybe<Array<Level>>;
   name: Scalars['String'];
-  password: Scalars['String'];
-  project: Project;
+  password?: Scalars['String'];
+  project?: Project;
   projectId?: Maybe<Scalars['String']>;
   role: Role;
   salary?: Maybe<Scalars['Float']>;
-  updatedAt: Scalars['DateTime'];
+  updatedAt?: Scalars['DateTime'];
   username: Scalars['String'];
 };
 
 export type EmployeeDto = {
   avatar?: InputMaybe<Scalars['String']>;
   divisions?: InputMaybe<Array<DivisionInput>>;
-  jobTitle?: InputMaybe<JopTitle>;
+  jobTitle?: InputMaybe<JobTitle>;
   levels?: InputMaybe<Array<LevelInput>>;
   name: Scalars['String'];
   password: Scalars['String'];
@@ -95,7 +95,14 @@ export type EmployeeDto = {
   username: Scalars['String'];
 };
 
-export enum JopTitle {
+export type EmployeesByRole = {
+  __typename?: 'EmployeesByRole';
+  mangers: Array<Employee>;
+  services: Array<Employee>;
+  teachers: Array<Employee>;
+};
+
+export enum JobTitle {
   Cleaner = 'CLEANER',
   Counselor = 'COUNSELOR',
   DataEntry = 'DATA_ENTRY',
@@ -188,8 +195,8 @@ export type Query = {
   findAllProjects: Array<Project>;
   findDiscounts: Array<CurrentMonthDiscount>;
   findEmployeeById: Employee;
-  findEmployeeJobAggregates: Employee;
   findEmployeesByProjectId: Array<Employee>;
+  findEmployeesByRole: EmployeesByRole;
   findProject: Project;
   findProjectEmployeesSalaries: Array<Salaries>;
 };
@@ -219,14 +226,14 @@ export type QueryFindEmployeeByIdArgs = {
 };
 
 
-export type QueryFindEmployeeJobAggregatesArgs = {
-  projectId: Scalars['String'];
-};
-
-
 export type QueryFindEmployeesByProjectIdArgs = {
   projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
+};
+
+
+export type QueryFindEmployeesByRoleArgs = {
+  projectId: Scalars['String'];
 };
 
 
@@ -242,6 +249,7 @@ export type QueryFindProjectEmployeesSalariesArgs = {
 export enum Role {
   Admin = 'ADMIN',
   Manger = 'MANGER',
+  Service = 'SERVICE',
   Teacher = 'TEACHER'
 }
 
@@ -330,14 +338,14 @@ export type CreateEmployeeMutationVariables = Exact<{
   salary?: InputMaybe<Scalars['Float']>;
   username: Scalars['String'];
   role?: InputMaybe<Role>;
-  jopTitle?: InputMaybe<JopTitle>;
+  jobTitle?: InputMaybe<JobTitle>;
   divisions?: InputMaybe<Array<DivisionInput> | DivisionInput>;
   levels?: InputMaybe<Array<LevelInput> | LevelInput>;
   avatar?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, jobTitle?: JopTitle | null, username: string, salary?: number | null, role: Role, avatar?: string | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: string | null }> | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: string | null }> | null } };
+export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, jobTitle?: JobTitle | null, username: string, salary?: number | null, role: Role, avatar?: string | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: string | null }> | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: string | null }> | null } };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -366,7 +374,7 @@ export type FindEmployeesByProjectIdQueryVariables = Exact<{
 }>;
 
 
-export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string, avatar?: string | null, jobTitle?: JopTitle | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: string | null }> | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: string | null }> | null }> };
+export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string, avatar?: string | null, jobTitle?: JobTitle | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: string | null }> | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: string | null }> | null }> };
 
 export type FindProjectEmployeesSalariesQueryVariables = Exact<{
   projectId: Scalars['String'];
@@ -374,6 +382,13 @@ export type FindProjectEmployeesSalariesQueryVariables = Exact<{
 
 
 export type FindProjectEmployeesSalariesQuery = { __typename?: 'Query', findProjectEmployeesSalaries: Array<{ __typename?: 'Salaries', absence?: string | null, id: string, late?: string | null, name: string, punishment?: string | null, salary: number, totalSalart: number }> };
+
+export type FindEmployeeByRoleQueryVariables = Exact<{
+  projectId: Scalars['String'];
+}>;
+
+
+export type FindEmployeeByRoleQuery = { __typename?: 'Query', findEmployeesByRole: { __typename?: 'EmployeesByRole', mangers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, services: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, teachers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: string | null }> | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: string | null }> | null }> } };
 
 export type CreateProjectMutationVariables = Exact<{
   nameAr: Scalars['String'];
@@ -571,9 +586,9 @@ export const useFindAllEmployeesDiscountsQuery = <
       options
     );
 export const CreateEmployeeDocument = `
-    mutation createEmployee($name: String!, $password: String!, $projectId: String, $salary: Float, $username: String!, $role: Role, $jopTitle: JopTitle, $divisions: [DivisionInput!], $levels: [LevelInput!], $avatar: String) {
+    mutation createEmployee($name: String!, $password: String!, $projectId: String, $salary: Float, $username: String!, $role: Role, $jobTitle: JobTitle, $divisions: [DivisionInput!], $levels: [LevelInput!], $avatar: String) {
   createEmployee(
-    employee: {name: $name, username: $username, password: $password, projectId: $projectId, salary: $salary, role: $role, jobTitle: $jopTitle, divisions: $divisions, levels: $levels, avatar: $avatar}
+    employee: {name: $name, username: $username, password: $password, projectId: $projectId, salary: $salary, role: $role, jobTitle: $jobTitle, divisions: $divisions, levels: $levels, avatar: $avatar}
   ) {
     createdAt
     id
@@ -743,6 +758,64 @@ export const useFindProjectEmployeesSalariesQuery = <
     useQuery<FindProjectEmployeesSalariesQuery, TError, TData>(
       ['findProjectEmployeesSalaries', variables],
       fetcher<FindProjectEmployeesSalariesQuery, FindProjectEmployeesSalariesQueryVariables>(client, FindProjectEmployeesSalariesDocument, variables, headers),
+      options
+    );
+export const FindEmployeeByRoleDocument = `
+    query findEmployeeByRole($projectId: String!) {
+  findEmployeesByRole(projectId: $projectId) {
+    mangers {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+    }
+    services {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+    }
+    teachers {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+      divisions {
+        divisionNumber
+        divisionString
+      }
+      levels {
+        levelNumber
+        levelString
+      }
+    }
+  }
+}
+    `;
+export const useFindEmployeeByRoleQuery = <
+      TData = FindEmployeeByRoleQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeeByRoleQueryVariables,
+      options?: UseQueryOptions<FindEmployeeByRoleQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeeByRoleQuery, TError, TData>(
+      ['findEmployeeByRole', variables],
+      fetcher<FindEmployeeByRoleQuery, FindEmployeeByRoleQueryVariables>(client, FindEmployeeByRoleDocument, variables, headers),
       options
     );
 export const CreateProjectDocument = `

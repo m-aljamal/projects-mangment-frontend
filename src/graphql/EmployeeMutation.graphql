@@ -5,7 +5,7 @@ mutation createEmployee(
   $salary: Float
   $username: String!
   $role: Role
-  $jopTitle: JopTitle
+  $jobTitle: JobTitle
   $divisions: [DivisionInput!]
   $levels: [LevelInput!]
   $avatar: String
@@ -18,7 +18,7 @@ mutation createEmployee(
       projectId: $projectId
       salary: $salary
       role: $role
-      jobTitle: $jopTitle
+      jobTitle: $jobTitle
       divisions: $divisions
       levels: $levels
       avatar: $avatar

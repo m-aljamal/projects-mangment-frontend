@@ -2,13 +2,11 @@ import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
-import {
-  useFindProjectEmployeeSortByJobTitle,
-  useFindProjectsEmployees,
-} from "src/utils/employees";
 import { IoMdAdd } from "react-icons/io";
+import { useFindEmployeesByRole } from "src/utils/employees";
+import { Employee } from "src/generated/generates";
 const ProjectEmployees = () => {
-  const { data, usedData } = useFindProjectEmployeeSortByJobTitle();
+  const { mangers, services, teachers } = useFindEmployeesByRole();
 
   return (
     <div>
@@ -33,30 +31,33 @@ const ProjectEmployees = () => {
           </div>
         </div>
       </div>
-      <Employeelist list={usedData["الكادر الاداري"]} title="الكادر الاداري" />
-      <Employeelist
-        list={usedData["الكادر التدريسي"]}
-        title="الكادر التدريسي"
-      />
-      <Employeelist list={usedData["الكادر الخدمي"]} title="الكادر الخدمي" />
+      <Employeelist employees={mangers} title="الكادر الاداري" />
+      <Employeelist employees={teachers} title="الكادر التدريسي" />
+      <Employeelist employees={services} title="الكادر الخدمي" />
     </div>
   );
 };
 
 export default ProjectEmployees;
 
-const Employeelist = ({ list = [], title }: any) => {
+const Employeelist = ({
+  employees,
+  title,
+}: {
+  employees: Employee[] | [];
+  title: string;
+}) => {
   return (
     <>
-      <EmployeeJopTitle title={title} />
-      {list.map((item: any) => (
-        <Employee key={item.id} employee={item} />
+      <EmployeeJobTitle title={title} />
+      {employees.map((employee: Employee) => (
+        <SingleEmployee key={employee.id} employee={employee} />
       ))}
     </>
   );
 };
 
-const EmployeeJopTitle = ({ title }: { title: string }) => {
+const EmployeeJobTitle = ({ title }: { title: string }) => {
   return (
     <div className=" border-t border-b py-1 -mx-4 px-4 bg-slate-50">
       <p className="text-gray-700 font-bold">{title}</p>
@@ -64,13 +65,14 @@ const EmployeeJopTitle = ({ title }: { title: string }) => {
   );
 };
 
-const Employee = ({ employee }: any) => {
+const SingleEmployee = ({ employee }: { employee: Employee }) => {
   return (
-    <Link key={employee.id} to={`/employee/${employee.id}`}>
-      <div className=" bg-white m-3">
+    <div className=" bg-white m-3 border">
+      <Link key={employee.id} to={`/employee/${employee.id}`}>
         <h3>{employee.name}</h3>
-      </div>
-    </Link>
+        <p>{employee.jobTitle}</p>
+        <p>{employee.role}</p>
+      </Link>
+    </div>
   );
 };
-

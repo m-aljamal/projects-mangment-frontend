@@ -60,3 +60,46 @@ query findProjectEmployeesSalaries($projectId: String!) {
     totalSalart
   }
 }
+
+query findEmployeeByRole($projectId: String!) {
+  findEmployeesByRole(projectId: $projectId) {
+    mangers {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+    }
+    services {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+    }
+    teachers {
+      avatar
+      createdAt
+      id
+      jobTitle
+      name
+      role
+      salary
+      username
+      divisions {
+        divisionNumber
+        divisionString
+      }
+      levels {
+        levelNumber
+        levelString
+      }
+    }
+  }
+}
