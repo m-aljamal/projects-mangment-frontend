@@ -37,6 +37,14 @@ function useFindProjectsEmployees() {
   };
 }
 
+function useFindProjectEmployeeSortByJobTitle() {
+  const employees = useFindProjectsEmployees();
+  console.log(employees);
+  return {
+    employees,
+  };
+}
+
 function useCreateEmployee() {
   const queryClient = useQueryClient();
   const { mutate, error } = useCreateEmployeeMutation<Error>(
@@ -105,4 +113,5 @@ export {
   useFindAllEmployees,
   useFindEmployee,
   useFindEmployeesSalaries,
+  useFindProjectEmployeeSortByJobTitle,
 };

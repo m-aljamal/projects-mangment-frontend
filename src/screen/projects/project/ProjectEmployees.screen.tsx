@@ -2,13 +2,15 @@ import React from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
-import { useFindProjectsEmployees } from "src/utils/employees";
+import { useFindProjectEmployeeSortByJobTitle, useFindProjectsEmployees } from "src/utils/employees";
 import { IoMdAdd } from "react-icons/io";
 import { JopTitle } from "src/generated/generates";
 const ProjectEmployees = () => {
-  const { employees } = useFindProjectsEmployees();
 
-  console.log(employees);
+  const { employees } = useFindProjectEmployeeSortByJobTitle();
+
+ console.log(employees);
+ 
 
   return (
     <div>
@@ -33,12 +35,12 @@ const ProjectEmployees = () => {
           </div>
         </div>
       </div>
-
+{/* 
       <div className="mt-4">
         <EmployeeJopTitle title="الكادر اﻹداري" />
         {employees.map(
           (employee) =>
-            employee?.jopTitle === JopTitle.Supervisor && (
+            employee?.jobTitle === JopTitle.Supervisor && (
               <>
                 <Employee employee={employee} />
               </>
@@ -49,13 +51,13 @@ const ProjectEmployees = () => {
         <EmployeeJopTitle title="الكادر التدريسي" />
         {employees.map(
           (employee) =>
-            employee?.jopTitle === JopTitle.Teacher && (
+            employee?.jobTitle === JopTitle.Teacher && (
               <>
                 <Employee employee={employee} />
               </>
             )
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

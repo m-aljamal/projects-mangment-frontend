@@ -18,7 +18,7 @@ mutation createEmployee(
       projectId: $projectId
       salary: $salary
       role: $role
-      jopTitle: $jopTitle
+      jobTitle: $jopTitle
       divisions: $divisions
       levels: $levels
       avatar: $avatar
@@ -27,15 +27,15 @@ mutation createEmployee(
     createdAt
     id
     name
-    jopTitle
+    jobTitle
     username
     salary
     role
-    avatar
     divisions {
       divisionNumber
       divisionString
     }
+    avatar
     levels {
       levelNumber
       levelString
