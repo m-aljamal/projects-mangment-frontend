@@ -1,4 +1,5 @@
 import {
+  Employee,
   FindAllEmployeesQuery,
   FindEmployeeByIdQuery,
   FindEmployeesByProjectIdQuery,
@@ -38,10 +39,81 @@ function useFindProjectsEmployees() {
 }
 
 function useFindProjectEmployeeSortByJobTitle() {
-  const employees = useFindProjectsEmployees();
-  console.log(employees);
+  const data = useFindProjectsEmployees();
+ 
+  // const groupedByJobTitle = data.employees.reduce((acc, curr) => {
+  //   if (!acc[curr.jobTitle]) {
+  //     acc[curr.jobTitle] = [];
+  //   }
+  //   acc[curr.jobTitle].push(curr);
+  //   return acc;
+  // }, {});
+  const usedData = {
+    "الكادر الاداري": [
+      {
+        id: "0506ec34-36c2-fc",
+        name: "محمد عبدالله بن عبدالرحمن الشيخ",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "0506ec34-36c2-46d3-fd27f4cc",
+        name: "محمد عبدالله بن عبدالرحمن الشيخ",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "0506ec34-gfg2-64085d27f4cc",
+        name: "محمد عبدالله بن عبدالرحمن الشيخ",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+    ],
+    "الكادر التدريسي": [
+      {
+        id: "0506fdf-64085d27f4cc",
+        name: "التدريسي",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "dfd4085d27f4cc",
+        name: "التدريسي",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "ge4cc",
+        name: "التدريسي",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+    ],
+    "الكادر الخدمي": [
+      {
+        id: "0506ec34-3gcc",
+        name: "الاداري",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "0fdf2-46d3-9c72-64085d27f4cc",
+        name: "الاداري",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+      {
+        id: "0506fdc72-64085d27f4cc",
+        name: "الاداري",
+        jobTitle: "الكادر الاداري",
+        salary: 0,
+      },
+    ],
+  };
+
   return {
-    employees,
+    data,
+    usedData,
   };
 }
 
