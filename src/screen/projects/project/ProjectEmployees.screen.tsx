@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
 import { IoMdAdd } from "react-icons/io";
 import { useFindEmployeesByRole } from "src/utils/employees";
-import { Employee } from "src/generated/generates";
+import { JobTitle, Role } from "src/generated/generates";
+import avatar from "src/avatar.png";
 const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
 
@@ -40,17 +41,28 @@ const ProjectEmployees = () => {
 
 export default ProjectEmployees;
 
+interface IEmployee {
+  avatar?: string | null | undefined;
+  createdAt: any;
+  id: string;
+  jobTitle?: JobTitle | null | undefined;
+  name: string;
+  role: Role;
+  salary?: number | null | undefined;
+  username: string;
+}
+
 const Employeelist = ({
   employees,
   title,
 }: {
-  employees: Employee[] | [];
+  employees: IEmployee[] | [];
   title: string;
 }) => {
   return (
     <>
       <EmployeeJobTitle title={title} />
-      {employees.map((employee: Employee) => (
+      {employees.map((employee: IEmployee) => (
         <SingleEmployee key={employee.id} employee={employee} />
       ))}
     </>
@@ -65,13 +77,24 @@ const EmployeeJobTitle = ({ title }: { title: string }) => {
   );
 };
 
-const SingleEmployee = ({ employee }: { employee: Employee }) => {
+const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
+  console.log(employee);
+console.log(JobTitle.DATA_ENTRY);
+
   return (
-    <div className=" bg-white m-3 border">
+    <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 ">
       <Link key={employee.id} to={`/employee/${employee.id}`}>
-        <h3>{employee.name}</h3>
-        <p>{employee.jobTitle}</p>
-        <p>{employee.role}</p>
+        <div className="flex gap-5 items-center ">
+          <img
+            src={employee?.avatar || avatar}
+            alt={employee.name}
+            className="rounded-full w-16"
+          />
+          <div>
+            <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
+            <p className="text-sm text-gray-600">{employee.jobTitle}</p>
+          </div>
+        </div>
       </Link>
     </div>
   );
