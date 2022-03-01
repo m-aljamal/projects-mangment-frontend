@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
 import { IoMdAdd } from "react-icons/io";
-import { useFindEmployeesByRole } from "src/utils/employees";
+
 import { JobTitle, Role } from "src/generated/generates";
 import avatar from "src/avatar.png";
+import { useFindEmployeesByRole } from "src/utils/employees";
 const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
 
@@ -32,6 +33,7 @@ const ProjectEmployees = () => {
           </div>
         </div>
       </div>
+
       <Employeelist employees={mangers} title="الكادر الاداري" />
       <Employeelist employees={teachers} title="الكادر التدريسي" />
       <Employeelist employees={services} title="الكادر الخدمي" />
@@ -45,7 +47,7 @@ interface IEmployee {
   avatar?: string | null | undefined;
   createdAt: any;
   id: string;
-  jobTitle?: JobTitle | null | undefined;
+  jobTitle?: String | null | undefined;
   name: string;
   role: Role;
   salary?: number | null | undefined;
@@ -78,9 +80,6 @@ const EmployeeJobTitle = ({ title }: { title: string }) => {
 };
 
 const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
-  console.log(employee);
-console.log(JobTitle.DATA_ENTRY);
-
   return (
     <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 ">
       <Link key={employee.id} to={`/employee/${employee.id}`}>
@@ -92,7 +91,9 @@ console.log(JobTitle.DATA_ENTRY);
           />
           <div>
             <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
-            <p className="text-sm text-gray-600">{employee.jobTitle}</p>
+            <p className="text-sm text-gray-600">
+              {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+            </p>
           </div>
         </div>
       </Link>

@@ -127,13 +127,13 @@ export type EmployeesByRole = {
 };
 
 export enum JobTitle {
-  SUPERVISOR = "مشرف تربوي",
-  HEAD_TEACHERS = "المدير",
+  EDUCATION_SUPERVISOR = "مشرف تربوي",
+  PRINCIPAL = "المدير",
   TEACHER = "مدرس",
   DATA_ENTRY = "مدخل بيانات",
   SECRETARY = "امين سر",
   COUNSELOR = "مرشد",
-  MEDIA = "اعلامي",
+  MEDIA_Fotographer = "اعلامي",
   CLEANER = "مستخدم",
   GUARD = "حارس",
 }
