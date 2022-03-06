@@ -31,7 +31,9 @@ const CreateEmployee = () => {
     <div>
       <h2>إضافة موظف</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("name")} placeholder="Name" className="block m-1" />
+       
+       
+        <Input {...register('name')} placeholder="الاسم"/>
         <input
           {...register("username")}
           placeholder="Username"
@@ -62,3 +64,7 @@ const CreateEmployee = () => {
 };
 
 export default CreateEmployee;
+
+const Input = ({ ...props }) => {
+  return <input {...props} className="form-input rounded-md p-1" />;
+};

@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
-import { Link } from "react-router-dom";
 import CreateEmployee from "src/components/CreateEmployee";
 import { IoMdAdd } from "react-icons/io";
 
 import { JobTitle, Role } from "src/generated/generates";
 import avatar from "src/avatar.png";
 import { useFindEmployeesByRole } from "src/utils/employees";
-import { Button, Drawer, Group } from "@mantine/core";
 import {
-  AppDrawer,
+  Drawer,
   DrawerContents,
   DrawerOpenButton,
 } from "src/components/AppDrawer";
+import AppButton from "src/components/AppButton";
 const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
   return (
@@ -32,32 +31,28 @@ const ProjectEmployees = () => {
               />
             </div>
           </form>
-          <div className="bg-indigo-600 text-white px-8 py-2 rounded-3xl flex items-center gap-1 ">
-            <AppDrawer>
-              <DrawerOpenButton>
-                <button className="font-bold ">جديد</button>
-              </DrawerOpenButton>
-              <DrawerContents padding="xl" size="xl">
-                <p>dfd</p>
-              </DrawerContents>
-            </AppDrawer>
-            <IoMdAdd className="text-xl " />
-          </div>
+
+          <Drawer>
+            <DrawerOpenButton>
+              <AppButton
+                hover="bg-[#524bd4]"
+                color="bg-[#4f46e5]"
+                rightIcon={<IoMdAdd className="mr-1" />}
+                radius={"xl"}
+              >
+                موظف جديد
+              </AppButton>
+            </DrawerOpenButton>
+            <DrawerContents>
+              <CreateEmployee />
+            </DrawerContents>
+          </Drawer>
         </div>
       </div>
 
       <Employeelist employees={mangers} title="الكادر الاداري" />
       <Employeelist employees={teachers} title="الكادر التدريسي" />
       <Employeelist employees={services} title="الكادر الخدمي" />
-
-      {/* <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        padding="xl"
-        size="xl"
-      >
-        <p>create</p>
-      </Drawer> */}
     </div>
   );
 };
@@ -101,32 +96,29 @@ const EmployeeJobTitle = ({ title }: { title: string }) => {
 };
 
 const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
-  const [opened, setOpened] = useState(false);
   return (
-    <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 cursor-pointer ">
-      <div onClick={() => setOpened(true)} className="flex gap-5 items-center ">
-        <img
-          src={employee?.avatar || avatar}
-          alt={employee.name}
-          className="rounded-full w-16"
-        />
-        <div>
-          <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
-          <p className="text-sm text-gray-600">
-            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
-          </p>
+    <Drawer>
+      <DrawerOpenButton>
+        <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 cursor-pointer ">
+          <div className="flex gap-5 items-center ">
+            <img
+              src={employee?.avatar || avatar}
+              alt={employee.name}
+              className="rounded-full w-16"
+            />
+            <div>
+              <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
+              <p className="text-sm text-gray-600">
+                {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <Drawer
-        opened={opened}
-        onClose={() => setOpened(false)}
-        padding="xl"
-        size="xl"
-      >
+      </DrawerOpenButton>
+      <DrawerContents>
         <FullEmployeeInfo employee={employee} />
-      </Drawer>
-    </div>
+      </DrawerContents>
+    </Drawer>
   );
 };
 

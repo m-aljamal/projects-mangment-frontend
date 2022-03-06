@@ -10,7 +10,7 @@ import { AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 const AppLayout = () => {
   return (
     <ErrorBoundary FallbackComponent={FullPageErrorFallback}>
-      <div className="flex justify-between" style={{ direction: "rtl" }}>
+      <div className="flex justify-between " style={{ direction: "rtl" }}>
         <div className="bg-slate-900 text-gray-200 h-screen p-2 w-80 pt-5 sticky top-0  text-center ">
           <UserInfo />
           <Nav />
