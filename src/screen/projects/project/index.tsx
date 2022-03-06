@@ -1,12 +1,15 @@
 import { useProject } from "src/utils/project";
 import face from "src/face.jpg";
 import { useAuth } from "src/context/auth-context";
+import { Button, Drawer, Group, Input } from "@mantine/core";
+import { useState } from "react";
 const IndexScreen = () => {
   const { project, status, error } = useProject();
   const { user }: any = useAuth();
+  const [opened, setOpened] = useState(false);
   return (
     <div>
-      <div className="flex items-center gap-3 pt-10 pr-8">
+      <div className="flex items-center gap-3 pt-10 ">
         <div>
           <img src={face} className="rounded-full w-16" />
         </div>

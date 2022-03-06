@@ -7,6 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 import { JobTitle, Role } from "src/generated/generates";
 import avatar from "src/avatar.png";
 import { useFindEmployeesByRole } from "src/utils/employees";
+import { Button, Drawer, Group } from "@mantine/core";
 const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
 
@@ -80,23 +81,345 @@ const EmployeeJobTitle = ({ title }: { title: string }) => {
 };
 
 const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
+  const [opened, setOpened] = useState(false);
   return (
-    <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 ">
-      <Link key={employee.id} to={`/employee/${employee.id}`}>
-        <div className="flex gap-5 items-center ">
-          <img
-            src={employee?.avatar || avatar}
-            alt={employee.name}
-            className="rounded-full w-16"
-          />
-          <div>
-            <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
-            <p className="text-sm text-gray-600">
-              {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
-            </p>
-          </div>
+    <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 cursor-pointer ">
+      <div onClick={() => setOpened(true)} className="flex gap-5 items-center ">
+        <img
+          src={employee?.avatar || avatar}
+          alt={employee.name}
+          className="rounded-full w-16"
+        />
+        <div>
+          <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
         </div>
-      </Link>
+      </div>
+
+      <Drawer
+        opened={opened}
+        onClose={() => setOpened(false)}
+        padding="xl"
+        size="xl"
+      >
+        <FullEmployeeInfo employee={employee} />
+      </Drawer>
+    </div>
+  );
+};
+
+const FullEmployeeInfo = ({ employee }: { employee: IEmployee }) => {
+  return (
+    <div className="bg-white p-4">
+      <div className="flex gap-5 items-center ">
+        <img
+          src={employee?.avatar || avatar}
+          alt={employee.name}
+          className="rounded-full w-16"
+        />
+        <div>
+          <h2 className=" text-gray-800 font-medium ">{employee.name}</h2>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+          <p className="text-sm text-gray-600">
+            {JobTitle[employee.jobTitle as keyof typeof JobTitle]}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

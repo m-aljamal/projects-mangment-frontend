@@ -15,7 +15,7 @@ function NavLink({ link }: ILink) {
   return (
     <Link
       to={link.to}
-      className={` hover:bg-gray-700 hover:text-white hover:rounded-md flex items-center pr-4    ${
+      className={` hover:bg-gray-700 hover:text-white hover:rounded-md flex items-center pr-4 transition duration-300   ${
         match ? "bg-gray-700 rounded-md text-white" : "text-gray-400"
       }`}
     >
