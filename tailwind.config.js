@@ -1,3 +1,5 @@
+const { default: plugin } = require("tailwindcss/plugin");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -11,11 +13,11 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };
 
-// green teal 600 
-// blue slate 900 
+// green teal 600
+// blue slate 900
 //  red red-600
 // lite green teal 200
 // gray slate 300
