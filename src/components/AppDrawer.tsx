@@ -37,7 +37,9 @@ function DrawerContentsBase(props: any) {
         }
       >
         <article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 h-full">
-          <header className="p-4 font-bold text-lg">Header</header>
+          <header className="p-4 font-bold text-lg text-gray-700">
+            {props.header}
+          </header>
 
           {props.children}
         </article>

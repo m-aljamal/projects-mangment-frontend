@@ -43,7 +43,7 @@ const ProjectEmployees = () => {
                 موظف جديد
               </AppButton>
             </DrawerOpenButton>
-            <DrawerContents>
+            <DrawerContents header="اضافة موظف">
               <CreateEmployee />
             </DrawerContents>
           </Drawer>

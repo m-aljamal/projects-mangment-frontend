@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import { Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
+import { GoPerson } from "react-icons/go";
+import { FaUserCog } from "react-icons/fa";
 
 const CreateEmployee = () => {
   interface IEmployee {
@@ -28,33 +30,16 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div>
-      <h2>إضافة موظف</h2>
+    <div className="px-4">
       <form onSubmit={handleSubmit(onSubmit)}>
-       
-       
-        <Input {...register('name')} placeholder="الاسم"/>
-        <input
+        <Input {...register("name")} placeholder="الاسم" icon={<GoPerson />} />
+        <Input
           {...register("username")}
-          placeholder="Username"
-          className="block m-1"
+          placeholder="اسم المستخدم"
+          icon={<FaUserCog />}
         />
-        <input
-          {...register("password")}
-          placeholder="Password"
-          className="block m-1"
-        />
-        <input
-          {...register("projectId")}
-          placeholder="ProjectId"
-          className="block m-1"
-        />
-        <input
-          {...register("salary")}
-          placeholder="Salary"
-          type="number"
-          className="block m-1"
-        />
+        <Input {...register("password")} placeholder="كلمة السر" />
+
         <button className="bg-blue-400" type="submit">
           Submit
         </button>
@@ -66,5 +51,22 @@ const CreateEmployee = () => {
 export default CreateEmployee;
 
 const Input = ({ ...props }) => {
-  return <input {...props} className="form-input rounded-md p-1" />;
+  return (
+    <div className=" mb-7">
+      <p className="text-gray-800">{props.placeholder}</p>
+
+      <div className="relative flex mb-3 border rounded-md ">
+        <input
+          type="text"
+          {...props}
+          className="px-3 py-3  placeholder-white focus:placeholder-gray-400 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring-1 w-full pr-10"
+        />
+        {props.icon && (
+          <span className="h-full absolute w-7 pr-3 text-gray-400  flex items-center">
+            {props.icon}
+          </span>
+        )}
+      </div>
+    </div>
+  );
 };
