@@ -3,7 +3,8 @@ import { Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
 import { GoPerson } from "react-icons/go";
 import { FaUserCog } from "react-icons/fa";
-
+import { cloneElement } from "react";
+import { RiLockPasswordLine } from "react-icons/ri";
 const CreateEmployee = () => {
   interface IEmployee {
     name: string;
@@ -38,7 +39,11 @@ const CreateEmployee = () => {
           placeholder="اسم المستخدم"
           icon={<FaUserCog />}
         />
-        <Input {...register("password")} placeholder="كلمة السر" />
+        <Input
+          {...register("password")}
+          placeholder="كلمة السر"
+          icon={<RiLockPasswordLine />}
+        />
 
         <button className="bg-blue-400" type="submit">
           Submit
@@ -61,11 +66,11 @@ const Input = ({ ...props }) => {
           {...props}
           className="px-3 py-3  placeholder-white focus:placeholder-gray-400 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring-1 w-full pr-10"
         />
-        {props.icon && (
-          <span className="h-full absolute w-7 pr-3 text-gray-400  flex items-center">
-            {props.icon}
-          </span>
-        )}
+        {props.icon &&
+          cloneElement(props.icon, {
+            className:
+              "h-full absolute w-8 pr-3 text-gray-400  flex items-center",
+          })}
       </div>
     </div>
   );
