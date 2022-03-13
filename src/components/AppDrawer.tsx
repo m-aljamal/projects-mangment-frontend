@@ -24,7 +24,7 @@ function DrawerContentsBase(props: any) {
   return (
     <main
       className={
-        "    fixed overflow-hidden z-10 bg-black bg-opacity-70 inset-0 transform ease-in-out " +
+        "    fixed  overflow-hidden z-10 bg-black bg-opacity-70 inset-0 transform ease-in-out  " +
         (opened
           ? " transition-opacity opacity-100 duration-200 translate-x-0  "
           : "   opacity-0 translate-x-full  ")
@@ -32,7 +32,7 @@ function DrawerContentsBase(props: any) {
     >
       <section
         className={
-          " w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-200 ease-in-out transition-all transform  " +
+          " w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-200 ease-in-out transition-all transform scrollbar" +
           (opened ? " translate-x-0 " : " translate-x-full ")
         }
       >
