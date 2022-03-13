@@ -272,10 +272,10 @@ export type QueryFindProjectEmployeesSalariesArgs = {
 };
 
 export enum Role {
-  Admin = "ADMIN",
-  Manger = "MANGER",
-  Service = "SERVICE",
-  Teacher = "TEACHER",
+  Admin = "مشرف عام",
+  Manger = "مشرف",
+  Service = "خدمة",
+  Teacher = "مدرس",
 }
 
 export type Salaries = {
