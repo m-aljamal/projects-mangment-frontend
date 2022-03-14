@@ -6,7 +6,6 @@ mutation createEmployee(
   $username: String!
   $role: Role
   $jobTitle: JobTitle
-  $divisions: [DivisionInput!]
   $levels: [LevelInput!]
   $avatar: String
 ) {
@@ -19,7 +18,6 @@ mutation createEmployee(
       salary: $salary
       role: $role
       jobTitle: $jobTitle
-      divisions: $divisions
       levels: $levels
       avatar: $avatar
     }
@@ -31,14 +29,15 @@ mutation createEmployee(
     username
     salary
     role
-    divisions {
-      divisionNumber
-      divisionString
-    }
+
     avatar
     levels {
       levelNumber
       levelString
+      divisions {
+        divisionNumber
+        divisionString
+      }
     }
   }
 }

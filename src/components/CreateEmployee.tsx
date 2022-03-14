@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Role } from "src/generated/generates";
+import { JobTitle, Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
 import { GoPerson } from "react-icons/go";
 import { FaUserCog } from "react-icons/fa";
@@ -16,6 +16,7 @@ const CreateEmployee = () => {
     role: Role;
     password: string;
     username: string;
+    jobTitle: JobTitle;
   }
 
   const { projectId } = useParams();
@@ -37,17 +38,18 @@ const CreateEmployee = () => {
     // });
   };
   // projectId: $projectId
-  // salary: $salary
-  // role: $role
-  // jobTitle: $jobTitle
   // divisions: $divisions
   // levels: $levels
   // avatar: $avatar
 
-  const roles = Object.entries(Role).map(([value, label]) => ({
-    value,
-    label,
-  }));
+  const enumeToArray = (enume: any) => {
+    return Object.entries(enume).map(([value, label]) => ({
+      value,
+      label,
+    }));
+  };
+  const roles = enumeToArray(Role);
+  const jobTitles = enumeToArray(JobTitle);
 
   return (
     <div className="px-4">
@@ -63,38 +65,31 @@ const CreateEmployee = () => {
           placeholder="كلمة السر"
           icon={<RiLockPasswordLine />}
         />
+        <Input type="select" {...register("role")} placeholder="فئة الموظف">
+          {roles?.map((role) => (
+            <option key={role.value} value={role.value}>
+              {role.label as Role}
+            </option>
+          ))}
+        </Input>
 
-        {/* <Select options={roles} {...register("role")} /> */}
-        <Select setValue={setValue}>
-          <>
-            {roles.map((role) => (
-              <Listbox.Option
-                key={role.value}
-                className={({ active }) =>
-                  `cursor-default select-none relative py-2 pl-10 pr-4 ${
-                    active ? "text-amber-900 bg-amber-100" : "text-gray-900"
-                  }`
-                }
-                value={role.value}
-              >
-                <>
-                  <span
-                    className={`block truncate  
-                    
-                    `}
-                  >
-                    {role.label}
-                  </span>
-                  {
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                      {/* <CheckIcon className="w-5 h-5" aria-hidden="true" /> */}
-                    </span>
-                  }
-                </>
-              </Listbox.Option>
-            ))}
-          </>
-        </Select>
+        <Input
+          type="select"
+          {...register("jobTitle")}
+          placeholder="المسمى الوظيفي"
+        >
+          {jobTitles?.map((jobTitle) => (
+            <option key={jobTitle.value} value={jobTitle.value}>
+              {jobTitle.label as JobTitle}
+            </option>
+          ))}
+        </Input>
+
+        <Input
+          type="number"
+          {...register("salary", { min: 10, max: 1000, valueAsNumber: true })}
+          placeholder="الراتب"
+        />
 
         <button className="bg-blue-400 my-5" type="submit">
           Submit
@@ -107,17 +102,20 @@ const CreateEmployee = () => {
 export default CreateEmployee;
 
 const Input = forwardRef(({ ...props }: any, ref) => {
+  const inputStyle =
+    "px-2 py-2 placeholder-white focus:placeholder-gray-400 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring-1 w-full pr-10";
   return (
     <div className=" mb-5">
       <p className="text-gray-800">{props.placeholder}</p>
 
       <div className="relative flex mb-3 border rounded-md ">
-        <input
-          ref={ref}
-          type="text"
-          {...props}
-          className="px-2 py-2  placeholder-white focus:placeholder-gray-400 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring-1 w-full pr-10"
-        />
+        {props.type === "select" ? (
+          <select className={inputStyle} ref={ref} {...props}>
+            {props.children}
+          </select>
+        ) : (
+          <input ref={ref} {...props} className={inputStyle} />
+        )}
         {props.icon &&
           cloneElement(props.icon, {
             className:
@@ -127,29 +125,3 @@ const Input = forwardRef(({ ...props }: any, ref) => {
     </div>
   );
 });
-// const Select = forwardRef(({ ...props }: any, ref) => {
-//   return (
-//     <div className=" mb-5 w-full">
-//       <p className="text-gray-800">{props.placeholder}</p>
-
-//       <div className="relative flex mb-3 border rounded-md ">
-//         <select
-//           ref={ref}
-//           {...props}
-//           className="px-2 py-2  placeholder-white focus:placeholder-gray-400 text-blueGray-600 relative bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring-1 w-full pr-10"
-//         >
-//           {props.options.map((role: any) => (
-//             <option key={role.label} value={role.value}>
-//               {role.label}
-//             </option>
-//           ))}
-//         </select>
-//         {props.icon &&
-//           cloneElement(props.icon, {
-//             className:
-//               "h-full absolute w-8 pr-3 text-gray-400  flex items-center",
-//           })}
-//       </div>
-//     </div>
-//   );
-// });
