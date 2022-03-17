@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { JobTitle, Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
 import { GoPerson } from "react-icons/go";
@@ -6,8 +6,6 @@ import { FaUserCog } from "react-icons/fa";
 import { cloneElement, forwardRef } from "react";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
-import Select from "./Select";
-import { Listbox } from "@headlessui/react";
 
 const CreateEmployee = () => {
   interface IEmployee {
@@ -17,14 +15,34 @@ const CreateEmployee = () => {
     password: string;
     username: string;
     jobTitle: JobTitle;
+    levels: {
+      levelNumber: number;
+      levelString: string;
+      divisions: {
+        divisionNumber: number;
+        divisionString: string;
+      }[];
+    }[];
   }
 
   const { projectId } = useParams();
 
   const { error, mutate } = useCreateEmployee();
 
-  const { register, handleSubmit, setValue, getValues } = useForm<IEmployee>();
+  const { register, handleSubmit, setValue, getValues, control, watch } =
+    useForm<IEmployee>();
+  const { fields, append, remove } = useFieldArray({
+    control,
 
+    name: "levels",
+  });
+  const watchFieldArray = watch("levels");
+  const controlledFields = fields.map((field, index) => {
+    return {
+      ...field,
+      ...watchFieldArray[index],
+    };
+  });
   const onSubmit = (data: IEmployee) => {
     console.log(data);
 
@@ -41,6 +59,37 @@ const CreateEmployee = () => {
   // divisions: $divisions
   // levels: $levels
   // avatar: $avatar
+
+  // "levels": [
+  //   {
+  //     "levelNumber": 2,
+  //     "levelString": "GRADE_1",
+  //     "divisions": [
+  //       {
+  //         "divisionNumber": 1,
+  //         "divisionString": "DIVISION_1"
+  //       },
+  //       {
+  //         "divisionNumber": 2,
+  //         "divisionString": "DIVISION_2"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     "levelNumber": 1,
+  //     "levelString": "GRADE_1",
+  //     "divisions": [
+  //       {
+  //         "divisionNumber": 1,
+  //         "divisionString": "DIVISION_1"
+  //       },
+  //       {
+  //         "divisionNumber": 2,
+  //         "divisionString": "DIVISION_2"
+  //       }
+  //     ]
+  //   }
+  // ]
 
   const enumeToArray = (enume: any) => {
     return Object.entries(enume).map(([value, label]) => ({
@@ -90,6 +139,80 @@ const CreateEmployee = () => {
           {...register("salary", { min: 10, max: 1000, valueAsNumber: true })}
           placeholder="الراتب"
         />
+        {controlledFields.map((field, index) => {
+          return (
+            <>
+              <Input
+                {...register(`levels.${index}.levelNumber` as const)}
+                type="number"
+              />
+              <Input {...register(`levels.${index}.levelString` as const)} />
+              <div className="flex flex-wrap">
+                {field.divisions.map((division, divisionIndex) => {
+                  return (
+                    <>
+                      <Input
+                        {...register(
+                          `levels.${index}.divisions.${divisionIndex}.divisionNumber` as const,
+                          { valueAsNumber: true }
+                        )}
+                        type="number"
+                      />
+                      <Input
+                        {...register(
+                          `levels.${index}.divisions.${divisionIndex}.divisionString` as const
+                        )}
+                      />
+                      <button
+                        className="block"
+                        type="button"
+                        onClick={() =>
+                          append({
+                            divisions: [
+                              {
+                                divisionNumber: 0,
+                                divisionString: "",
+                              },
+                            ],
+                          })
+                        }
+                      >
+                        +
+                      </button>
+                    </>
+                  );
+                })}
+              </div>
+
+              <button
+                className="block"
+                onClick={() => {
+                  remove(index);
+                }}
+              >
+                -
+              </button>
+            </>
+          );
+        })}
+        <button
+          className="block"
+          type="button"
+          onClick={() =>
+            append({
+              levelNumber: 0,
+              levelString: "",
+              divisions: [
+                {
+                  divisionNumber: 0,
+                  divisionString: "",
+                },
+              ],
+            })
+          }
+        >
+          +
+        </button>
 
         <button className="bg-blue-400 my-5" type="submit">
           Submit
