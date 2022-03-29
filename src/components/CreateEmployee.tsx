@@ -1,11 +1,23 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { JobTitle, Role } from "src/generated/generates";
+import { Divisions, JobTitle, Levels, Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
 import { GoPerson } from "react-icons/go";
 import { FaUserCog } from "react-icons/fa";
 import { cloneElement, forwardRef } from "react";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useParams } from "react-router-dom";
+
+const enumeToArray = (enume: any) => {
+  return Object.entries(enume).map(([value, label]) => ({
+    value,
+    label,
+  }));
+};
+
+const roles = enumeToArray(Role);
+const jobTitles = enumeToArray(JobTitle);
+const levels = enumeToArray(Levels);
+const divisions = enumeToArray(Divisions);
 
 const CreateEmployee = () => {
   interface IEmployee {
@@ -16,10 +28,8 @@ const CreateEmployee = () => {
     username: string;
     jobTitle: JobTitle;
     levels: {
-      levelNumber: number;
       levelString: string;
       divisions: {
-        divisionNumber: number;
         divisionString: string;
       }[];
     }[];
@@ -43,6 +53,7 @@ const CreateEmployee = () => {
       ...watchFieldArray[index],
     };
   });
+
   const onSubmit = (data: IEmployee) => {
     console.log(data);
 
@@ -59,46 +70,6 @@ const CreateEmployee = () => {
   // divisions: $divisions
   // levels: $levels
   // avatar: $avatar
-
-  // "levels": [
-  //   {
-  //     "levelNumber": 2,
-  //     "levelString": "GRADE_1",
-  //     "divisions": [
-  //       {
-  //         "divisionNumber": 1,
-  //         "divisionString": "DIVISION_1"
-  //       },
-  //       {
-  //         "divisionNumber": 2,
-  //         "divisionString": "DIVISION_2"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     "levelNumber": 1,
-  //     "levelString": "GRADE_1",
-  //     "divisions": [
-  //       {
-  //         "divisionNumber": 1,
-  //         "divisionString": "DIVISION_1"
-  //       },
-  //       {
-  //         "divisionNumber": 2,
-  //         "divisionString": "DIVISION_2"
-  //       }
-  //     ]
-  //   }
-  // ]
-
-  const enumeToArray = (enume: any) => {
-    return Object.entries(enume).map(([value, label]) => ({
-      value,
-      label,
-    }));
-  };
-  const roles = enumeToArray(Role);
-  const jobTitles = enumeToArray(JobTitle);
 
   return (
     <div className="px-4">
@@ -143,46 +114,17 @@ const CreateEmployee = () => {
           return (
             <>
               <Input
-                {...register(`levels.${index}.levelNumber` as const)}
-                type="number"
-              />
-              <Input {...register(`levels.${index}.levelString` as const)} />
-              <div className="flex flex-wrap">
-                {field.divisions.map((division, divisionIndex) => {
-                  return (
-                    <>
-                      <Input
-                        {...register(
-                          `levels.${index}.divisions.${divisionIndex}.divisionNumber` as const,
-                          { valueAsNumber: true }
-                        )}
-                        type="number"
-                      />
-                      <Input
-                        {...register(
-                          `levels.${index}.divisions.${divisionIndex}.divisionString` as const
-                        )}
-                      />
-                      <button
-                        className="block"
-                        type="button"
-                        onClick={() =>
-                          append({
-                            divisions: [
-                              {
-                                divisionNumber: 0,
-                                divisionString: "",
-                              },
-                            ],
-                          })
-                        }
-                      >
-                        +
-                      </button>
-                    </>
-                  );
-                })}
-              </div>
+                {...register(`levels.${index}.levelString` as const)}
+                placeholder="الصف"
+                type="select"
+              >
+                {levels?.map((level) => (
+                  <option key={level.value} value={level.value}>
+                    {level.label as Levels}
+                  </option>
+                ))}
+              </Input>
+              <NestedArray index={index} {...{ control, register }} />
 
               <button
                 className="block"
@@ -200,11 +142,9 @@ const CreateEmployee = () => {
           type="button"
           onClick={() =>
             append({
-              levelNumber: 0,
               levelString: "",
               divisions: [
                 {
-                  divisionNumber: 0,
                   divisionString: "",
                 },
               ],
@@ -248,3 +188,55 @@ const Input = forwardRef(({ ...props }: any, ref) => {
     </div>
   );
 });
+
+const NestedArray = ({ index, control, register }: any) => {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `levels.${index}.divisions`,
+  });
+
+  return (
+    <>
+      {fields.map((field, divisionIndex) => {
+        return (
+          <>
+            <Input
+              {...register(
+                `levels.${index}.divisions.${divisionIndex}.divisionString` as const
+              )}
+              placeholder="الشعبة"
+              type="select"
+            >
+              {divisions?.map((division) => (
+                <option key={division.value} value={division.value}>
+                  {division.label as Divisions}
+                </option>
+              ))}
+            </Input>
+          </>
+        );
+      })}
+      <div className="flex ">
+        <button
+          type="button"
+          onClick={() => {
+            remove(index);
+          }}
+        >
+          حذف شعبة
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            append({
+              divisionNumber: 0,
+              divisionString: "",
+            });
+          }}
+        >
+          اضافة شعبة
+        </button>
+      </div>
+    </>
+  );
+};
