@@ -92,14 +92,15 @@ query findEmployeeByRole($projectId: String!) {
       role
       salary
       username
-
-      levels {
-        levelNumber
-        levelString
-        divisions {
-          divisionNumber
-          divisionString
+      divisions {
+        level {
+          levelName
+          levelNumber
+          id
         }
+        divisionName
+        divisionNumber
+        id
       }
     }
   }
