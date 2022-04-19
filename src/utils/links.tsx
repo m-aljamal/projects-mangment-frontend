@@ -28,8 +28,13 @@ export const useProjectLinks = () => {
     },
 
     {
-      label: "موظفين المشروع",
+      label: "الموظفين ",
       to: `/projects/${projectId}/employees`,
+      icon: <AiOutlinePieChart />,
+    },
+    {
+      label: "الطلاب ",
+      to: `/projects/${projectId}/students`,
       icon: <AiOutlinePieChart />,
     },
     {

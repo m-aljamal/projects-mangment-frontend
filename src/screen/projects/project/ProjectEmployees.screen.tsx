@@ -12,12 +12,11 @@ import {
 } from "src/components/AppDrawer";
 import AppButton from "src/components/AppButton";
 
-
 const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
   return (
     <div>
-      <div className="py-4">
+      <div className="py-4 ">
         <div>
           <h2 className="text-xl font-bold text-gray-700">موظفين المشروع</h2>
           <p className="text-gray-600">81 موظف</p>
@@ -81,16 +80,18 @@ const Employeelist = ({
   return (
     <>
       <EmployeeJobTitle title={title} />
-      {employees.map((employee: IEmployee) => (
-        <SingleEmployee key={employee.id} employee={employee} />
-      ))}
+      <div className="grid grid-cols-4 gap-10 py-6  ">
+        {employees.map((employee: IEmployee) => (
+          <SingleEmployee key={employee.id} employee={employee} />
+        ))}
+      </div>
     </>
   );
 };
 
 const EmployeeJobTitle = ({ title }: { title: string }) => {
   return (
-    <div className=" border-t border-b py-1 -mx-4 px-4 bg-slate-50">
+    <div className=" border-t border-b py-1 -mx-4 px-4 bg-slate-100 shadow-sm  ">
       <p className="text-gray-700 font-bold">{title}</p>
     </div>
   );
@@ -100,7 +101,7 @@ const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
   return (
     <Drawer>
       <DrawerOpenButton>
-        <div className=" bg-white hover:bg-slate-100 py-3 px-4 border-b -mx-4 cursor-pointer ">
+        <div className=" bg-slate-100   py-3   cursor-pointer rounded-md    ">
           <div className="flex gap-5 items-center ">
             <img
               src={employee?.avatar || avatar}
@@ -125,7 +126,7 @@ const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
 
 const FullEmployeeInfo = ({ employee }: { employee: IEmployee }) => {
   return (
-    <div className="bg-white p-4  h-full scrollbar scrollbar-thumb-gray-500 scrollbar-track-white scrollbar-thin  scrollbar ">
+    <div className="bg-white p-4  h-full scrollbar-thumb-gray-500 scrollbar-track-white scrollbar-thin">
       <div className="flex gap-5 items-center ">
         <img
           src={employee?.avatar || avatar}

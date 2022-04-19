@@ -1,5 +1,5 @@
 import { useFieldArray, useForm } from "react-hook-form";
-import { Divisions, JobTitle, Levels, Role } from "src/generated/generates";
+import { Division, JobTitle, Level, Role } from "src/generated/generates";
 import { useCreateEmployee } from "src/utils/employees";
 import { GoPerson } from "react-icons/go";
 import { FaUserCog } from "react-icons/fa";
@@ -16,8 +16,8 @@ const enumeToArray = (enume: any) => {
 
 const roles = enumeToArray(Role);
 const jobTitles = enumeToArray(JobTitle);
-const levels = enumeToArray(Levels);
-const divisions = enumeToArray(Divisions);
+//const levels = enumeToArray(Levels);
+//const divisions = enumeToArray(Divisions);
 
 const CreateEmployee = () => {
   interface IEmployee {
@@ -118,11 +118,11 @@ const CreateEmployee = () => {
                 placeholder="الصف"
                 type="select"
               >
-                {levels?.map((level) => (
+                {/* {levels?.map((level) => (
                   <option key={level.value} value={level.value}>
                     {level.label as Levels}
                   </option>
-                ))}
+                ))} */}
               </Input>
               <NestedArray index={index} {...{ control, register }} />
 
@@ -207,11 +207,11 @@ const NestedArray = ({ index, control, register }: any) => {
               placeholder="الشعبة"
               type="select"
             >
-              {divisions?.map((division) => (
+              {/* {divisions?.map((division) => (
                 <option key={division.value} value={division.value}>
                   {division.label as Divisions}
                 </option>
-              ))}
+              ))} */}
             </Input>
           </>
         );

@@ -21,10 +21,32 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type CreateDivision = {
+  divisionName: Scalars['String'];
+  divisionNumber: Scalars['Float'];
+  levelId: Scalars['String'];
+};
+
+export type CreateLevel = {
+  levelName: Scalars['String'];
+  levelNumber: Scalars['Float'];
+  projectId: Scalars['String'];
+};
+
 export type CreateProjectDto = {
   nameAr: Scalars['String'];
   nameEn: Scalars['String'];
   type: Scalars['String'];
+};
+
+export type CreateStudent = {
+  divisionId: Scalars['String'];
+  fatherName: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  levelId: Scalars['String'];
+  phone: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type CurrentMonthDiscount = {
@@ -54,27 +76,21 @@ export type CurrentMonthDiscountDto = {
 
 export type Division = {
   __typename?: 'Division';
-  divisionNumber?: Maybe<Scalars['Float']>;
-  divisionString?: Maybe<Divisions>;
+  divisionName: Scalars['String'];
+  divisionNumber: Scalars['Float'];
+  employees?: Maybe<Array<Employee>>;
+  id: Scalars['String'];
+  level: Level;
+  levelId: Scalars['String'];
+  students?: Maybe<Array<Student>>;
 };
-
-export type DivisionInput = {
-  divisionNumber?: InputMaybe<Scalars['Float']>;
-  divisionString?: InputMaybe<Divisions>;
-};
-
-export enum Divisions {
-  Division_1 = 'DIVISION_1',
-  Division_2 = 'DIVISION_2',
-  Division_3 = 'DIVISION_3',
-  Division_4 = 'DIVISION_4'
-}
 
 export type Employee = {
   __typename?: 'Employee';
   avatar?: Maybe<Scalars['String']>;
   createdAt: Scalars['DateTime'];
   currentMonthDiscounts: Array<CurrentMonthDiscount>;
+  divisions?: Maybe<Array<Division>>;
   id: Scalars['String'];
   jobTitle?: Maybe<JobTitle>;
   levels?: Maybe<Array<Level>>;
@@ -90,8 +106,9 @@ export type Employee = {
 
 export type EmployeeDto = {
   avatar?: InputMaybe<Scalars['String']>;
+  divisions?: InputMaybe<Array<Scalars['String']>>;
   jobTitle?: InputMaybe<JobTitle>;
-  levels?: InputMaybe<Array<LevelInput>>;
+  levels?: InputMaybe<Array<Scalars['String']>>;
   name: Scalars['String'];
   password: Scalars['String'];
   projectId?: InputMaybe<Scalars['String']>;
@@ -122,30 +139,14 @@ export enum JobTitle {
 export type Level = {
   __typename?: 'Level';
   divisions?: Maybe<Array<Division>>;
-  levelNumber?: Maybe<Scalars['Float']>;
-  levelString?: Maybe<Levels>;
+  employees?: Maybe<Array<Employee>>;
+  id: Scalars['String'];
+  levelName: Scalars['String'];
+  levelNumber: Scalars['Float'];
+  project?: Maybe<Project>;
+  projectId?: Maybe<Scalars['String']>;
+  students?: Maybe<Array<Student>>;
 };
-
-export type LevelInput = {
-  divisions?: InputMaybe<Array<DivisionInput>>;
-  levelNumber?: InputMaybe<Scalars['Float']>;
-  levelString?: InputMaybe<Levels>;
-};
-
-export enum Levels {
-  Grade_1 = 'GRADE_1',
-  Grade_2 = 'GRADE_2',
-  Grade_3 = 'GRADE_3',
-  Grade_4 = 'GRADE_4',
-  Grade_5 = 'GRADE_5',
-  Grade_6 = 'GRADE_6',
-  Grade_7 = 'GRADE_7',
-  Grade_8 = 'GRADE_8',
-  Grade_9 = 'GRADE_9',
-  Grade_10 = 'GRADE_10',
-  Grade_11 = 'GRADE_11',
-  Grade_12 = 'GRADE_12'
-}
 
 export type LoginResponse = {
   __typename?: 'LoginResponse';
@@ -161,8 +162,11 @@ export type LoginUserInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createDiscount: CurrentMonthDiscount;
+  createDivision: Division;
   createEmployee: Employee;
+  createLevel: Level;
   createProject: Project;
+  createStudent: Student;
   deleteDiscount: CurrentMonthDiscount;
   login: LoginResponse;
   updateDiscount: CurrentMonthDiscount;
@@ -174,13 +178,28 @@ export type MutationCreateDiscountArgs = {
 };
 
 
+export type MutationCreateDivisionArgs = {
+  division: CreateDivision;
+};
+
+
 export type MutationCreateEmployeeArgs = {
   employee: EmployeeDto;
 };
 
 
+export type MutationCreateLevelArgs = {
+  level: CreateLevel;
+};
+
+
 export type MutationCreateProjectArgs = {
   project: CreateProjectDto;
+};
+
+
+export type MutationCreateStudentArgs = {
+  student: CreateStudent;
 };
 
 
@@ -204,8 +223,10 @@ export type Project = {
   createdAt: Scalars['DateTime'];
   employees?: Maybe<Array<Employee>>;
   id: Scalars['String'];
+  levels?: Maybe<Array<Level>>;
   nameAr: Scalars['String'];
   nameEn: Scalars['String'];
+  students?: Maybe<Array<Student>>;
   type: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -213,9 +234,13 @@ export type Project = {
 export type Query = {
   __typename?: 'Query';
   currentUser?: Maybe<Employee>;
+  findAllDivision: Array<Division>;
   findAllEmployees: Array<Employee>;
+  findAllLevels: Array<Level>;
   findAllProjects: Array<Project>;
+  findAllStudents: Array<Student>;
   findDiscounts: Array<CurrentMonthDiscount>;
+  findEmployee: Employee;
   findEmployeeById: Employee;
   findEmployeesByProjectId: Array<Employee>;
   findEmployeesByRole: EmployeesByRole;
@@ -224,9 +249,20 @@ export type Query = {
 };
 
 
+export type QueryFindAllDivisionArgs = {
+  levelId: Scalars['String'];
+};
+
+
 export type QueryFindAllEmployeesArgs = {
   projectId?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Role>;
+  sortBy?: InputMaybe<Sort>;
+};
+
+
+export type QueryFindAllLevelsArgs = {
+  projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
 };
 
@@ -240,6 +276,11 @@ export type QueryFindDiscountsArgs = {
   approved?: InputMaybe<Scalars['Boolean']>;
   projectId?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<Sort>;
+};
+
+
+export type QueryFindEmployeeArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -290,6 +331,21 @@ export enum Sort {
   Asc = 'ASC',
   Desc = 'DESC'
 }
+
+export type Student = {
+  __typename?: 'Student';
+  division: Division;
+  divisionId?: Maybe<Scalars['String']>;
+  fatherName: Scalars['String'];
+  firstName: Scalars['String'];
+  id: Scalars['String'];
+  lastName: Scalars['String'];
+  level: Level;
+  levelId?: Maybe<Scalars['String']>;
+  phone: Scalars['String'];
+  project: Project;
+  projectId?: Maybe<Scalars['String']>;
+};
 
 export type UpdateCurrentMonthDiscountDto = {
   absence?: InputMaybe<Scalars['Float']>;
@@ -361,12 +417,13 @@ export type CreateEmployeeMutationVariables = Exact<{
   username: Scalars['String'];
   role?: InputMaybe<Role>;
   jobTitle?: InputMaybe<JobTitle>;
-  levels?: InputMaybe<Array<LevelInput> | LevelInput>;
+  divisions?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  levels?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
   avatar?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, jobTitle?: JobTitle | null, username: string, salary?: number | null, role: Role, avatar?: string | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: Levels | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: Divisions | null }> | null }> | null } };
+export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, jobTitle?: JobTitle | null, username: string, salary?: number | null, role: Role, avatar?: string | null, divisions?: Array<{ __typename?: 'Division', divisionNumber: number, divisionName: string }> | null, levels?: Array<{ __typename?: 'Level', levelNumber: number, levelName: string }> | null } };
 
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -395,7 +452,7 @@ export type FindEmployeesByProjectIdQueryVariables = Exact<{
 }>;
 
 
-export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string, avatar?: string | null, jobTitle?: JobTitle | null, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: Levels | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: Divisions | null }> | null }> | null }> };
+export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string, avatar?: string | null, jobTitle?: JobTitle | null, divisions?: Array<{ __typename?: 'Division', divisionName: string, divisionNumber: number, id: string, level: { __typename?: 'Level', levelName: string, levelNumber: number, id: string } }> | null }> };
 
 export type FindProjectEmployeesSalariesQueryVariables = Exact<{
   projectId: Scalars['String'];
@@ -409,7 +466,7 @@ export type FindEmployeeByRoleQueryVariables = Exact<{
 }>;
 
 
-export type FindEmployeeByRoleQuery = { __typename?: 'Query', findEmployeesByRole: { __typename?: 'EmployeesByRole', mangers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, services: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, teachers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string, levels?: Array<{ __typename?: 'Level', levelNumber?: number | null, levelString?: Levels | null, divisions?: Array<{ __typename?: 'Division', divisionNumber?: number | null, divisionString?: Divisions | null }> | null }> | null }> } };
+export type FindEmployeeByRoleQuery = { __typename?: 'Query', findEmployeesByRole: { __typename?: 'EmployeesByRole', mangers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, services: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, teachers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string, divisions?: Array<{ __typename?: 'Division', divisionName: string, divisionNumber: number, id: string, level: { __typename?: 'Level', levelName: string, levelNumber: number, id: string } }> | null }> } };
 
 export type CreateProjectMutationVariables = Exact<{
   nameAr: Scalars['String'];
@@ -607,9 +664,9 @@ export const useFindAllEmployeesDiscountsQuery = <
       options
     );
 export const CreateEmployeeDocument = `
-    mutation createEmployee($name: String!, $password: String!, $projectId: String, $salary: Float, $username: String!, $role: Role, $jobTitle: JobTitle, $levels: [LevelInput!], $avatar: String) {
+    mutation createEmployee($name: String!, $password: String!, $projectId: String, $salary: Float, $username: String!, $role: Role, $jobTitle: JobTitle, $divisions: [String!], $levels: [String!], $avatar: String) {
   createEmployee(
-    employee: {name: $name, username: $username, password: $password, projectId: $projectId, salary: $salary, role: $role, jobTitle: $jobTitle, levels: $levels, avatar: $avatar}
+    employee: {name: $name, username: $username, password: $password, projectId: $projectId, salary: $salary, role: $role, jobTitle: $jobTitle, divisions: $divisions, levels: $levels, avatar: $avatar}
   ) {
     createdAt
     id
@@ -618,14 +675,14 @@ export const CreateEmployeeDocument = `
     username
     salary
     role
+    divisions {
+      divisionNumber
+      divisionName
+    }
     avatar
     levels {
       levelNumber
-      levelString
-      divisions {
-        divisionNumber
-        divisionString
-      }
+      levelName
     }
   }
 }
@@ -729,13 +786,15 @@ export const FindEmployeesByProjectIdDocument = `
     username
     avatar
     jobTitle
-    levels {
-      levelNumber
-      levelString
-      divisions {
-        divisionNumber
-        divisionString
+    divisions {
+      level {
+        levelName
+        levelNumber
+        id
       }
+      divisionName
+      divisionNumber
+      id
     }
   }
 }
@@ -813,13 +872,15 @@ export const FindEmployeeByRoleDocument = `
       role
       salary
       username
-      levels {
-        levelNumber
-        levelString
-        divisions {
-          divisionNumber
-          divisionString
+      divisions {
+        level {
+          levelName
+          levelNumber
+          id
         }
+        divisionName
+        divisionNumber
+        id
       }
     }
   }
