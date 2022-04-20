@@ -1,0 +1,18 @@
+query findStudentsByProject($projectId: String!) {
+  findStudentsByProject(projectId: $projectId) {
+    division {
+      divisionName
+      divisionNumber
+    }
+    fatherName
+    firstName
+    lastName
+    id
+    phone
+    level {
+      id
+      levelName
+      levelNumber
+    }
+  }
+}
