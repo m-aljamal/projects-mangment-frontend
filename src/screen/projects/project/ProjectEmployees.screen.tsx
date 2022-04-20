@@ -15,7 +15,11 @@ const ProjectEmployees = () => {
   const { mangers, services, teachers } = useFindEmployeesByRole();
   return (
     <div>
+<<<<<<< HEAD
       <div className="py-4 px-4">
+=======
+      <div className="py-4 ">
+>>>>>>> c81fb9f372247d226e364a1dff4f8829ee6ee107
         <div>
           <h2 className="text-xl font-bold text-gray-700">موظفين المشروع</h2>
           <p className="text-gray-600">81 موظف</p>
@@ -79,12 +83,19 @@ const Employeelist = ({
   return (
     <>
       <EmployeeJobTitle title={title} />
+<<<<<<< HEAD
       <div className="bg-slate-200   px-4 ">
         <div className="grid grid-cols-4 gap-5 py-6  ">
           {employees.map((employee: IEmployee) => (
             <SingleEmployee key={employee.id} employee={employee} />
           ))}
         </div>
+=======
+      <div className="grid grid-cols-4 gap-10 py-6  ">
+        {employees.map((employee: IEmployee) => (
+          <SingleEmployee key={employee.id} employee={employee} />
+        ))}
+>>>>>>> c81fb9f372247d226e364a1dff4f8829ee6ee107
       </div>
     </>
   );
@@ -92,7 +103,11 @@ const Employeelist = ({
 
 const EmployeeJobTitle = ({ title }: { title: string }) => {
   return (
+<<<<<<< HEAD
     <div className=" border-t border-b py-1   px-4 bg-slate-100 shadow-sm">
+=======
+    <div className=" border-t border-b py-1 -mx-4 px-4 bg-slate-100 shadow-sm  ">
+>>>>>>> c81fb9f372247d226e364a1dff4f8829ee6ee107
       <p className="text-gray-700 font-bold">{title}</p>
     </div>
   );
@@ -102,8 +117,13 @@ const SingleEmployee = ({ employee }: { employee: IEmployee }) => {
   return (
     <Drawer>
       <DrawerOpenButton>
+<<<<<<< HEAD
         <div className="bg-white shadow-sm py-3 cursor-pointer rounded-md">
           <div className="text-center">
+=======
+        <div className=" bg-slate-100   py-3   cursor-pointer rounded-md    ">
+          <div className="flex gap-5 items-center ">
+>>>>>>> c81fb9f372247d226e364a1dff4f8829ee6ee107
             <img
               src={employee?.avatar || avatar}
               alt={employee.name}

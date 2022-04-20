@@ -255,6 +255,11 @@ export type QueryFindAllDivisionArgs = {
 };
 
 
+export type QueryFindAllDivisionArgs = {
+  levelId: Scalars['String'];
+};
+
+
 export type QueryFindAllEmployeesArgs = {
   projectId?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Role>;
