@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
+import { useFindStudentsByProject } from "src/utils/students";
 
 const StudentsScrren = () => {
-  return (
-    <div>Students.scrren</div>
-  )
-}
+  const { students } = useFindStudentsByProject();
+  console.log(students);
 
-export default StudentsScrren
+  return <div>Students.scrren</div>;
+};
+
+export default StudentsScrren;
