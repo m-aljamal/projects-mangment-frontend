@@ -1,17 +1,12 @@
-import { Button } from "@mantine/core";
-import React from "react";
-
+ 
 const AppButton = ({ color, hover, children, ...props }: any) => {
   return (
-    <Button
-      className={` ${color} hover:${hover}`}
+    <button
       {...props}
-      sx={{
-        fontFamily: "Tajawal",
-      }}
+      className="bg-red-300"
     >
       {children}
-    </Button>
+    </button>
   );
 };
 

@@ -1,8 +1,21 @@
-query findStudentsByProject($projectId: String!) {
-  findStudentsByProject(projectId: $projectId) {
+query findStudentsByProject(
+  $projectId: String!
+  $levelName: String
+  $divisionName: String
+  $sortDivision: Sort
+  $sortLevel: Sort
+) {
+  findStudentsByProject(
+    projectId: $projectId
+    levelName: $levelName
+    divisionName: $divisionName
+    sortDivision: $sortDivision
+    sortLevel: $sortLevel
+  ) {
     division {
       divisionName
       divisionNumber
+      id
     }
     fatherName
     firstName

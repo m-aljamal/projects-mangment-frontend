@@ -1,31 +1,14 @@
-import { GraphQLClient } from "graphql-request";
-import { RequestInit } from "graphql-request/dist/types.dom";
-import {
-  useMutation,
-  UseMutationOptions,
-  useQuery,
-  UseQueryOptions,
-} from "react-query";
+import { GraphQLClient } from 'graphql-request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 
-function fetcher<TData, TVariables>(
-  client: GraphQLClient,
-  query: string,
-  variables?: TVariables,
-  headers?: RequestInit["headers"]
-) {
-  return async (): Promise<TData> =>
-    client.request<TData, TVariables>(query, variables, headers);
+function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables, headers?: RequestInit['headers']) {
+  return async (): Promise<TData> => client.request<TData, TVariables>(query, variables, headers);
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -39,145 +22,145 @@ export type Scalars = {
 };
 
 export type CreateDivision = {
-  divisionName: Scalars["String"];
-  divisionNumber: Scalars["Float"];
-  levelId: Scalars["String"];
+  divisionName: Scalars['String'];
+  divisionNumber: Scalars['Float'];
+  levelId: Scalars['String'];
 };
 
 export type CreateLevel = {
-  levelName: Scalars["String"];
-  levelNumber: Scalars["Float"];
-  projectId: Scalars["String"];
+  levelName: Scalars['String'];
+  levelNumber: Scalars['Float'];
+  projectId: Scalars['String'];
 };
 
 export type CreateProjectDto = {
-  nameAr: Scalars["String"];
-  nameEn: Scalars["String"];
-  type: Scalars["String"];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
+  type: Scalars['String'];
 };
 
 export type CreateStudent = {
-  divisionId: Scalars["String"];
-  fatherName: Scalars["String"];
-  firstName: Scalars["String"];
-  lastName: Scalars["String"];
-  levelId: Scalars["String"];
-  phone: Scalars["String"];
-  projectId: Scalars["String"];
+  divisionId: Scalars['String'];
+  fatherName: Scalars['String'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
+  levelId: Scalars['String'];
+  phone: Scalars['String'];
+  projectId: Scalars['String'];
 };
 
 export type CurrentMonthDiscount = {
-  __typename?: "CurrentMonthDiscount";
-  absence?: Maybe<Scalars["Float"]>;
-  approved: Scalars["Boolean"];
-  createdAt: Scalars["DateTime"];
-  date: Scalars["DateTime"];
+  __typename?: 'CurrentMonthDiscount';
+  absence?: Maybe<Scalars['Float']>;
+  approved: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  date: Scalars['DateTime'];
   employee: Employee;
-  employeeId: Scalars["String"];
-  id: Scalars["String"];
-  late?: Maybe<Scalars["Float"]>;
-  notes?: Maybe<Scalars["String"]>;
-  punishment?: Maybe<Scalars["Float"]>;
-  updatedAt: Scalars["DateTime"];
+  employeeId: Scalars['String'];
+  id: Scalars['String'];
+  late?: Maybe<Scalars['Float']>;
+  notes?: Maybe<Scalars['String']>;
+  punishment?: Maybe<Scalars['Float']>;
+  updatedAt: Scalars['DateTime'];
 };
 
 export type CurrentMonthDiscountDto = {
-  absence?: InputMaybe<Scalars["Float"]>;
-  approved?: InputMaybe<Scalars["Boolean"]>;
-  date: Scalars["DateTime"];
-  employeeId: Scalars["String"];
-  late?: InputMaybe<Scalars["Float"]>;
-  notes?: InputMaybe<Scalars["String"]>;
-  punishment?: InputMaybe<Scalars["Float"]>;
+  absence?: InputMaybe<Scalars['Float']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
+  date: Scalars['DateTime'];
+  employeeId: Scalars['String'];
+  late?: InputMaybe<Scalars['Float']>;
+  notes?: InputMaybe<Scalars['String']>;
+  punishment?: InputMaybe<Scalars['Float']>;
 };
 
 export type Division = {
-  __typename?: "Division";
-  divisionName: Scalars["String"];
-  divisionNumber: Scalars["Float"];
+  __typename?: 'Division';
+  divisionName: Scalars['String'];
+  divisionNumber: Scalars['Float'];
   employees?: Maybe<Array<Employee>>;
-  id: Scalars["String"];
+  id: Scalars['String'];
   level: Level;
-  levelId: Scalars["String"];
+  levelId: Scalars['String'];
   students?: Maybe<Array<Student>>;
 };
 
 export type Employee = {
-  __typename?: "Employee";
-  avatar?: Maybe<Scalars["String"]>;
-  createdAt: Scalars["DateTime"];
+  __typename?: 'Employee';
+  avatar?: Maybe<Scalars['String']>;
+  createdAt: Scalars['DateTime'];
   currentMonthDiscounts: Array<CurrentMonthDiscount>;
   divisions?: Maybe<Array<Division>>;
-  id: Scalars["String"];
+  id: Scalars['String'];
   jobTitle?: Maybe<JobTitle>;
   levels?: Maybe<Array<Level>>;
-  name: Scalars["String"];
-  password: Scalars["String"];
+  name: Scalars['String'];
+  password: Scalars['String'];
   project: Project;
-  projectId?: Maybe<Scalars["String"]>;
+  projectId?: Maybe<Scalars['String']>;
   role: Role;
-  salary?: Maybe<Scalars["Float"]>;
-  updatedAt: Scalars["DateTime"];
-  username: Scalars["String"];
+  salary?: Maybe<Scalars['Float']>;
+  updatedAt: Scalars['DateTime'];
+  username: Scalars['String'];
 };
 
 export type EmployeeDto = {
-  avatar?: InputMaybe<Scalars["String"]>;
-  divisions?: InputMaybe<Array<Scalars["String"]>>;
+  avatar?: InputMaybe<Scalars['String']>;
+  divisions?: InputMaybe<Array<Scalars['String']>>;
   jobTitle?: InputMaybe<JobTitle>;
-  levels?: InputMaybe<Array<Scalars["String"]>>;
-  name: Scalars["String"];
-  password: Scalars["String"];
-  projectId?: InputMaybe<Scalars["String"]>;
+  levels?: InputMaybe<Array<Scalars['String']>>;
+  name: Scalars['String'];
+  password: Scalars['String'];
+  projectId?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Role>;
-  salary?: InputMaybe<Scalars["Float"]>;
-  username: Scalars["String"];
+  salary?: InputMaybe<Scalars['Float']>;
+  username: Scalars['String'];
 };
 
 export type EmployeesByRole = {
-  __typename?: "EmployeesByRole";
+  __typename?: 'EmployeesByRole';
   mangers: Array<Employee>;
   services: Array<Employee>;
   teachers: Array<Employee>;
 };
 
 export enum JobTitle {
-  Cleaner = "CLEANER",
-  Counselor = "COUNSELOR",
-  DataEntry = "DATA_ENTRY",
-  EducationSupervisor = "EDUCATION_SUPERVISOR",
-  Guard = "GUARD",
-  MediaFotographer = "MEDIA_Fotographer",
-  Principal = "PRINCIPAL",
-  Secretary = "SECRETARY",
-  Teacher = "TEACHER",
+  Cleaner = 'CLEANER',
+  Counselor = 'COUNSELOR',
+  DataEntry = 'DATA_ENTRY',
+  EducationSupervisor = 'EDUCATION_SUPERVISOR',
+  Guard = 'GUARD',
+  MediaFotographer = 'MEDIA_Fotographer',
+  Principal = 'PRINCIPAL',
+  Secretary = 'SECRETARY',
+  Teacher = 'TEACHER'
 }
 
 export type Level = {
-  __typename?: "Level";
+  __typename?: 'Level';
   divisions?: Maybe<Array<Division>>;
   employees?: Maybe<Array<Employee>>;
-  id: Scalars["String"];
-  levelName: Scalars["String"];
-  levelNumber: Scalars["Float"];
+  id: Scalars['String'];
+  levelName: Scalars['String'];
+  levelNumber: Scalars['Float'];
   project?: Maybe<Project>;
-  projectId?: Maybe<Scalars["String"]>;
+  projectId?: Maybe<Scalars['String']>;
   students?: Maybe<Array<Student>>;
 };
 
 export type LoginResponse = {
-  __typename?: "LoginResponse";
-  accessToken: Scalars["String"];
+  __typename?: 'LoginResponse';
+  accessToken: Scalars['String'];
   user: Employee;
 };
 
 export type LoginUserInput = {
-  password: Scalars["String"];
-  username: Scalars["String"];
+  password: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type Mutation = {
-  __typename?: "Mutation";
+  __typename?: 'Mutation';
   createDiscount: CurrentMonthDiscount;
   createDivision: Division;
   createEmployee: Employee;
@@ -189,58 +172,67 @@ export type Mutation = {
   updateDiscount: CurrentMonthDiscount;
 };
 
+
 export type MutationCreateDiscountArgs = {
   discount: CurrentMonthDiscountDto;
 };
+
 
 export type MutationCreateDivisionArgs = {
   division: CreateDivision;
 };
 
+
 export type MutationCreateEmployeeArgs = {
   employee: EmployeeDto;
 };
+
 
 export type MutationCreateLevelArgs = {
   level: CreateLevel;
 };
 
+
 export type MutationCreateProjectArgs = {
   project: CreateProjectDto;
 };
+
 
 export type MutationCreateStudentArgs = {
   student: CreateStudent;
 };
 
+
 export type MutationDeleteDiscountArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type MutationLoginArgs = {
   loginUserInput: LoginUserInput;
 };
 
+
 export type MutationUpdateDiscountArgs = {
   discount: UpdateCurrentMonthDiscountDto;
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
 
 export type Project = {
-  __typename?: "Project";
-  createdAt: Scalars["DateTime"];
+  __typename?: 'Project';
+  createdAt: Scalars['DateTime'];
   employees?: Maybe<Array<Employee>>;
-  id: Scalars["String"];
+  id: Scalars['String'];
   levels?: Maybe<Array<Level>>;
-  nameAr: Scalars["String"];
-  nameEn: Scalars["String"];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
   students?: Maybe<Array<Student>>;
-  type: Scalars["String"];
-  updatedAt: Scalars["DateTime"];
+  type: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type Query = {
-  __typename?: "Query";
+  __typename?: 'Query';
   currentUser?: Maybe<Employee>;
   findAllDivision: Array<Division>;
   findAllEmployees: Array<Employee>;
@@ -257,508 +249,269 @@ export type Query = {
   findStudentsByProject: Array<Student>;
 };
 
+
 export type QueryFindAllDivisionArgs = {
-  levelId: Scalars["String"];
+  levelId: Scalars['String'];
 };
 
+
 export type QueryFindAllEmployeesArgs = {
-  projectId?: InputMaybe<Scalars["String"]>;
+  projectId?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Role>;
   sortBy?: InputMaybe<Sort>;
 };
 
+
 export type QueryFindAllLevelsArgs = {
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
 };
+
 
 export type QueryFindAllProjectsArgs = {
   sortBy?: InputMaybe<Sort>;
 };
 
+
 export type QueryFindDiscountsArgs = {
-  approved?: InputMaybe<Scalars["Boolean"]>;
-  projectId?: InputMaybe<Scalars["String"]>;
+  approved?: InputMaybe<Scalars['Boolean']>;
+  projectId?: InputMaybe<Scalars['String']>;
   sortBy?: InputMaybe<Sort>;
 };
+
 
 export type QueryFindEmployeeArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryFindEmployeeByIdArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
 
+
 export type QueryFindEmployeesByProjectIdArgs = {
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
 };
 
+
 export type QueryFindEmployeesByRoleArgs = {
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
 };
+
 
 export type QueryFindProjectArgs = {
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
+
 
 export type QueryFindProjectEmployeesSalariesArgs = {
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
 };
 
+
 export type QueryFindStudentsByProjectArgs = {
-  projectId: Scalars["String"];
+  divisionName?: InputMaybe<Scalars['String']>;
+  levelName?: InputMaybe<Scalars['String']>;
+  projectId: Scalars['String'];
+  sortDivision?: InputMaybe<Sort>;
+  sortLevel?: InputMaybe<Sort>;
 };
 
 export enum Role {
-  Admin = "ADMIN",
-  Manger = "MANGER",
-  Service = "SERVICE",
-  Teacher = "TEACHER",
+  Admin = 'ADMIN',
+  Manger = 'MANGER',
+  Service = 'SERVICE',
+  Teacher = 'TEACHER'
 }
 
 export type Salaries = {
-  __typename?: "Salaries";
-  absence?: Maybe<Scalars["String"]>;
-  id: Scalars["String"];
-  late?: Maybe<Scalars["String"]>;
-  name: Scalars["String"];
-  punishment?: Maybe<Scalars["String"]>;
-  salary: Scalars["Float"];
-  totalSalart: Scalars["Float"];
+  __typename?: 'Salaries';
+  absence?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  late?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  punishment?: Maybe<Scalars['String']>;
+  salary: Scalars['Float'];
+  totalSalart: Scalars['Float'];
 };
 
 export enum Sort {
-  Asc = "ASC",
-  Desc = "DESC",
+  Asc = 'ASC',
+  Desc = 'DESC'
 }
 
 export type Student = {
-  __typename?: "Student";
+  __typename?: 'Student';
   division: Division;
-  divisionId?: Maybe<Scalars["String"]>;
-  fatherName: Scalars["String"];
-  firstName: Scalars["String"];
-  id: Scalars["String"];
-  lastName: Scalars["String"];
+  divisionId?: Maybe<Scalars['String']>;
+  fatherName: Scalars['String'];
+  firstName: Scalars['String'];
+  id: Scalars['String'];
+  lastName: Scalars['String'];
   level: Level;
-  levelId?: Maybe<Scalars["String"]>;
-  phone: Scalars["String"];
+  levelId?: Maybe<Scalars['String']>;
+  phone: Scalars['String'];
   project: Project;
-  projectId?: Maybe<Scalars["String"]>;
+  projectId?: Maybe<Scalars['String']>;
 };
 
 export type UpdateCurrentMonthDiscountDto = {
-  absence?: InputMaybe<Scalars["Float"]>;
-  approved?: InputMaybe<Scalars["Boolean"]>;
-  date?: InputMaybe<Scalars["DateTime"]>;
-  employeeId?: InputMaybe<Scalars["String"]>;
-  late?: InputMaybe<Scalars["Float"]>;
-  notes?: InputMaybe<Scalars["String"]>;
-  punishment?: InputMaybe<Scalars["Float"]>;
+  absence?: InputMaybe<Scalars['Float']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
+  date?: InputMaybe<Scalars['DateTime']>;
+  employeeId?: InputMaybe<Scalars['String']>;
+  late?: InputMaybe<Scalars['Float']>;
+  notes?: InputMaybe<Scalars['String']>;
+  punishment?: InputMaybe<Scalars['Float']>;
 };
 
 export type LoginMutationVariables = Exact<{
-  username: Scalars["String"];
-  password: Scalars["String"];
+  username: Scalars['String'];
+  password: Scalars['String'];
 }>;
 
-export type LoginMutation = {
-  __typename?: "Mutation";
-  login: {
-    __typename?: "LoginResponse";
-    accessToken: string;
-    user: {
-      __typename?: "Employee";
-      name: string;
-      id: string;
-      username: string;
-    };
-  };
-};
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'LoginResponse', accessToken: string, user: { __typename?: 'Employee', name: string, id: string, username: string } } };
 
 export type UpdateDiscountMutationVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars['String'];
   discount: UpdateCurrentMonthDiscountDto;
 }>;
 
-export type UpdateDiscountMutation = {
-  __typename?: "Mutation";
-  updateDiscount: {
-    __typename?: "CurrentMonthDiscount";
-    absence?: number | null;
-    createdAt: any;
-    date: any;
-    id: string;
-    late?: number | null;
-    notes?: string | null;
-    punishment?: number | null;
-    employee: {
-      __typename?: "Employee";
-      name: string;
-      id: string;
-      role: Role;
-      salary?: number | null;
-    };
-  };
-};
+
+export type UpdateDiscountMutation = { __typename?: 'Mutation', updateDiscount: { __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, employee: { __typename?: 'Employee', name: string, id: string, role: Role, salary?: number | null } } };
 
 export type CreateDiscountMutationVariables = Exact<{
-  absence?: InputMaybe<Scalars["Float"]>;
-  date: Scalars["DateTime"];
-  employeeId: Scalars["String"];
-  late?: InputMaybe<Scalars["Float"]>;
-  notes?: InputMaybe<Scalars["String"]>;
-  punishment?: InputMaybe<Scalars["Float"]>;
+  absence?: InputMaybe<Scalars['Float']>;
+  date: Scalars['DateTime'];
+  employeeId: Scalars['String'];
+  late?: InputMaybe<Scalars['Float']>;
+  notes?: InputMaybe<Scalars['String']>;
+  punishment?: InputMaybe<Scalars['Float']>;
 }>;
 
-export type CreateDiscountMutation = {
-  __typename?: "Mutation";
-  createDiscount: {
-    __typename?: "CurrentMonthDiscount";
-    date: any;
-    id: string;
-    late?: number | null;
-    notes?: string | null;
-    absence?: number | null;
-    punishment?: number | null;
-  };
-};
+
+export type CreateDiscountMutation = { __typename?: 'Mutation', createDiscount: { __typename?: 'CurrentMonthDiscount', date: any, id: string, late?: number | null, notes?: string | null, absence?: number | null, punishment?: number | null } };
 
 export type DeleteDiscountMutationVariables = Exact<{
-  employeeId: Scalars["String"];
+  employeeId: Scalars['String'];
 }>;
 
-export type DeleteDiscountMutation = {
-  __typename?: "Mutation";
-  deleteDiscount: { __typename?: "CurrentMonthDiscount"; late?: number | null };
-};
+
+export type DeleteDiscountMutation = { __typename?: 'Mutation', deleteDiscount: { __typename?: 'CurrentMonthDiscount', late?: number | null } };
 
 export type FindDiscountsQueryVariables = Exact<{
   sortBy?: InputMaybe<Sort>;
-  projectId?: InputMaybe<Scalars["String"]>;
-  approved?: InputMaybe<Scalars["Boolean"]>;
+  projectId?: InputMaybe<Scalars['String']>;
+  approved?: InputMaybe<Scalars['Boolean']>;
 }>;
 
-export type FindDiscountsQuery = {
-  __typename?: "Query";
-  findDiscounts: Array<{
-    __typename?: "CurrentMonthDiscount";
-    absence?: number | null;
-    createdAt: any;
-    date: any;
-    id: string;
-    late?: number | null;
-    notes?: string | null;
-    punishment?: number | null;
-    approved: boolean;
-    employee: {
-      __typename?: "Employee";
-      name: string;
-      id: string;
-      role: Role;
-      salary?: number | null;
-    };
-  }>;
-};
+
+export type FindDiscountsQuery = { __typename?: 'Query', findDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, approved: boolean, employee: { __typename?: 'Employee', name: string, id: string, role: Role, salary?: number | null } }> };
 
 export type FindAllEmployeesDiscountsQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
 }>;
 
-export type FindAllEmployeesDiscountsQuery = {
-  __typename?: "Query";
-  findEmployeesByProjectId: Array<{
-    __typename?: "Employee";
-    name: string;
-    id: string;
-    salary?: number | null;
-    currentMonthDiscounts: Array<{
-      __typename?: "CurrentMonthDiscount";
-      absence?: number | null;
-      createdAt: any;
-      date: any;
-      id: string;
-      late?: number | null;
-      notes?: string | null;
-      punishment?: number | null;
-      approved: boolean;
-    }>;
-  }>;
-};
+
+export type FindAllEmployeesDiscountsQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, salary?: number | null, currentMonthDiscounts: Array<{ __typename?: 'CurrentMonthDiscount', absence?: number | null, createdAt: any, date: any, id: string, late?: number | null, notes?: string | null, punishment?: number | null, approved: boolean }> }> };
 
 export type CreateEmployeeMutationVariables = Exact<{
-  name: Scalars["String"];
-  password: Scalars["String"];
-  projectId?: InputMaybe<Scalars["String"]>;
-  salary?: InputMaybe<Scalars["Float"]>;
-  username: Scalars["String"];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  projectId?: InputMaybe<Scalars['String']>;
+  salary?: InputMaybe<Scalars['Float']>;
+  username: Scalars['String'];
   role?: InputMaybe<Role>;
   jobTitle?: InputMaybe<JobTitle>;
-  divisions?: InputMaybe<Array<Scalars["String"]> | Scalars["String"]>;
-  levels?: InputMaybe<Array<Scalars["String"]> | Scalars["String"]>;
-  avatar?: InputMaybe<Scalars["String"]>;
+  divisions?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  levels?: InputMaybe<Array<Scalars['String']> | Scalars['String']>;
+  avatar?: InputMaybe<Scalars['String']>;
 }>;
 
-export type CreateEmployeeMutation = {
-  __typename?: "Mutation";
-  createEmployee: {
-    __typename?: "Employee";
-    createdAt: any;
-    id: string;
-    name: string;
-    jobTitle?: JobTitle | null;
-    username: string;
-    salary?: number | null;
-    role: Role;
-    avatar?: string | null;
-    divisions?: Array<{
-      __typename?: "Division";
-      divisionNumber: number;
-      divisionName: string;
-    }> | null;
-    levels?: Array<{
-      __typename?: "Level";
-      levelNumber: number;
-      levelName: string;
-    }> | null;
-  };
-};
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never }>;
+export type CreateEmployeeMutation = { __typename?: 'Mutation', createEmployee: { __typename?: 'Employee', createdAt: any, id: string, name: string, jobTitle?: JobTitle | null, username: string, salary?: number | null, role: Role, avatar?: string | null, divisions?: Array<{ __typename?: 'Division', divisionNumber: number, divisionName: string }> | null, levels?: Array<{ __typename?: 'Level', levelNumber: number, levelName: string }> | null } };
 
-export type CurrentUserQuery = {
-  __typename?: "Query";
-  currentUser?: {
-    __typename?: "Employee";
-    name: string;
-    id: string;
-    role: Role;
-    username: string;
-  } | null;
-};
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', currentUser?: { __typename?: 'Employee', name: string, id: string, role: Role, username: string } | null };
 
 export type FindAllEmployeesQueryVariables = Exact<{
-  projectId?: InputMaybe<Scalars["String"]>;
+  projectId?: InputMaybe<Scalars['String']>;
   role?: InputMaybe<Role>;
   sortBy?: InputMaybe<Sort>;
 }>;
 
-export type FindAllEmployeesQuery = {
-  __typename?: "Query";
-  findAllEmployees: Array<{
-    __typename?: "Employee";
-    createdAt: any;
-    id: string;
-    name: string;
-    role: Role;
-    salary?: number | null;
-    username: string;
-  }>;
-};
+
+export type FindAllEmployeesQuery = { __typename?: 'Query', findAllEmployees: Array<{ __typename?: 'Employee', createdAt: any, id: string, name: string, role: Role, salary?: number | null, username: string }> };
 
 export type FindEmployeeByIdQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars['String'];
 }>;
 
-export type FindEmployeeByIdQuery = {
-  __typename?: "Query";
-  findEmployeeById: {
-    __typename?: "Employee";
-    createdAt: any;
-    id: string;
-    name: string;
-    salary?: number | null;
-    username: string;
-  };
-};
+
+export type FindEmployeeByIdQuery = { __typename?: 'Query', findEmployeeById: { __typename?: 'Employee', createdAt: any, id: string, name: string, salary?: number | null, username: string } };
 
 export type FindEmployeesByProjectIdQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
   sortBy?: InputMaybe<Sort>;
 }>;
 
-export type FindEmployeesByProjectIdQuery = {
-  __typename?: "Query";
-  findEmployeesByProjectId: Array<{
-    __typename?: "Employee";
-    name: string;
-    id: string;
-    password: string;
-    createdAt: any;
-    salary?: number | null;
-    username: string;
-    avatar?: string | null;
-    jobTitle?: JobTitle | null;
-    divisions?: Array<{
-      __typename?: "Division";
-      divisionName: string;
-      divisionNumber: number;
-      id: string;
-      level: {
-        __typename?: "Level";
-        levelName: string;
-        levelNumber: number;
-        id: string;
-      };
-    }> | null;
-  }>;
-};
+
+export type FindEmployeesByProjectIdQuery = { __typename?: 'Query', findEmployeesByProjectId: Array<{ __typename?: 'Employee', name: string, id: string, password: string, createdAt: any, salary?: number | null, username: string, avatar?: string | null, jobTitle?: JobTitle | null, divisions?: Array<{ __typename?: 'Division', divisionName: string, divisionNumber: number, id: string, level: { __typename?: 'Level', levelName: string, levelNumber: number, id: string } }> | null }> };
 
 export type FindProjectEmployeesSalariesQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
 }>;
 
-export type FindProjectEmployeesSalariesQuery = {
-  __typename?: "Query";
-  findProjectEmployeesSalaries: Array<{
-    __typename?: "Salaries";
-    absence?: string | null;
-    id: string;
-    late?: string | null;
-    name: string;
-    punishment?: string | null;
-    salary: number;
-    totalSalart: number;
-  }>;
-};
+
+export type FindProjectEmployeesSalariesQuery = { __typename?: 'Query', findProjectEmployeesSalaries: Array<{ __typename?: 'Salaries', absence?: string | null, id: string, late?: string | null, name: string, punishment?: string | null, salary: number, totalSalart: number }> };
 
 export type FindEmployeeByRoleQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
 }>;
 
-export type FindEmployeeByRoleQuery = {
-  __typename?: "Query";
-  findEmployeesByRole: {
-    __typename?: "EmployeesByRole";
-    mangers: Array<{
-      __typename?: "Employee";
-      avatar?: string | null;
-      createdAt: any;
-      id: string;
-      jobTitle?: JobTitle | null;
-      name: string;
-      role: Role;
-      salary?: number | null;
-      username: string;
-    }>;
-    services: Array<{
-      __typename?: "Employee";
-      avatar?: string | null;
-      createdAt: any;
-      id: string;
-      jobTitle?: JobTitle | null;
-      name: string;
-      role: Role;
-      salary?: number | null;
-      username: string;
-    }>;
-    teachers: Array<{
-      __typename?: "Employee";
-      avatar?: string | null;
-      createdAt: any;
-      id: string;
-      jobTitle?: JobTitle | null;
-      name: string;
-      role: Role;
-      salary?: number | null;
-      username: string;
-      divisions?: Array<{
-        __typename?: "Division";
-        divisionName: string;
-        divisionNumber: number;
-        id: string;
-        level: {
-          __typename?: "Level";
-          levelName: string;
-          levelNumber: number;
-          id: string;
-        };
-      }> | null;
-    }>;
-  };
-};
+
+export type FindEmployeeByRoleQuery = { __typename?: 'Query', findEmployeesByRole: { __typename?: 'EmployeesByRole', mangers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, services: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string }>, teachers: Array<{ __typename?: 'Employee', avatar?: string | null, createdAt: any, id: string, jobTitle?: JobTitle | null, name: string, role: Role, salary?: number | null, username: string, divisions?: Array<{ __typename?: 'Division', divisionName: string, divisionNumber: number, id: string, level: { __typename?: 'Level', levelName: string, levelNumber: number, id: string } }> | null }> } };
 
 export type CreateProjectMutationVariables = Exact<{
-  nameAr: Scalars["String"];
-  nameEn: Scalars["String"];
-  type: Scalars["String"];
+  nameAr: Scalars['String'];
+  nameEn: Scalars['String'];
+  type: Scalars['String'];
 }>;
 
-export type CreateProjectMutation = {
-  __typename?: "Mutation";
-  createProject: {
-    __typename?: "Project";
-    id: string;
-    nameAr: string;
-    nameEn: string;
-    type: string;
-    createdAt: any;
-    updatedAt: any;
-  };
-};
+
+export type CreateProjectMutation = { __typename?: 'Mutation', createProject: { __typename?: 'Project', id: string, nameAr: string, nameEn: string, type: string, createdAt: any, updatedAt: any } };
 
 export type FindAllProjectsQueryVariables = Exact<{
   sortBy?: InputMaybe<Sort>;
 }>;
 
-export type FindAllProjectsQuery = {
-  __typename?: "Query";
-  findAllProjects: Array<{
-    __typename?: "Project";
-    createdAt: any;
-    id: string;
-    nameAr: string;
-    nameEn: string;
-    type: string;
-    updatedAt: any;
-  }>;
-};
+
+export type FindAllProjectsQuery = { __typename?: 'Query', findAllProjects: Array<{ __typename?: 'Project', createdAt: any, id: string, nameAr: string, nameEn: string, type: string, updatedAt: any }> };
 
 export type FindProjectQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars['String'];
 }>;
 
-export type FindProjectQuery = {
-  __typename?: "Query";
-  findProject: {
-    __typename?: "Project";
-    id: string;
-    nameAr: string;
-    nameEn: string;
-    createdAt: any;
-    type: string;
-  };
-};
+
+export type FindProjectQuery = { __typename?: 'Query', findProject: { __typename?: 'Project', id: string, nameAr: string, nameEn: string, createdAt: any, type: string } };
 
 export type FindStudentsByProjectQueryVariables = Exact<{
-  projectId: Scalars["String"];
+  projectId: Scalars['String'];
+  levelName?: InputMaybe<Scalars['String']>;
+  divisionName?: InputMaybe<Scalars['String']>;
+  sortDivision?: InputMaybe<Sort>;
+  sortLevel?: InputMaybe<Sort>;
 }>;
 
-export type FindStudentsByProjectQuery = {
-  __typename?: "Query";
-  findStudentsByProject: Array<{
-    __typename?: "Student";
-    fatherName: string;
-    firstName: string;
-    lastName: string;
-    id: string;
-    phone: string;
-    division: {
-      __typename?: "Division";
-      divisionName: string;
-      divisionNumber: number;
-    };
-    level: {
-      __typename?: "Level";
-      id: string;
-      levelName: string;
-      levelNumber: number;
-    };
-  }>;
-};
+
+export type FindStudentsByProjectQuery = { __typename?: 'Query', findStudentsByProject: Array<{ __typename?: 'Student', fatherName: string, firstName: string, lastName: string, id: string, phone: string, division: { __typename?: 'Division', divisionName: string, divisionNumber: number, id: string }, level: { __typename?: 'Level', id: string, levelName: string, levelNumber: number } }> };
+
 
 export const LoginDocument = `
     mutation login($username: String!, $password: String!) {
@@ -772,27 +525,19 @@ export const LoginDocument = `
   }
 }
     `;
-export const useLoginMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    LoginMutation,
-    TError,
-    LoginMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
-    ["login"],
-    (variables?: LoginMutationVariables) =>
-      fetcher<LoginMutation, LoginMutationVariables>(
-        client,
-        LoginDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useLoginMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<LoginMutation, TError, LoginMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<LoginMutation, TError, LoginMutationVariables, TContext>(
+      ['login'],
+      (variables?: LoginMutationVariables) => fetcher<LoginMutation, LoginMutationVariables>(client, LoginDocument, variables, headers)(),
+      options
+    );
 export const UpdateDiscountDocument = `
     mutation updateDiscount($id: String!, $discount: UpdateCurrentMonthDiscountDto!) {
   updateDiscount(id: $id, discount: $discount) {
@@ -812,32 +557,19 @@ export const UpdateDiscountDocument = `
   }
 }
     `;
-export const useUpdateDiscountMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    UpdateDiscountMutation,
-    TError,
-    UpdateDiscountMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<
-    UpdateDiscountMutation,
-    TError,
-    UpdateDiscountMutationVariables,
-    TContext
-  >(
-    ["updateDiscount"],
-    (variables?: UpdateDiscountMutationVariables) =>
-      fetcher<UpdateDiscountMutation, UpdateDiscountMutationVariables>(
-        client,
-        UpdateDiscountDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useUpdateDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<UpdateDiscountMutation, TError, UpdateDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<UpdateDiscountMutation, TError, UpdateDiscountMutationVariables, TContext>(
+      ['updateDiscount'],
+      (variables?: UpdateDiscountMutationVariables) => fetcher<UpdateDiscountMutation, UpdateDiscountMutationVariables>(client, UpdateDiscountDocument, variables, headers)(),
+      options
+    );
 export const CreateDiscountDocument = `
     mutation createDiscount($absence: Float, $date: DateTime!, $employeeId: String!, $late: Float, $notes: String, $punishment: Float) {
   createDiscount(
@@ -852,32 +584,19 @@ export const CreateDiscountDocument = `
   }
 }
     `;
-export const useCreateDiscountMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    CreateDiscountMutation,
-    TError,
-    CreateDiscountMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<
-    CreateDiscountMutation,
-    TError,
-    CreateDiscountMutationVariables,
-    TContext
-  >(
-    ["createDiscount"],
-    (variables?: CreateDiscountMutationVariables) =>
-      fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(
-        client,
-        CreateDiscountDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useCreateDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateDiscountMutation, TError, CreateDiscountMutationVariables, TContext>(
+      ['createDiscount'],
+      (variables?: CreateDiscountMutationVariables) => fetcher<CreateDiscountMutation, CreateDiscountMutationVariables>(client, CreateDiscountDocument, variables, headers)(),
+      options
+    );
 export const DeleteDiscountDocument = `
     mutation deleteDiscount($employeeId: String!) {
   deleteDiscount(id: $employeeId) {
@@ -885,32 +604,19 @@ export const DeleteDiscountDocument = `
   }
 }
     `;
-export const useDeleteDiscountMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    DeleteDiscountMutation,
-    TError,
-    DeleteDiscountMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<
-    DeleteDiscountMutation,
-    TError,
-    DeleteDiscountMutationVariables,
-    TContext
-  >(
-    ["deleteDiscount"],
-    (variables?: DeleteDiscountMutationVariables) =>
-      fetcher<DeleteDiscountMutation, DeleteDiscountMutationVariables>(
-        client,
-        DeleteDiscountDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useDeleteDiscountMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<DeleteDiscountMutation, TError, DeleteDiscountMutationVariables, TContext>(
+      ['deleteDiscount'],
+      (variables?: DeleteDiscountMutationVariables) => fetcher<DeleteDiscountMutation, DeleteDiscountMutationVariables>(client, DeleteDiscountDocument, variables, headers)(),
+      options
+    );
 export const FindDiscountsDocument = `
     query findDiscounts($sortBy: Sort, $projectId: String, $approved: Boolean) {
   findDiscounts(sortBy: $sortBy, projectId: $projectId, approved: $approved) {
@@ -932,24 +638,19 @@ export const FindDiscountsDocument = `
 }
     `;
 export const useFindDiscountsQuery = <
-  TData = FindDiscountsQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables?: FindDiscountsQueryVariables,
-  options?: UseQueryOptions<FindDiscountsQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindDiscountsQuery, TError, TData>(
-    variables === undefined ? ["findDiscounts"] : ["findDiscounts", variables],
-    fetcher<FindDiscountsQuery, FindDiscountsQueryVariables>(
-      client,
-      FindDiscountsDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindDiscountsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindDiscountsQueryVariables,
+      options?: UseQueryOptions<FindDiscountsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindDiscountsQuery, TError, TData>(
+      variables === undefined ? ['findDiscounts'] : ['findDiscounts', variables],
+      fetcher<FindDiscountsQuery, FindDiscountsQueryVariables>(client, FindDiscountsDocument, variables, headers),
+      options
+    );
 export const FindAllEmployeesDiscountsDocument = `
     query findAllEmployeesDiscounts($projectId: String!, $sortBy: Sort) {
   findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
@@ -970,22 +671,19 @@ export const FindAllEmployeesDiscountsDocument = `
 }
     `;
 export const useFindAllEmployeesDiscountsQuery = <
-  TData = FindAllEmployeesDiscountsQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindAllEmployeesDiscountsQueryVariables,
-  options?: UseQueryOptions<FindAllEmployeesDiscountsQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindAllEmployeesDiscountsQuery, TError, TData>(
-    ["findAllEmployeesDiscounts", variables],
-    fetcher<
-      FindAllEmployeesDiscountsQuery,
-      FindAllEmployeesDiscountsQueryVariables
-    >(client, FindAllEmployeesDiscountsDocument, variables, headers),
-    options
-  );
+      TData = FindAllEmployeesDiscountsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindAllEmployeesDiscountsQueryVariables,
+      options?: UseQueryOptions<FindAllEmployeesDiscountsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllEmployeesDiscountsQuery, TError, TData>(
+      ['findAllEmployeesDiscounts', variables],
+      fetcher<FindAllEmployeesDiscountsQuery, FindAllEmployeesDiscountsQueryVariables>(client, FindAllEmployeesDiscountsDocument, variables, headers),
+      options
+    );
 export const CreateEmployeeDocument = `
     mutation createEmployee($name: String!, $password: String!, $projectId: String, $salary: Float, $username: String!, $role: Role, $jobTitle: JobTitle, $divisions: [String!], $levels: [String!], $avatar: String) {
   createEmployee(
@@ -1010,32 +708,19 @@ export const CreateEmployeeDocument = `
   }
 }
     `;
-export const useCreateEmployeeMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    CreateEmployeeMutation,
-    TError,
-    CreateEmployeeMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<
-    CreateEmployeeMutation,
-    TError,
-    CreateEmployeeMutationVariables,
-    TContext
-  >(
-    ["createEmployee"],
-    (variables?: CreateEmployeeMutationVariables) =>
-      fetcher<CreateEmployeeMutation, CreateEmployeeMutationVariables>(
-        client,
-        CreateEmployeeDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useCreateEmployeeMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateEmployeeMutation, TError, CreateEmployeeMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateEmployeeMutation, TError, CreateEmployeeMutationVariables, TContext>(
+      ['createEmployee'],
+      (variables?: CreateEmployeeMutationVariables) => fetcher<CreateEmployeeMutation, CreateEmployeeMutationVariables>(client, CreateEmployeeDocument, variables, headers)(),
+      options
+    );
 export const CurrentUserDocument = `
     query currentUser {
   currentUser {
@@ -1046,22 +731,20 @@ export const CurrentUserDocument = `
   }
 }
     `;
-export const useCurrentUserQuery = <TData = CurrentUserQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables?: CurrentUserQueryVariables,
-  options?: UseQueryOptions<CurrentUserQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<CurrentUserQuery, TError, TData>(
-    variables === undefined ? ["currentUser"] : ["currentUser", variables],
-    fetcher<CurrentUserQuery, CurrentUserQueryVariables>(
-      client,
-      CurrentUserDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+export const useCurrentUserQuery = <
+      TData = CurrentUserQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: CurrentUserQueryVariables,
+      options?: UseQueryOptions<CurrentUserQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<CurrentUserQuery, TError, TData>(
+      variables === undefined ? ['currentUser'] : ['currentUser', variables],
+      fetcher<CurrentUserQuery, CurrentUserQueryVariables>(client, CurrentUserDocument, variables, headers),
+      options
+    );
 export const FindAllEmployeesDocument = `
     query findAllEmployees($projectId: String, $role: Role, $sortBy: Sort) {
   findAllEmployees(projectId: $projectId, role: $role, sortBy: $sortBy) {
@@ -1075,26 +758,19 @@ export const FindAllEmployeesDocument = `
 }
     `;
 export const useFindAllEmployeesQuery = <
-  TData = FindAllEmployeesQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables?: FindAllEmployeesQueryVariables,
-  options?: UseQueryOptions<FindAllEmployeesQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindAllEmployeesQuery, TError, TData>(
-    variables === undefined
-      ? ["findAllEmployees"]
-      : ["findAllEmployees", variables],
-    fetcher<FindAllEmployeesQuery, FindAllEmployeesQueryVariables>(
-      client,
-      FindAllEmployeesDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindAllEmployeesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindAllEmployeesQueryVariables,
+      options?: UseQueryOptions<FindAllEmployeesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllEmployeesQuery, TError, TData>(
+      variables === undefined ? ['findAllEmployees'] : ['findAllEmployees', variables],
+      fetcher<FindAllEmployeesQuery, FindAllEmployeesQueryVariables>(client, FindAllEmployeesDocument, variables, headers),
+      options
+    );
 export const FindEmployeeByIdDocument = `
     query findEmployeeById($id: String!) {
   findEmployeeById(id: $id) {
@@ -1107,24 +783,19 @@ export const FindEmployeeByIdDocument = `
 }
     `;
 export const useFindEmployeeByIdQuery = <
-  TData = FindEmployeeByIdQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindEmployeeByIdQueryVariables,
-  options?: UseQueryOptions<FindEmployeeByIdQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindEmployeeByIdQuery, TError, TData>(
-    ["findEmployeeById", variables],
-    fetcher<FindEmployeeByIdQuery, FindEmployeeByIdQueryVariables>(
-      client,
-      FindEmployeeByIdDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindEmployeeByIdQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeeByIdQueryVariables,
+      options?: UseQueryOptions<FindEmployeeByIdQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeeByIdQuery, TError, TData>(
+      ['findEmployeeById', variables],
+      fetcher<FindEmployeeByIdQuery, FindEmployeeByIdQueryVariables>(client, FindEmployeeByIdDocument, variables, headers),
+      options
+    );
 export const FindEmployeesByProjectIdDocument = `
     query findEmployeesByProjectId($projectId: String!, $sortBy: Sort) {
   findEmployeesByProjectId(projectId: $projectId, sortBy: $sortBy) {
@@ -1150,22 +821,19 @@ export const FindEmployeesByProjectIdDocument = `
 }
     `;
 export const useFindEmployeesByProjectIdQuery = <
-  TData = FindEmployeesByProjectIdQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindEmployeesByProjectIdQueryVariables,
-  options?: UseQueryOptions<FindEmployeesByProjectIdQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindEmployeesByProjectIdQuery, TError, TData>(
-    ["findEmployeesByProjectId", variables],
-    fetcher<
-      FindEmployeesByProjectIdQuery,
-      FindEmployeesByProjectIdQueryVariables
-    >(client, FindEmployeesByProjectIdDocument, variables, headers),
-    options
-  );
+      TData = FindEmployeesByProjectIdQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeesByProjectIdQueryVariables,
+      options?: UseQueryOptions<FindEmployeesByProjectIdQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeesByProjectIdQuery, TError, TData>(
+      ['findEmployeesByProjectId', variables],
+      fetcher<FindEmployeesByProjectIdQuery, FindEmployeesByProjectIdQueryVariables>(client, FindEmployeesByProjectIdDocument, variables, headers),
+      options
+    );
 export const FindProjectEmployeesSalariesDocument = `
     query findProjectEmployeesSalaries($projectId: String!) {
   findProjectEmployeesSalaries(projectId: $projectId) {
@@ -1180,22 +848,19 @@ export const FindProjectEmployeesSalariesDocument = `
 }
     `;
 export const useFindProjectEmployeesSalariesQuery = <
-  TData = FindProjectEmployeesSalariesQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindProjectEmployeesSalariesQueryVariables,
-  options?: UseQueryOptions<FindProjectEmployeesSalariesQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindProjectEmployeesSalariesQuery, TError, TData>(
-    ["findProjectEmployeesSalaries", variables],
-    fetcher<
-      FindProjectEmployeesSalariesQuery,
-      FindProjectEmployeesSalariesQueryVariables
-    >(client, FindProjectEmployeesSalariesDocument, variables, headers),
-    options
-  );
+      TData = FindProjectEmployeesSalariesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindProjectEmployeesSalariesQueryVariables,
+      options?: UseQueryOptions<FindProjectEmployeesSalariesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindProjectEmployeesSalariesQuery, TError, TData>(
+      ['findProjectEmployeesSalaries', variables],
+      fetcher<FindProjectEmployeesSalariesQuery, FindProjectEmployeesSalariesQueryVariables>(client, FindProjectEmployeesSalariesDocument, variables, headers),
+      options
+    );
 export const FindEmployeeByRoleDocument = `
     query findEmployeeByRole($projectId: String!) {
   findEmployeesByRole(projectId: $projectId) {
@@ -1243,24 +908,19 @@ export const FindEmployeeByRoleDocument = `
 }
     `;
 export const useFindEmployeeByRoleQuery = <
-  TData = FindEmployeeByRoleQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindEmployeeByRoleQueryVariables,
-  options?: UseQueryOptions<FindEmployeeByRoleQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindEmployeeByRoleQuery, TError, TData>(
-    ["findEmployeeByRole", variables],
-    fetcher<FindEmployeeByRoleQuery, FindEmployeeByRoleQueryVariables>(
-      client,
-      FindEmployeeByRoleDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindEmployeeByRoleQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindEmployeeByRoleQueryVariables,
+      options?: UseQueryOptions<FindEmployeeByRoleQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindEmployeeByRoleQuery, TError, TData>(
+      ['findEmployeeByRole', variables],
+      fetcher<FindEmployeeByRoleQuery, FindEmployeeByRoleQueryVariables>(client, FindEmployeeByRoleDocument, variables, headers),
+      options
+    );
 export const CreateProjectDocument = `
     mutation createProject($nameAr: String!, $nameEn: String!, $type: String!) {
   createProject(project: {nameAr: $nameAr, nameEn: $nameEn, type: $type}) {
@@ -1273,32 +933,19 @@ export const CreateProjectDocument = `
   }
 }
     `;
-export const useCreateProjectMutation = <TError = unknown, TContext = unknown>(
-  client: GraphQLClient,
-  options?: UseMutationOptions<
-    CreateProjectMutation,
-    TError,
-    CreateProjectMutationVariables,
-    TContext
-  >,
-  headers?: RequestInit["headers"]
-) =>
-  useMutation<
-    CreateProjectMutation,
-    TError,
-    CreateProjectMutationVariables,
-    TContext
-  >(
-    ["createProject"],
-    (variables?: CreateProjectMutationVariables) =>
-      fetcher<CreateProjectMutation, CreateProjectMutationVariables>(
-        client,
-        CreateProjectDocument,
-        variables,
-        headers
-      )(),
-    options
-  );
+export const useCreateProjectMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<CreateProjectMutation, TError, CreateProjectMutationVariables, TContext>(
+      ['createProject'],
+      (variables?: CreateProjectMutationVariables) => fetcher<CreateProjectMutation, CreateProjectMutationVariables>(client, CreateProjectDocument, variables, headers)(),
+      options
+    );
 export const FindAllProjectsDocument = `
     query findAllProjects($sortBy: Sort) {
   findAllProjects(sortBy: $sortBy) {
@@ -1312,26 +959,19 @@ export const FindAllProjectsDocument = `
 }
     `;
 export const useFindAllProjectsQuery = <
-  TData = FindAllProjectsQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables?: FindAllProjectsQueryVariables,
-  options?: UseQueryOptions<FindAllProjectsQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindAllProjectsQuery, TError, TData>(
-    variables === undefined
-      ? ["findAllProjects"]
-      : ["findAllProjects", variables],
-    fetcher<FindAllProjectsQuery, FindAllProjectsQueryVariables>(
-      client,
-      FindAllProjectsDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindAllProjectsQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: FindAllProjectsQueryVariables,
+      options?: UseQueryOptions<FindAllProjectsQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindAllProjectsQuery, TError, TData>(
+      variables === undefined ? ['findAllProjects'] : ['findAllProjects', variables],
+      fetcher<FindAllProjectsQuery, FindAllProjectsQueryVariables>(client, FindAllProjectsDocument, variables, headers),
+      options
+    );
 export const FindProjectDocument = `
     query findProject($id: String!) {
   findProject(id: $id) {
@@ -1343,28 +983,33 @@ export const FindProjectDocument = `
   }
 }
     `;
-export const useFindProjectQuery = <TData = FindProjectQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables: FindProjectQueryVariables,
-  options?: UseQueryOptions<FindProjectQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindProjectQuery, TError, TData>(
-    ["findProject", variables],
-    fetcher<FindProjectQuery, FindProjectQueryVariables>(
-      client,
-      FindProjectDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+export const useFindProjectQuery = <
+      TData = FindProjectQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindProjectQueryVariables,
+      options?: UseQueryOptions<FindProjectQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindProjectQuery, TError, TData>(
+      ['findProject', variables],
+      fetcher<FindProjectQuery, FindProjectQueryVariables>(client, FindProjectDocument, variables, headers),
+      options
+    );
 export const FindStudentsByProjectDocument = `
-    query findStudentsByProject($projectId: String!) {
-  findStudentsByProject(projectId: $projectId) {
+    query findStudentsByProject($projectId: String!, $levelName: String, $divisionName: String, $sortDivision: Sort, $sortLevel: Sort) {
+  findStudentsByProject(
+    projectId: $projectId
+    levelName: $levelName
+    divisionName: $divisionName
+    sortDivision: $sortDivision
+    sortLevel: $sortLevel
+  ) {
     division {
       divisionName
       divisionNumber
+      id
     }
     fatherName
     firstName
@@ -1380,21 +1025,16 @@ export const FindStudentsByProjectDocument = `
 }
     `;
 export const useFindStudentsByProjectQuery = <
-  TData = FindStudentsByProjectQuery,
-  TError = unknown
->(
-  client: GraphQLClient,
-  variables: FindStudentsByProjectQueryVariables,
-  options?: UseQueryOptions<FindStudentsByProjectQuery, TError, TData>,
-  headers?: RequestInit["headers"]
-) =>
-  useQuery<FindStudentsByProjectQuery, TError, TData>(
-    ["findStudentsByProject", variables],
-    fetcher<FindStudentsByProjectQuery, FindStudentsByProjectQueryVariables>(
-      client,
-      FindStudentsByProjectDocument,
-      variables,
-      headers
-    ),
-    options
-  );
+      TData = FindStudentsByProjectQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables: FindStudentsByProjectQueryVariables,
+      options?: UseQueryOptions<FindStudentsByProjectQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<FindStudentsByProjectQuery, TError, TData>(
+      ['findStudentsByProject', variables],
+      fetcher<FindStudentsByProjectQuery, FindStudentsByProjectQueryVariables>(client, FindStudentsByProjectDocument, variables, headers),
+      options
+    );

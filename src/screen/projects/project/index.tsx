@@ -1,7 +1,6 @@
 import { useProject } from "src/utils/project";
 import face from "src/face.jpg";
 import { useAuth } from "src/context/auth-context";
-import { Button, Drawer, Group, Input } from "@mantine/core";
 import { useState } from "react";
 const IndexScreen = () => {
   const { project, status, error } = useProject();
