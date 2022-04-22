@@ -27,7 +27,7 @@ const PersonsHeader = () => {
             <AppButton
               hover="bg-[#524bd4]"
               color="bg-[#4f46e5]"
-              rightIcon={<IoMdAdd className="mr-1" />}
+              // rightIcon={<IoMdAdd className="mr-1" />}
             >
               موظف جديد
             </AppButton>

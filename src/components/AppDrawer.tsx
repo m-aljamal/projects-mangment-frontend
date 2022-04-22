@@ -13,6 +13,7 @@ function Drawer(props: any) {
 
 function DrawerOpenButton({ children: child }: any) {
   const [, setOpened]: any = useContext(DrawerContext);
+
   return React.cloneElement(child, {
     onClick: callAll(() => setOpened(true), child.props.onClick),
   });
